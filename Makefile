@@ -12,7 +12,10 @@ LIBFT		= $(LIBFT_DIR)/libft.a
 INCLUDES	= -I$(INC_DIR) -I$(LIBFT_DIR)
 LFLAGS		= -L$(LIBFT_DIR) -lft -lreadline
 
-SRCS =	$(MANDA_DIR)/main.c \
+FILES =	main.c \
+		env/env_init.c \
+
+SRCS = $(addprefix $(MANDA_DIR)/, $(FILES))
 
 OBJS = $(SRCS:$(MANDA_DIR)/%.c=$(OBJ_DIR)/%.o)
 
