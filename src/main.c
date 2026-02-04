@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:44:39 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/04 15:44:02 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/04 15:51:29 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int main(int argc, char *argv[], char **envp)
 {
-	char	*line_read;
-	t_env	*env;
+	char		*line_read;
+	t_minishell	*minishell;
 
 	////////////////////////
 	(void)argc;
@@ -23,11 +23,11 @@ int main(int argc, char *argv[], char **envp)
 	////////////////////////
 
 
-	env = init_env(envp);
+	minishell->env = init_env(envp);
 	
 	///test environnement///
-	//test_print_env(env);
-	//test_print_env_value(env, "PATH");
+	// test_print_env(env);
+	// test_print_env_value(env, "PATH");
 	/////////
 	
 	while (1)

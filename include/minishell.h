@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 16:05:58 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/04 15:45:38 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/04 15:50:57 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,19 @@ typedef struct s_env
 	char			*value;
 	struct s_env	*next;
 }	t_env;
+
+typedef struct s_path
+{
+	char			*path;
+	struct s_env	*next;
+}	t_path;
+
+typedef struct	s_minishell
+{
+	struct s_env	*env;
+	struct s_path	*path;
+	
+}	t_minishell;
 
 
 //main.c
