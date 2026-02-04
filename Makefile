@@ -16,6 +16,7 @@ FILES =	main.c \
 		test.c \
 		env/env_init.c \
 		env/env_utils.c \
+		env/env_path.c \
 
 SRCS = $(addprefix $(MANDA_DIR)/, $(FILES))
 

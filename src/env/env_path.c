@@ -1,28 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_utils.c                                        :+:      :+:    :+:   */
+/*   env_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/04 15:11:35 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/04 18:36:26 by algasnie         ###   ########.fr       */
+/*   Created: 2026/02/04 15:53:28 by algasnie          #+#    #+#             */
+/*   Updated: 2026/02/04 18:36:31 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// char *get_env_value(t_list *env, char *key)
+// t_path	*get_exec_path(t_minishell *minishell)
 // {
-// 	t_env	*current;
+// 	char	*path;
+// 	char	**tab_path;
+	
 
-// 	current = env;
+// 	path = get_env_value(minishell->env, "PATH");
+// 	if (!path)
+// 		return (NULL);
 
-// 	while (current)
-// 	{
-// 		if (ft_strcmp(current->key, key) == 0)
-// 			return (current->value);
-// 		current = current->next;
-// 	}
+// 	tab_path = ft_split(path, ':');
+// 	if (!tab_path)
+// 		return (NULL);
+	
+	
+	
 // 	return (NULL);
+
 // }

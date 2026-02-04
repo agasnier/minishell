@@ -6,52 +6,52 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 16:55:26 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/04 15:08:48 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/04 18:38:19 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	env_add_back(t_env **lst, t_env *new)
-{
-	t_env   *curr;
+// void	env_add_back(t_env **lst, t_env *new)
+// {
+// 	t_env   *curr;
 
-	if (!lst || !new)
-		return ;
-	if (*lst == NULL)
-	{
-		*lst = new;
-		return ;
-	}
-	curr = *lst;
-	while (curr->next != NULL)
-		curr = curr->next;
+// 	if (!lst || !new)
+// 		return ;
+// 	if (*lst == NULL)
+// 	{
+// 		*lst = new;
+// 		return ;
+// 	}
+// 	curr = *lst;
+// 	while (curr->next != NULL)
+// 		curr = curr->next;
     
-	curr->next = new;
-}
+// 	curr->next = new;
+// }
 
-void	free_env_list(t_env **env_list)
-{
-	t_env	*current_node;
-	t_env	*next_node;
+// void	free_env_list(t_env **env_list)
+// {
+// 	t_env	*current_node;
+// 	t_env	*next_node;
 
-	if (!env_list || !*env_list)
-		return ;
+// 	if (!env_list || !*env_list)
+// 		return ;
 	
-	current_node = *env_list;
-	while (current_node)
-	{
-		next_node = current_node->next;
-		if (current_node->key)
-			free(current_node->key);
-		if (current_node->value)
-			free(current_node->value);
+// 	current_node = *env_list;
+// 	while (current_node)
+// 	{
+// 		next_node = current_node->next;
+// 		if (current_node->key)
+// 			free(current_node->key);
+// 		if (current_node->value)
+// 			free(current_node->value);
 
-		free(current_node);
-		current_node = next_node;
-	}
-	*env_list = NULL;
-}
+// 		free(current_node);
+// 		current_node = next_node;
+// 	}
+// 	*env_list = NULL;
+// }
 
 static int	fill_env_data(t_env *new_node, char *str)
 {
@@ -93,10 +93,11 @@ static t_env	*new_env_node(char *str)
 	return (new_node);	
 }
 
-t_env	*init_env(char **envp)
+t_list	*init_env(char **envp)
 {
-	t_env	*env_list;
-	t_env	*new_node;
+	t_list	*env_list;
+	t_list	*new_node;
+	t_env	*content;
 	int		i;
 
 	env_list = NULL;
@@ -108,15 +109,18 @@ t_env	*init_env(char **envp)
 	i = 0;
 	while (envp[i])
 	{
-		new_node = new_env_node(envp[i]);
+		content = new_env_node(envp[i]);
 
-		if (!new_node)
+		if (!content)
 		{
-			free_env_list(&env_list);
+			//free_env_list(&env_list);
 			return (NULL);
 		}
 	
-		env_add_back(&env_list, new_node);
+		new_node = ft_lstnew(content);
+		ft_lstadd_back(&env_list, new_node);
+		
+		//env_add_back(&env_list, new_node);
 		i++;
 	}
 	return (env_list);
