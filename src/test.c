@@ -1,49 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/03 15:44:39 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/04 15:44:02 by algasnie         ###   ########.fr       */
+/*   Created: 2026/02/04 15:23:10 by algasnie          #+#    #+#             */
+/*   Updated: 2026/02/04 15:42:21 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int main(int argc, char *argv[], char **envp)
+/// print de l'init de la liste chainee
+void test_print_env(t_env *env)
 {
-	char	*line_read;
-	t_env	*env;
-
-	////////////////////////
-	(void)argc;
-	(void)argv;
-	////////////////////////
-
-
-	env = init_env(envp);
+	t_env	*current;
 	
-	///test environnement///
-	//test_print_env(env);
-	//test_print_env_value(env, "PATH");
-	/////////
-	
+	current = env;
 	while (1)
 	{
-		line_read = readline("minishell> ");
+		printf("KEY == %s\nVALUE == %s \n\n", current->key, current->value);
 
-		if (!line_read)
-		{
-			printf("exit\n");
+		if (!current->next)
 			break ;
-		}
-
-		if (line_read[0] != '\0')
-			add_history(line_read);
-
-		free(line_read);
+		current = current->next;
 	}
-	
+}
+
+
+/// test de la recherche de la VALUE dans l'env
+void test_print_env_value(t_env *env, char *key)
+{
+	char *value;
+
+	value = get_value_env(env, key);
+	printf("Key: %s Value: %s\n", key, value);
 }

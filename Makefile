@@ -13,7 +13,9 @@ INCLUDES	= -I$(INC_DIR) -I$(LIBFT_DIR)
 LFLAGS		= -L$(LIBFT_DIR) -lft -lreadline
 
 FILES =	main.c \
+		test.c \
 		env/env_init.c \
+		env/env_utils.c \
 
 SRCS = $(addprefix $(MANDA_DIR)/, $(FILES))
 

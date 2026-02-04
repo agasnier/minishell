@@ -6,11 +6,12 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 16:55:26 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/03 18:01:22 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/04 15:08:48 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
 void	env_add_back(t_env **lst, t_env *new)
 {
 	t_env   *curr;
