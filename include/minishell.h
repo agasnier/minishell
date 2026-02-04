@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 16:05:58 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/04 15:42:57 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/04 15:45:38 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,4 @@ void	free_env_list(t_env **env_list);
 t_env	*init_env(char **envp);
 
 //env_utils.c
-char *get_value_env(t_env *env, char *key);
+char *get_env_value(t_env *env, char *key);

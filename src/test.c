@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 15:23:10 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/04 15:42:21 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/04 15:45:48 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,6 @@ void test_print_env_value(t_env *env, char *key)
 {
 	char *value;
 
-	value = get_value_env(env, key);
+	value = get_env_value(env, key);
 	printf("Key: %s Value: %s\n", key, value);
 }
