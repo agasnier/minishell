@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 15:23:10 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/04 18:45:47 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/05 10:30:34 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,25 @@
 /// print de l'init de la liste chainee
 void test_print_env(t_list *env)
 {
-	t_list	*current;
+	t_env	*current;
 	
-	current = env;
 	while (1)
 	{
-		printf("KEY == %s\nVALUE == %s \n\n", current->content, current->value);
+		current = (t_env *)env->content;
+		printf("KEY == %s\nVALUE == %s \n\n", current->key, current->value);
 
-		if (!current->next)
+		if (!env->next)
 			break ;
-		current = current->next;
+		env = env->next;
 	}
 }
 
 
 /// test de la recherche de la VALUE dans l'env
-// void test_print_env_value(t_env *env, char *key)
-// {
-// 	char *value;
+void test_print_env_value(t_list *env, char *key)
+{
+	char *value;
 
-// 	value = get_env_value(env, key);
-// 	printf("Key: %s Value: %s\n", key, value);
-// }
+	value = get_env_value(env, key);
+	printf("Key: %s Value: %s\n", key, value);
+}
