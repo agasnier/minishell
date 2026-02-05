@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 16:55:26 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/05 12:02:59 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/05 12:14:06 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ static t_env	*new_env_node(char *str)
 		free(new_node);
 		return (NULL);
 	}
-	new_node->next = NULL;
 	return (new_node);	
 }
 
@@ -69,7 +68,7 @@ t_list	*init_env(char **envp)
 
 		if (!content)
 		{
-			//free_env_list(&env_list);//////////////////////////////////////////////
+			//free_env_list(&env_list);////////////////////////////en utilisant libft//////////////////
 			return (NULL);
 		}
 		new_node = ft_lstnew(content);

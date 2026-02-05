@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 16:05:58 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/05 11:59:28 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/05 12:13:20 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,17 @@ typedef struct s_env
 {
 	char			*key;
 	char			*value;
-	struct s_env	*next;
 }	t_env;
 
 typedef struct s_path
 {
 	char			*path;
-	struct s_env	*next;
 }	t_path;
 
 typedef struct	s_minishell
 {
 	t_list	*env;
-	struct s_path	*path;
+	t_list	*path;
 	
 }	t_minishell;
 
@@ -54,4 +52,4 @@ t_list	*init_env(char **envp);
 char *get_env_value(t_list *env, char *key);
 
 //env_path.c
-t_path	*get_exec_path(t_minishell *minishell);
+t_list	*get_exec_path(t_minishell *minishell);
