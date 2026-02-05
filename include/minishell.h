@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 16:05:58 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/05 16:41:06 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/05 18:09:49 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,32 @@ typedef struct s_env
 	char			*value;
 }	t_env;
 
-typedef struct s_token
-{
-	char	*token;
-}	t_token;
-
-
 typedef struct	s_minishell
 {
 	t_list	*env;
 	char	**exec_path_tab;
 	
 }	t_minishell;
+
+typedef enum e_type
+{
+	WORD,
+	PIPE,
+	R_INPUT,
+	R_OUTPUT,
+	R_OUTPUT_APPEND,
+	HEREDOC,
+	
+}	t_type;
+
+typedef struct s_token
+{
+	char	*token;
+	t_type	type;
+}	t_token;
+
+
+
 
 
 //main.c

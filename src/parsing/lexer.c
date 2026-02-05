@@ -6,11 +6,27 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 15:01:35 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/05 16:36:37 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/05 18:11:29 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static t_type get_type(char *token)
+{
+	if (ft_strcmp(token, "|") == 0)
+		return (PIPE);
+	if (ft_strcmp(token, "<") == 0)
+		return (R_INPUT);
+	if (ft_strcmp(token, ">") == 0)
+		return (R_OUTPUT);
+	if (ft_strcmp(token, ">>") == 0)
+		return (R_OUTPUT_APPEND);
+	if (ft_strcmp(token, "<<") == 0)
+		return (HEREDOC);
+	else
+		return (WORD);
+}
 
 static t_token	*get_token(char *prompt, int *i)
 {
@@ -27,6 +43,7 @@ static t_token	*get_token(char *prompt, int *i)
 		(*i)++;
 	token->token = ft_substr(prompt, start, *i - start);
 	//////////////////gerer le '\0' et le NULL
+	token->type = get_type(token->token);
 	return (token);	
 }
 
