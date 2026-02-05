@@ -6,25 +6,11 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 16:55:26 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/05 13:14:54 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/05 13:25:17 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	free_env(void *content)
-{
-	t_env	*env;
-
-	env = (t_env *)content;
-	if (!env)
-		return ;
-	if (env->key)
-		free(env->key);
-	if (env->value)
-		free(env->value);
-	free(env);
-}
 
 static int	fill_env_data(t_env *new_node, char *str)
 {
