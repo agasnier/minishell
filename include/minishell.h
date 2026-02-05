@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 16:05:58 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/05 16:27:07 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/05 16:32:21 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char	**get_exec_path(t_minishell *minishell);
 t_list	*list_token(char *prompt);
 
 //parser.c
-void	parsing_prompt(char **prompt);
+void	parsing_prompt(char *prompt);
 
 // utils/
 //free.c

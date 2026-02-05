@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 15:23:10 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/05 12:46:29 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/05 16:37:09 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ void test_print_env_value(t_list *env, char *key)
 	printf("Key: %s Value: %s\n", key, value);
 }
 
-
-
 /// test du tableau des paths des exec
 void	test_print_exec_path_tab(char **exec_path_tab)
 {
@@ -51,7 +49,11 @@ void	test_print_exec_path_tab(char **exec_path_tab)
 		printf("%s\n", exec_path_tab[i]);
 		i++;
 	}
+}
 
 
+// /// print de la liste chainee de token
+void	test_print_list_token(t_list *token_list)
+{
 	
 }
