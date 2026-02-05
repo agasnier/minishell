@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:44:39 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/05 12:08:16 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/05 12:51:28 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,12 @@ int main(int argc, char *argv[], char **envp)
 	////////////////////////
 
 	minishell.env = init_env(envp);
-	minishell.path = get_exec_path(&minishell);
+	minishell.exec_path_tab = get_exec_path(&minishell);
 	
 	///test environnement///
-	test_print_env(minishell.env);
-	test_print_env_value(minishell.env, "PATH");
+	// test_print_env(minishell.env);
+	// test_print_env_value(minishell.env, "PATH");
+	// test_print_exec_path_tab(minishell.exec_path_tab);
 	/////////
 	
 	while (1)

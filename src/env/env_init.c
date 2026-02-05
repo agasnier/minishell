@@ -6,11 +6,25 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 16:55:26 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/05 12:14:06 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/05 13:14:54 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	free_env(void *content)
+{
+	t_env	*env;
+
+	env = (t_env *)content;
+	if (!env)
+		return ;
+	if (env->key)
+		free(env->key);
+	if (env->value)
+		free(env->value);
+	free(env);
+}
 
 static int	fill_env_data(t_env *new_node, char *str)
 {
@@ -48,7 +62,7 @@ static t_env	*new_env_node(char *str)
 		free(new_node);
 		return (NULL);
 	}
-	return (new_node);	
+	return (new_node);
 }
 
 t_list	*init_env(char **envp)
@@ -65,13 +79,13 @@ t_list	*init_env(char **envp)
 	while (envp[i])
 	{
 		content = new_env_node(envp[i]);
-
-		if (!content)
+		new_node = ft_lstnew(content);
+		if (!content || !new_node)
 		{
-			//free_env_list(&env_list);////////////////////////////en utilisant libft//////////////////
+			free_env(content);
+			ft_lstclear(&env_list, free_env);
 			return (NULL);
 		}
-		new_node = ft_lstnew(content);
 		ft_lstadd_back(&env_list, new_node);
 		i++;
 	}
