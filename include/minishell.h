@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 16:05:58 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/05 16:32:21 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/05 16:41:06 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	main(int argc, char *argv[], char **envp);
 void test_print_env(t_list *env);
 void test_print_env_value(t_list *env, char *key);
 void	test_print_exec_path_tab(char **exec_path_tab);
+void	test_print_list_token(t_list *token_list);
 
 
 // env/

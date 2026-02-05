@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 16:19:53 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/05 16:32:14 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/05 16:41:32 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@ void	parsing_prompt(char *prompt)
 	
 	token_list = list_token(prompt);
 
+	////test//////////////
+	test_print_list_token(token_list);
+	/////////////////////////
 
 
 	

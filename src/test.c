@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 15:23:10 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/05 16:37:09 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/05 16:42:44 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,15 @@ void	test_print_exec_path_tab(char **exec_path_tab)
 // /// print de la liste chainee de token
 void	test_print_list_token(t_list *token_list)
 {
-	
+	t_token	*token;
+
+	while (1)
+	{
+		token = (t_token *)token_list->content;
+		printf("%s ", token->token);
+		if (!token_list->next)
+			break ;
+		token_list = token_list->next;
+	}
+	printf("\n");
 }
