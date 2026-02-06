@@ -1,27 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_path.c                                         :+:      :+:    :+:   */
+/*   exec_main.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/04 15:53:28 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/06 11:15:06 by algasnie         ###   ########.fr       */
+/*   Created: 2026/02/06 10:14:05 by algasnie          #+#    #+#             */
+/*   Updated: 2026/02/06 10:14:32 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**get_exec_path(t_minishell *minishell)
-{
-	char	*path;
-	char	**path_tab;
-
-	path = get_env_value(minishell->env, "PATH");
-	if (!path)
-		return (NULL);
-	path_tab = ft_split(path, ':');
-	if (!path_tab)
-		return (NULL);
-	return (path_tab);
-}
