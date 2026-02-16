@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 16:05:58 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/05 18:09:49 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/16 17:26:09 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,19 @@ typedef struct s_env
 	char			*value;
 }	t_env;
 
+typedef struct	s_cmd
+{
+	char	**agrs;
+	char	*cmd_path;
+	int		fd_in;
+	int		fd_out;
+}	t_cmd;
+
 typedef struct	s_minishell
 {
 	t_list	*env;
 	char	**exec_path_tab;
+	
 	
 }	t_minishell;
 
@@ -75,7 +84,7 @@ char	**get_exec_path(t_minishell *minishell);
 t_list	*list_token(char *prompt);
 
 //parser.c
-void	parsing_prompt(char *prompt);
+void	parsing_prompt(t_minishell *minishell, char *prompt);
 
 // utils/
 //free.c
