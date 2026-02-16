@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 16:05:58 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/16 17:26:09 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/16 17:29:28 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct	s_minishell
 {
 	t_list	*env;
 	char	**exec_path_tab;
+	t_list	*cmds;
 	
 	
 }	t_minishell;

@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 16:19:53 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/16 17:23:52 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/16 17:32:59 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,17 @@ static int	verify_token_list(t_list *token_list)
 		return (1);
 	}
 	return (0);
+}
+
+static t_list	format_cmds(t_list *token_list)
+{
+	t_list *cmd;
+
+	ft_lstnew(content);
+
+	
+
+	
 }
 
 void	parsing_prompt(t_minishell *minishell, char *prompt)
@@ -47,6 +58,9 @@ void	parsing_prompt(t_minishell *minishell, char *prompt)
 	
 	//verifier la coherence
 	//creation structure **cmd / path / infile / outfile --> PIPEX
+
+	*minishell->cmds = format_cmds(token_list);
+
 	//mettre les cmds et args dans struct
 	//trouver le path de chaque commande
 	//verifier infile && outfile
