@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 15:01:35 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/16 16:49:37 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/17 14:29:12 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,3 +96,6 @@ t_list	*list_token(char *prompt)
 
 	return (token_list);
 }
+
+
+///////////////si un espace le token est un word ???

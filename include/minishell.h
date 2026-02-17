@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 16:05:58 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/17 10:37:23 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/17 16:07:54 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void test_print_env(t_list *env);
 void test_print_env_value(t_list *env, char *key);
 void	test_print_exec_path_tab(char **exec_path_tab);
 void	test_print_list_token(t_list *token_list);
+void	test_print_minish_cmds(t_minishell *minishell);
 
 
 // env/
