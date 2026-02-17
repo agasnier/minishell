@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 16:25:35 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/17 16:52:15 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/17 17:01:57 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,17 @@ static char	*find_exec(char **cmd, char **path)
 
 void	find_path(t_minishell *minishell)
 {
-	t_minishell *tmp;
-	t_cmd		*cmd;
+	t_list *tmp;
+	t_cmd	*cmd;
 	
-	tmp = minishell;
+	tmp = minishell->cmds;
 	
-	while (tmp->cmds)
+	while (tmp)
 	{
-		cmd = (t_cmd *)tmp->cmds->content;
-		cmd->cmd_path = find_exec(cmd->args, tmp->exec_path_tab);
-		if (!tmp->cmds->next)
+		cmd = (t_cmd *)tmp->content;
+		cmd->cmd_path = find_exec(cmd->args, minishell->exec_path_tab);
+		if (!tmp->next)
 			break ;
-		tmp->cmds = tmp->cmds->next;
+		tmp = tmp->next;
 	}
 }
