@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 16:05:58 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/16 17:29:28 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/17 10:37:23 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef struct s_env
 
 typedef struct	s_cmd
 {
-	char	**agrs;
+	char	**args;
 	char	*cmd_path;
 	int		fd_in;
 	int		fd_out;
