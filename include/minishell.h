@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 16:05:58 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/17 16:07:54 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/17 16:43:11 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,3 +93,7 @@ void	parsing_prompt(t_minishell *minishell, char *prompt);
 void	free_env(void *content);
 void	free_tab(char **tab);
 void	free_all(t_minishell *minishell);
+
+//exec
+//exec_path.c
+void	find_path(t_minishell *minishell);

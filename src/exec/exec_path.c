@@ -5,28 +5,28 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/06 10:14:05 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/06 11:15:16 by algasnie         ###   ########.fr       */
+/*   Created: 2026/02/17 16:25:35 by algasnie          #+#    #+#             */
+/*   Updated: 2026/02/17 16:52:15 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*find_exec(char *cmd, char **path)
+static char	*find_exec(char **cmd, char **path)
 {
 	int		i;
 	char	*tmp;
 	char	*tmp2;
 
-	if (!cmd)
+	if (!cmd[0])
 		return (NULL);
-	if (access(cmd, X_OK) == 0)
-		return (strdup(cmd));
+	if (access(cmd[0], X_OK) == 0)
+		return (ft_strdup(cmd[0]));
 	i = 0;
 	while (path && path[i])
 	{
 		tmp = ft_strjoin(path[i], "/");
-		tmp2 = ft_strjoin(tmp, cmd);
+		tmp2 = ft_strjoin(tmp, cmd[0]);
 		free(tmp);
 		if (access(tmp2, X_OK) == 0)
 			return (tmp2);
@@ -36,18 +36,19 @@ static char	*find_exec(char *cmd, char **path)
 	return (NULL);
 }
 
-void	find_path()
+void	find_path(t_minishell *minishell)
 {
-	int	arg;
-	int	cmds;
-
-	arg = 2;
-	cmds = 0;
-	while (arg < pipex_data->argc - 1)
+	t_minishell *tmp;
+	t_cmd		*cmd;
+	
+	tmp = minishell;
+	
+	while (tmp->cmds)
 	{
-		pipex_data->cmds[cmds].path = find_exec(pipex_data->cmds[cmds].cmd[0],
-				pipex_data->path);
-		cmds++;
-		arg++;
+		cmd = (t_cmd *)tmp->cmds->content;
+		cmd->cmd_path = find_exec(cmd->args, tmp->exec_path_tab);
+		if (!tmp->cmds->next)
+			break ;
+		tmp->cmds = tmp->cmds->next;
 	}
 }

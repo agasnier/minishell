@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 16:19:53 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/17 16:18:36 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/17 16:45:48 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static int	verify_token_list(t_list *token_list)
 
 	//word before/after < / << / >> / >
 	// no word after |
+	// start with pipe
 	
 	return (0);
 }
@@ -119,37 +120,29 @@ void	parsing_prompt(t_minishell *minishell, char *prompt)
 {
 	t_list	*token_list;
 	
-	///lexer --> token WORD OPERATOR ETC
 	token_list = list_token(prompt);
-
-	
-	
-	//parser
-	
-	// cat << EOF
-	// | at start
 	
 	verify_token_list(token_list);
-	
-	//verifier la coherence
-	//creation structure **cmd / path / infile / outfile --> PIPEX
 
 	format_cmds(minishell, token_list); ///if return 1;
 
+	find_path(minishell);
 
 
 
-	////test//////////////
-	test_print_list_token(token_list);
-	test_print_minish_cmds(minishell);
-	/////////////////////////
+
+
 
 	
-	//mettre les cmds et args dans struct
 	//trouver le path de chaque commande
 	//verifier infile && outfile
 	//execution
 
+
+	////test//////////////
+	//test_print_list_token(token_list);
+	test_print_minish_cmds(minishell);
+	/////////////////////////
 
 
 	
