@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 16:19:53 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/17 16:16:08 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/17 16:18:36 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ static int	format_cmds(t_minishell *minishell, t_list *token_list)
 			}
 			else if (token->type == WORD)
 			{
-				cmd->args[i] = ft_strdup(token->token);
+				cmd->args[i] = token->token;
 				i++;
 			}
 			token_list = token_list->next;
