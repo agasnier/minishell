@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 16:19:53 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/20 16:30:37 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/20 16:48:53 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,15 +81,20 @@ static int	count_args(t_list *token_list)
 
 	args_count = 0;
 
-	token = (t_token *)token_list->content;
-	while (token->type == WORD)
+	while (token_list)
 	{
-		args_count++;
-
-		if (!token_list->next)
-			break ;
-		token_list = token_list->next;
 		token = (t_token *)token_list->content;
+		if (token->type == PIPE)
+			break ;
+		else if (token->type >= R_INPUT && token->type <= HEREDOC)
+		{
+			if (token_list->next)
+				token_list = token_list->next;
+		}
+		else if (token->type == WORD)
+			args_count++;
+
+		token_list = token_list->next;
 	}
 	return (args_count);
 }
@@ -128,6 +133,11 @@ static int	format_cmds(t_minishell *minishell, t_list *token_list)
 			{
 				token_list = token_list->next;
 				break ;
+			}
+			else if (token->type >= R_INPUT && token->type <= HEREDOC)
+			{
+				if (token_list->next)
+					token_list = token_list->next;
 			}
 			else if (token->type == WORD)
 			{
