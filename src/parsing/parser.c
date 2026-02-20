@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 16:19:53 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/20 16:19:29 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/20 16:30:37 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,10 @@ static int	format_cmds(t_minishell *minishell, t_list *token_list)
 		args_count = count_args(token_list);
 		cmd->args = malloc(sizeof(char *) * (args_count + 1));
 		if (!cmd->args)
+		{
+			free(cmd);
 			return (1);
+		}
 		
 		i = 0;
 		while (token_list)
@@ -136,7 +139,11 @@ static int	format_cmds(t_minishell *minishell, t_list *token_list)
 		cmd->args[i] = NULL;
 		new_node = ft_lstnew(cmd);
 		if (!new_node)
+		{
+			free(cmd->args);
+			free(cmd);
 			return (1);
+		}
 		ft_lstadd_back(&minishell->cmds, new_node);
 		
 	}
