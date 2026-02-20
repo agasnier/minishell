@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 15:01:35 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/20 14:08:59 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/20 16:23:26 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static t_type get_type(char *token)
 		return (WORD);
 }
 
-static void	each_token(char *prompt, int start, int *i)
+static int	each_token(char *prompt, int start, int *i)
 {
 	char	quote;
 	
@@ -55,10 +55,14 @@ static void	each_token(char *prompt, int start, int *i)
 		(*i)++;
 	}
 	if (quote != 0)
-		printf("Unclosed quote\n");///////////////
+	{
+		printf("minishell: syntax error: unclosed quote\n");
+		return (1);
+	}
+	return (0);
 }
 
-static t_token	*get_token(char *prompt, int *i)
+static t_token	*get_token(t_minishell *minishell, char *prompt, int *i)
 {
 	t_token	*token;
 	int		start;
@@ -69,7 +73,12 @@ static t_token	*get_token(char *prompt, int *i)
 	while (ft_isspace(prompt[*i]))
 		(*i)++;
 	start = *i;
-	each_token(prompt, start, i);
+	if (each_token(prompt, start, i))
+	{
+		minishell->exit_status = 2;
+		free(token);
+		return (NULL);
+	}
 	token->token = ft_substr(prompt, start, *i - start);
 	if (!token->token)
 	{
@@ -80,7 +89,7 @@ static t_token	*get_token(char *prompt, int *i)
 	return (token);	
 }
 
-t_list	*list_token(char *prompt)
+t_list	*list_token(t_minishell *minishell, char *prompt)
 {
 	t_list	*token_list;
 	t_list	*new_node;
@@ -92,7 +101,7 @@ t_list	*list_token(char *prompt)
 
 	while (prompt[i])
 	{
-		token = get_token(prompt, &i);
+		token = get_token(minishell, prompt, &i);
 		if (!token)
 		{
 			ft_lstclear(&token_list, free_token);
@@ -110,6 +119,3 @@ t_list	*list_token(char *prompt)
 
 	return (token_list);
 }
-
-
-///////////////si un espace le token est un word ???

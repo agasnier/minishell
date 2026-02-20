@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:44:39 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/20 13:56:21 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/20 16:25:17 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,9 @@ int main(int argc, char *argv[], char **envp)
 		{
 			add_history(line_read);
 			parsing_prompt(&minishell, line_read);
+			/////test////
+			printf("\nRETURN: %d\n", minishell.exit_status);
+			///////
 			
 		}
 
