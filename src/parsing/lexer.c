@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 15:01:35 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/20 13:36:00 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/20 13:45:09 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	each_token(char *prompt, int start, int *i)
 		{
 			if (*i == start)
 				(*i)++;
-			if (prompt[start] == '<' || prompt[start] == '>')
+			if ((prompt[start] == '<' || prompt[start] == '>') && prompt[start] == prompt[*i])
 				(*i)++;
 			break ;
 		}
