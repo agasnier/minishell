@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 16:05:58 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/17 16:43:11 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/20 14:00:01 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct	s_minishell
 	t_list	*env;
 	char	**exec_path_tab;
 	t_list	*cmds;
+	int		exit_status;
 	
 	
 }	t_minishell;
@@ -90,6 +91,7 @@ void	parsing_prompt(t_minishell *minishell, char *prompt);
 
 // utils/
 //free.c
+void	free_token(void *content);
 void	free_env(void *content);
 void	free_tab(char **tab);
 void	free_all(t_minishell *minishell);

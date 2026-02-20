@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:44:39 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/17 16:42:51 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/20 13:56:21 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int main(int argc, char *argv[], char **envp)
 	////////////////////////
 
 	////////// init strcut minishell ///////////////////
+	minishell.exit_status = 0;
 	minishell.env = init_env(envp);
 	minishell.exec_path_tab = get_exec_path(&minishell);
 	////////// init strcut minishell ///////////////////

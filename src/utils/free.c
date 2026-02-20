@@ -6,11 +6,23 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 13:24:46 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/05 13:29:55 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/20 13:59:33 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	free_token(void *content)
+{
+	t_token	*token;
+
+	if (!content)
+		return ;
+	token = (t_token *)content; 
+	if (token->token)
+		free(token->token);
+	free(token);
+}
 
 void	free_env(void *content)
 {
