@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 15:01:35 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/20 13:45:09 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/20 14:08:59 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,11 @@ static t_token	*get_token(char *prompt, int *i)
 	start = *i;
 	each_token(prompt, start, i);
 	token->token = ft_substr(prompt, start, *i - start);
-	//////////////////gerer le '\0' et le NULL
+	if (!token->token)
+	{
+		free(token);
+		return (NULL);
+	}
 	token->type = get_type(token->token);
 	return (token);	
 }
@@ -89,8 +93,18 @@ t_list	*list_token(char *prompt)
 	while (prompt[i])
 	{
 		token = get_token(prompt, &i);
-		//////////////////////gerer le NULL
+		if (!token)
+		{
+			ft_lstclear(&token_list, free_token);
+			return (NULL);
+		}
 		new_node = ft_lstnew(token);
+		if (!new_node)
+		{
+			free_token(token);
+			ft_lstclear(&token_list, free_token);
+			return (NULL);
+		}
 		ft_lstadd_back(&token_list, new_node);
 	}
 

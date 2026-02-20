@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 16:19:53 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/20 13:57:45 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/20 14:10:15 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,11 @@ void	parsing_prompt(t_minishell *minishell, char *prompt)
 	//remove des quotes ici
 
 	if (format_cmds(minishell, token_list))
+	{
+		ft_lstclear(&token_list, free_token);
+		printf("minishell: memory allocation fail\n");
 		return ;
+	}
 
 	find_path(minishell);
 
