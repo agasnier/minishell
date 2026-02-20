@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 16:19:53 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/18 16:07:06 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/20 12:35:47 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ void	parsing_prompt(t_minishell *minishell, char *prompt)
 	
 	token_list = list_token(prompt);
 
-	if (token_list)
+	if (!token_list)
 		return ;
 		
 	verify_token_list(token_list);
