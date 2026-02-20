@@ -6,29 +6,57 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 16:19:53 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/20 12:35:47 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/20 13:41:33 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static int	syntax_token_list(t_token *token, t_token *next)
+{
+	if (token->type == PIPE && (!next || next->type == PIPE))
+	{
+		printf("minishell: syntax error near unexpected token `|'\n");
+		return (1);
+	}
+	if (token->type >= R_INPUT && token->type <= HEREDOC)
+	{
+		if (!next)
+		{
+			printf("minishell: syntax error near unexpected token `newline'\n");
+			return (1);
+		}
+		if (next->type != WORD)
+		{
+			printf("minishell: syntax error near unexpected token `%s'\n", next->token);
+			return (1);
+		}
+	}
+	return (0);
+}
 
 static int	verify_token_list(t_list *token_list)
 {
 	t_token	*token;
-
-	token = (t_token *)token_list->content;
-
-	if (token->type == PIPE)
+	t_token	*next_token;
+	
+	if (((t_token *)token_list->content)->type == PIPE)
 	{
 		printf("syntax error near unexpected token `|'\n");
 		return (1);
 	}
 
-	//word before/after < / << / >> / >
-	// no word after |
-	// start with pipe
-	
+	while (token_list)
+	{
+		token = (t_token *)token_list->content;
+		next_token = NULL;
+		if (token_list->next)
+			next_token = (t_token *)token_list->next->content;
+		if (syntax_token_list(token, next_token))
+			return (1);
+		token_list = token_list->next; 
+		
+	}
 	return (0);
 }
 
@@ -125,7 +153,8 @@ void	parsing_prompt(t_minishell *minishell, char *prompt)
 	if (!token_list)
 		return ;
 		
-	verify_token_list(token_list);
+	if (verify_token_list(token_list))
+		return ;
 
 	//gerer les expands ici
 
@@ -148,7 +177,7 @@ void	parsing_prompt(t_minishell *minishell, char *prompt)
 
 
 	////test//////////////
-	//test_print_list_token(token_list);
+	test_print_list_token(token_list);
 	test_print_minish_cmds(minishell);
 	/////////////////////////
 
