@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 16:19:53 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/24 16:00:49 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/24 18:25:27 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,10 +161,73 @@ static int	format_cmds(t_minishell *minishell, t_list *token_list)
 		
 }
 
-// static int remake_token_list(t_list *token)
-// {
+static void remake_token_list(t_list **token_list)
+{
+	t_token	*token;
+	t_list	*current;
+	t_list	*prev;
+	t_list	*tmp;
+	char	**tokens;
+	int		i;
+	t_list	*sub_current;
+	t_token	*sub_token;
 	
-// }
+	current = *token_list;
+	prev = NULL;
+	tmp = NULL;
+
+	sub_token = NULL;
+
+	
+	while (current)
+	{
+		token = (t_token *)current->content;
+		if (!token->token || token->token[0] == '\0')
+		{
+			if (prev)
+				prev->next = current->next;
+			else
+				*token_list = current->next;
+			tmp = current;
+			current = current->next;
+			free_token(tmp->content);
+			free(tmp);
+			continue ;
+		}
+		if (ft_strchr(token->token, ' '))
+		{
+			tokens = ft_split(token->token, ' ');
+
+			if (tokens && tokens[0])
+			{
+				free(token->token);
+				token->token = ft_strdup("tokens[0]");
+			}
+			
+			i = 1;
+			while (tokens[i])
+			{
+				sub_token = malloc(sizeof(t_token *));
+				if (!sub_token)
+					return ; //////////////////////////////////////////////
+				sub_token->token = tokens[i];
+				sub_token->type = WORD;
+				sub_current = ft_lstnew(sub_token);
+
+				sub_current->next = current->next;
+				current->next = sub_current;
+
+				prev = current;
+				current = sub_current;
+				
+				i++;
+			}
+			free_tab(tokens);
+		}
+		prev = current;
+		current = current->next;
+	}
+}
 
 void	parsing_prompt(t_minishell *minishell, char *prompt)
 {
@@ -191,8 +254,8 @@ void	parsing_prompt(t_minishell *minishell, char *prompt)
 	//gerer les expands ici
 	if (handle_expands(minishell, token_list))
 		return ;
-
-	// remake_token_list(token_list);
+	
+	remake_token_list(&token_list);
 
 	//remove des quotes ici
 
