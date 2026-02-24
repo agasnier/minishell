@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 15:53:28 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/06 11:15:06 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/24 16:00:31 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	**get_exec_path(t_minishell *minishell)
 	char	*path;
 	char	**path_tab;
 
-	path = get_env_value(minishell->env, "PATH");
+	path = get_env_value(minishell, "PATH");
 	if (!path)
 		return (NULL);
 	path_tab = ft_split(path, ':');

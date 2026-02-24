@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 16:19:53 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/24 12:26:16 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/24 16:00:49 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,11 @@ static int	format_cmds(t_minishell *minishell, t_list *token_list)
 		
 }
 
+// static int remake_token_list(t_list *token)
+// {
+	
+// }
+
 void	parsing_prompt(t_minishell *minishell, char *prompt)
 {
 	t_list	*token_list;
@@ -182,9 +187,13 @@ void	parsing_prompt(t_minishell *minishell, char *prompt)
 
 
 
+
 	//gerer les expands ici
-	handle_expands(minishell, token_list);
-	
+	if (handle_expands(minishell, token_list))
+		return ;
+
+	// remake_token_list(token_list);
+
 	//remove des quotes ici
 
 	if (format_cmds(minishell, token_list))

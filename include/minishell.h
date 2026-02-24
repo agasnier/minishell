@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 16:05:58 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/24 12:20:34 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/24 15:52:24 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,9 @@ void	test_print_minish_cmds(t_minishell *minishell);
 t_list	*init_env(char **envp);
 
 //env_utils.c
-char *get_env_value(t_list *env, char *key);
+char *get_env_value(t_minishell *minishell, char *key);
 
-// env_path.c
+//env_path.c
 char	**get_exec_path(t_minishell *minishell);
 
 // parsing/

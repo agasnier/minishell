@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 09:16:51 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/24 15:28:18 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/24 16:01:02 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ static char *integrate_expand(char *token, char *expand_start, char *expand_key,
 	free(token);
 	free(tmp1);
 	free(tmp2);
-	free(expand_key);
-	free(expand_value);
 
 	return (result);
 }
@@ -54,8 +52,13 @@ static char *extract_expand(char *word)
 	char *key;
 
 	i = 1;
-	while (word[i] && ft_isalpha(word[i]))
+	if (word[i] == '?')
+		return (ft_strdup("?"));
+	while (word[i] && (ft_isalnum(word[i]) || word[i] == '_'))
 		i++;
+
+	if (i == 1)
+		return (NULL);
 
 	key = ft_substr(word, 1, i - 1);
 	return (key);
@@ -68,8 +71,6 @@ int	handle_expands(t_minishell *minishell, t_list *token_list)
 	char	*expand_key;
 	char	*expand_value;
 
-	(void)minishell;
-
 	while(token_list)
 	{
 		token = (t_token *)token_list->content;
@@ -77,15 +78,19 @@ int	handle_expands(t_minishell *minishell, t_list *token_list)
 		while ((expand_start = is_there_expands(token->token)) != NULL)
 		{
 			expand_key = extract_expand(expand_start);
-			expand_value = get_env_value(minishell->env, expand_key);
+			if (!expand_key)
+				return (1);
+			expand_value = get_env_value(minishell, expand_key);
 			if (!expand_value)
 				expand_value = ft_strdup("TEST_ EXPAND");
 			token->token = integrate_expand(token->token, expand_start, expand_key, expand_value);
-			expand_start += ft_strlen(expand_value);
+			free(expand_key);
+			free(expand_value);
+			if (!token->token)
+				return (1);
+			
 		}
 		token_list = token_list->next;
 	}
-
-
 	return (0);
 }

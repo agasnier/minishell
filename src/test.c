@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 15:23:10 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/24 10:20:33 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/24 16:00:09 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ void test_print_env(t_list *env)
 
 
 /// test de la recherche de la VALUE dans l'env
-void test_print_env_value(t_list *env, char *key)
-{
-	char *value;
+// void test_print_env_value(t_list *env, char *key)
+// {
+// 	char *value;
 
-	value = get_env_value(env, key);
-	printf("Key: %s Value: %s\n", key, value);
-}
+// 	value = get_env_value(env, key);
+// 	printf("Key: %s Value: %s\n", key, value);
+// }
 
 /// test du tableau des paths des exec
 void	test_print_exec_path_tab(char **exec_path_tab)
