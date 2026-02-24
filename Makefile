@@ -20,6 +20,7 @@ FILES =	main.c \
 		parsing/lexer.c \
 		parsing/parser.c \
 		parsing/expands.c \
+		parsing/utils.c \
 		utils/free.c \
 		exec/exec_path.c \
 

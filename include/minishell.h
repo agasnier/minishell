@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 16:05:58 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/24 10:16:26 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/24 11:01:03 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,10 @@ t_list	*list_token(t_minishell *minishell, char *prompt);
 void	parsing_prompt(t_minishell *minishell, char *prompt);
 
 //expands.c
-int	handle_expands(t_list *token_list);
+int	handle_expands(t_minishell *minishell, t_list *token_list);
+
+//utils.c
+int	get_quote_state(char *str, int index);
 
 // utils/
 //free.c

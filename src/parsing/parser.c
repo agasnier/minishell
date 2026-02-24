@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 16:19:53 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/24 09:40:03 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/24 10:30:39 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,7 +177,7 @@ void	parsing_prompt(t_minishell *minishell, char *prompt)
 		return ;
 	}
 
-	handle_expands(token_list);
+	handle_expands(minishell, token_list);
 
 	//gerer les expands ici
 
