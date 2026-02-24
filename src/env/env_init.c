@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 16:55:26 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/05 13:25:17 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/24 10:17:45 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static int	fill_env_data(t_env *new_node, char *str)
 	while (str[i] && str[i] != '=')
 		i++;
 	new_node->key = ft_substr(str, 0, i);
+	new_node->exported = 1;
 	if (!new_node->key)
 		return (0);
 	if (str[i])

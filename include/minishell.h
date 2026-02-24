@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 16:05:58 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/20 16:19:45 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/24 10:16:26 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@
 
 typedef struct s_env
 {
-	char			*key;
-	char			*value;
+	char	*key;
+	char	*value;
+	int		exported;		
 }	t_env;
 
 typedef struct	s_cmd
@@ -88,6 +89,9 @@ t_list	*list_token(t_minishell *minishell, char *prompt);
 
 //parser.c
 void	parsing_prompt(t_minishell *minishell, char *prompt);
+
+//expands.c
+int	handle_expands(t_list *token_list);
 
 // utils/
 //free.c

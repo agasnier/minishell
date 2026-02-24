@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 15:23:10 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/24 09:09:54 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/24 10:20:33 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void test_print_env(t_list *env)
 	while (1)
 	{
 		current = (t_env *)env->content;
-		printf("KEY == %s\nVALUE == %s \n\n", current->key, current->value);
+		printf("KEY == %s\nVALUE == %s \nexported? == %i\n\n", current->key, current->value, current->exported);
 
 		if (!env->next)
 			break ;

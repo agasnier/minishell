@@ -19,6 +19,7 @@ FILES =	main.c \
 		env/env_path.c \
 		parsing/lexer.c \
 		parsing/parser.c \
+		parsing/expands.c \
 		utils/free.c \
 		exec/exec_path.c \
 
