@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 15:01:35 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/24 12:20:28 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/24 12:38:29 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,6 @@ static t_token	*get_token(char *prompt, int *i)
 	token = malloc(sizeof(t_token));
 	if (!token)
 		return (NULL);
-	while (ft_isspace(prompt[*i]))
-		(*i)++;
 	start = *i;
 	each_token(prompt, start, i);
 	token->token = ft_substr(prompt, start, *i - start);
@@ -90,6 +88,10 @@ t_list	*list_token(char *prompt)
 
 	while (prompt[i])
 	{
+		while (ft_isspace(prompt[i]))
+			i++;
+		if (!prompt[i])
+			break ;		
 		token = get_token(prompt, &i);
 		if (!token)
 		{
