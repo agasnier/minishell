@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 15:23:10 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/20 16:36:20 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/24 09:09:54 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,25 +57,25 @@ void	test_print_list_token(t_list *token_list)
 {
 	t_token	*token;
 
+	printf("\nToken_list:\n");
 	while (1)
 	{
 		token = (t_token *)token_list->content;
-		printf("%s\n", token->token);
+		printf("%-10s", token->token);
 		if (token->type == 0)
-			printf("WORD\n");
+			printf("(WORD)\n");
 		if (token->type == 1)
-			printf("PIPE\n");
+			printf("(PIPE)\n");
 		if (token->type == 2)
-			printf("R_INPUT\n");
+			printf("(R_INPUT)\n");
 		if (token->type == 3)
-			printf("R_OUTPUT\n");
+			printf("(R_OUTPUT)\n");
 		if (token->type == 4)
-			printf("R_OUTPUT_APPEND\n");
+			printf("(R_OUTPUT_APPEND)\n");
 		if (token->type == 5)
-			printf("HEREDOC\n");
+			printf("(HEREDOC)\n");
 		if (!token_list->next)
 			break ;
-		printf("\n");
 		token_list = token_list->next;
 	}
 }
