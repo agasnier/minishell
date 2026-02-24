@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 10:56:22 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/24 10:59:54 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/24 12:11:20 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@ int	get_quote_state(char *str, int index)
 {
 	int	i;
 	int	state; //1 if single / 2 if double
+
+	if (!str || index < 0)
+		return (0);
 
 	i = 0;
 	state = 0;
@@ -32,4 +35,13 @@ int	get_quote_state(char *str, int index)
 		i++;
 	}
 	return (state);
+}
+int verify_unclosed_quotes(char *prompt)
+{
+	if (get_quote_state(prompt, ft_strlen(prompt) - 1))
+	{
+		printf("minishell: syntax error: unclosed quote\n");
+		return (1);
+	}
+	return (0);
 }

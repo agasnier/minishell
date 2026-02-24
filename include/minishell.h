@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 16:05:58 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/24 11:01:03 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/24 12:11:45 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ int	handle_expands(t_minishell *minishell, t_list *token_list);
 
 //utils.c
 int	get_quote_state(char *str, int index);
+int verify_unclosed_quotes(char *prompt);
 
 // utils/
 //free.c

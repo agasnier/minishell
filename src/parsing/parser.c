@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 16:19:53 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/24 10:30:39 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/24 11:59:35 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,8 @@ static int	format_cmds(t_minishell *minishell, t_list *token_list)
 void	parsing_prompt(t_minishell *minishell, char *prompt)
 {
 	t_list	*token_list;
+	
+	int verify_unclosed_quotes(prompt);
 	
 	token_list = list_token(minishell, prompt);
 
