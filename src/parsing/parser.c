@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 16:19:53 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/24 18:25:27 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/24 18:31:24 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,18 +201,24 @@ static void remake_token_list(t_list **token_list)
 			if (tokens && tokens[0])
 			{
 				free(token->token);
-				token->token = ft_strdup("tokens[0]");
+				token->token = ft_strdup(tokens[0]);
+				if (!token->token)
+					return ;
 			}
 			
 			i = 1;
 			while (tokens[i])
 			{
-				sub_token = malloc(sizeof(t_token *));
+				sub_token = malloc(sizeof(t_token));
 				if (!sub_token)
 					return ; //////////////////////////////////////////////
-				sub_token->token = tokens[i];
+				sub_token->token = ft_strdup(tokens[i]);
+				if (!sub_token->token)
+					break ; ///////////////////////
 				sub_token->type = WORD;
 				sub_current = ft_lstnew(sub_token);
+				if (!sub_current)
+					return ;/////////////////////////////////////////
 
 				sub_current->next = current->next;
 				current->next = sub_current;
