@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 15:01:35 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/24 11:06:06 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/24 12:17:21 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static t_type get_type(char *token)
 		return (WORD);
 }
 
-static int	each_token(char *prompt, int start, int *i)
+static void	each_token(char *prompt, int start, int *i)
 {
 	char	quote;
 	
@@ -54,11 +54,6 @@ static int	each_token(char *prompt, int start, int *i)
 		}
 		(*i)++;
 	}
-	if (quote != 0)
-	{
-		printf("minishell: syntax error: unclosed quote\n");
-		return (1);
-	}
 	return (0);
 }
 
@@ -73,12 +68,7 @@ static t_token	*get_token(t_minishell *minishell, char *prompt, int *i)
 	while (ft_isspace(prompt[*i]))
 		(*i)++;
 	start = *i;
-	if (each_token(prompt, start, i))
-	{
-		minishell->exit_status = 2;
-		free(token);
-		return (NULL);
-	}
+	each_token(prompt, start, i);
 	token->token = ft_substr(prompt, start, *i - start);
 	if (!token->token)
 	{
