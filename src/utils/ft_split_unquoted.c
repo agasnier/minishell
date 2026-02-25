@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 18:32:50 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/25 09:34:56 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/25 10:21:14 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,22 @@ static size_t	ft_count_word(char const *s, char c)
 	size_t	word_count;
 	size_t	i;
 	int		state;
+	int		in_word;
 
 	state = 0;
 	word_count = 0;
+	in_word = 0;
 	i = 0;
 	while (s[i])
 	{
-		if (s[i] != c && (i == 0 || s[i - 1] == c))
+		update_quote_state(s[i], &state);
+		if (s[i] == c && state == 0)
+			in_word = 0;
+		else if (in_word == 0)
+		{
+			in_word = 1;
 			word_count++;
+		}
 		i++;
 	}
 	return (word_count);
@@ -33,10 +41,17 @@ static size_t	ft_count_word(char const *s, char c)
 static size_t	ft_len_word(char const *s, char c)
 {
 	size_t	len;
+	int		state;
 
 	len = 0;
-	while (s[len] && s[len] != c)
+	state = 0;
+	while (s[len])
+	{
+		update_quote_state(s[len], &state);
+		if (s[len] == c && state == 0)
+			break ;
 		len++;
+	}	
 	return (len);
 }
 
