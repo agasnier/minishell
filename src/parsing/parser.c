@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 16:19:53 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/25 11:06:11 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/25 11:47:34 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,10 @@ static int	verify_token_list(t_list *token_list)
 	return (0);
 }
 
+
+
+
+
 static t_cmd *init_cmd_struct(void)
 {	
 	t_cmd *cmd;
@@ -72,31 +76,6 @@ static t_cmd *init_cmd_struct(void)
 	cmd->fd_in = -1;
 	cmd->fd_out = -1;
 	return (cmd);
-}
-
-static int	count_args(t_list *token_list)
-{
-	t_token	*token;
-	int		args_count;
-
-	args_count = 0;
-
-	while (token_list)
-	{
-		token = (t_token *)token_list->content;
-		if (token->type == PIPE)
-			break ;
-		else if (token->type >= R_INPUT && token->type <= HEREDOC)
-		{
-			if (token_list->next)
-				token_list = token_list->next;
-		}
-		else if (token->type == WORD)
-			args_count++;
-
-		token_list = token_list->next;
-	}
-	return (args_count);
 }
 
 static int	format_cmds(t_minishell *minishell, t_list *token_list)
@@ -168,79 +147,7 @@ static int	format_cmds(t_minishell *minishell, t_list *token_list)
 		
 }
 
-static void remake_token_list(t_list **token_list)
-{
-	t_token	*token;
-	t_list	*current;
-	t_list	*prev;
-	t_list	*tmp;
-	char	**tokens;
-	int		i;
-	t_list	*sub_current;
-	t_token	*sub_token;
-	
-	current = *token_list;
-	prev = NULL;
-	tmp = NULL;
 
-	sub_token = NULL;
-
-	
-	while (current)
-	{
-		token = (t_token *)current->content;
-		if (!token->token || token->token[0] == '\0')
-		{
-			if (prev)
-				prev->next = current->next;
-			else
-				*token_list = current->next;
-			tmp = current;
-			current = current->next;
-			free_token(tmp->content);
-			free(tmp);
-			continue ;
-		}
-		if (ft_strchr(token->token, ' '))
-		{
-			tokens = ft_split_unquoted(token->token, ' ');
-
-			if (tokens && tokens[0])
-			{
-				free(token->token);
-				token->token = ft_strdup(tokens[0]);
-				if (!token->token)
-					return ;
-			}
-			
-			i = 1;
-			while (tokens[i])
-			{
-				sub_token = malloc(sizeof(t_token));
-				if (!sub_token)
-					return ; //////////////////////////////////////////////
-				sub_token->token = ft_strdup(tokens[i]);
-				if (!sub_token->token)
-					break ; ///////////////////////
-				sub_token->type = WORD;
-				sub_current = ft_lstnew(sub_token);
-				if (!sub_current)
-					return ;/////////////////////////////////////////
-
-				sub_current->next = current->next;
-				current->next = sub_current;
-
-				prev = current;
-				current = sub_current;
-				
-				i++;
-			}
-			free_tab(tokens);
-		}
-		prev = current;
-		current = current->next;
-	}
-}
 
 void	parsing_prompt(t_minishell *minishell, char *prompt)
 {
