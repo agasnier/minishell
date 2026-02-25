@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 15:11:35 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/24 15:55:38 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/25 15:08:31 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ char	*get_env_value(t_minishell *minishell, char *key)
 
 	if (ft_strcmp(key, "?") == 0)
 		return (ft_itoa(minishell->exit_status));
-
 	tmp = minishell->env;
 	while (tmp)
 	{

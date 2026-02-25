@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 10:56:22 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/25 14:46:07 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/25 15:30:17 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	count_args_list(t_list *token_list)
 	int		args_count;
 
 	args_count = 0;
-
 	while (token_list)
 	{
 		token = (t_token *)token_list->content;
@@ -31,7 +30,6 @@ int	count_args_list(t_list *token_list)
 		}
 		else if (token->type == WORD)
 			args_count++;
-
 		token_list = token_list->next;
 	}
 	return (args_count);

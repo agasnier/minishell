@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 13:24:46 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/25 10:52:27 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/25 15:31:00 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	free_token(void *content)
 
 	if (!content)
 		return ;
-	token = (t_token *)content; 
+	token = (t_token *)content;
 	if (token->token)
 		free(token->token);
 	free(token);
@@ -68,7 +68,7 @@ void	free_tab(char **tab)
 	free(tab);
 }
 
-void free_all(t_minishell *minishell)
+void	free_all(t_minishell *minishell)
 {
 	if (minishell->env)
 		ft_lstclear(&minishell->env, free_env);

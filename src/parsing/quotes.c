@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 14:34:28 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/25 14:46:00 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/25 15:28:52 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int	get_quote_state(char *str, int index)
 
 	if (!str || index < 0)
 		return (0);
-
 	i = 0;
 	state = 0;
 	while (str[i] && i <= index)
@@ -41,7 +40,8 @@ int	get_quote_state(char *str, int index)
 	}
 	return (state);
 }
-int verify_unclosed_quotes(char *prompt)
+
+int	verify_unclosed_quotes(char *prompt)
 {
 	if (get_quote_state(prompt, ft_strlen(prompt) - 1))
 	{

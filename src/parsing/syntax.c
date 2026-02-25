@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 14:33:05 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/25 14:33:38 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/25 15:29:49 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ int	syntax_token_list(t_token *token, t_token *next)
 		}
 		if (next->type != WORD)
 		{
-			printf("minishell: syntax error near unexpected token `%s'\n", next->token);
+			printf("minishell: syntax error near \
+				unexpected token `%s'\n", next->token);
 			return (1);
 		}
 	}
@@ -39,13 +40,12 @@ int	verify_token_list(t_list *token_list)
 {
 	t_token	*token;
 	t_token	*next_token;
-	
+
 	if (((t_token *)token_list->content)->type == PIPE)
 	{
 		printf("syntax error near unexpected token `|'\n");
 		return (1);
 	}
-
 	while (token_list)
 	{
 		token = (t_token *)token_list->content;
@@ -54,8 +54,7 @@ int	verify_token_list(t_list *token_list)
 			next_token = (t_token *)token_list->next->content;
 		if (syntax_token_list(token, next_token))
 			return (1);
-		token_list = token_list->next; 
-		
+		token_list = token_list->next;
 	}
 	return (0);
 }
