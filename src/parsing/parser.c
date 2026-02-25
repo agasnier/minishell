@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 16:19:53 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/24 18:31:24 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/25 09:19:37 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,7 +196,7 @@ static void remake_token_list(t_list **token_list)
 		}
 		if (ft_strchr(token->token, ' '))
 		{
-			tokens = ft_split(token->token, ' ');
+			tokens = ft_split_unquoted(token->token, ' ');
 
 			if (tokens && tokens[0])
 			{

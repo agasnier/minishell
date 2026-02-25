@@ -6,11 +6,23 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 10:56:22 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/24 12:11:20 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/25 09:34:00 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	update_quote_state(char c, int *state)
+{
+	if (c == '\'' && *state == 0)
+		*state = 1;
+	else if (c == '\'' && *state == 1)
+		*state = 0;
+	else if (c == '\"' && *state == 0)
+		*state = 2;
+	else if (c == '\"' && *state == 2)
+		*state = 0;
+}
 
 int	get_quote_state(char *str, int index)
 {
@@ -24,14 +36,7 @@ int	get_quote_state(char *str, int index)
 	state = 0;
 	while (str[i] && i <= index)
 	{
-		if (str[i] == '\'' && state == 0)
-			state = 1;
-		else if (str[i] == '\'' && state == 1)
-			state = 0;
-		else if (str[i] == '\"' && state == 0)
-			state = 2;
-		else if (str[i] == '\"' && state == 2)
-			state = 0;
+		update_quote_state(str[i], &state);
 		i++;
 	}
 	return (state);

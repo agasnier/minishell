@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 16:05:58 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/24 15:52:24 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/25 09:34:31 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,9 @@ void	parsing_prompt(t_minishell *minishell, char *prompt);
 int	handle_expands(t_minishell *minishell, t_list *token_list);
 
 //utils.c
-int	get_quote_state(char *str, int index);
-int verify_unclosed_quotes(char *prompt);
+void	update_quote_state(char c, int *state);
+int		get_quote_state(char *str, int index);
+int		verify_unclosed_quotes(char *prompt);
 
 // utils/
 //free.c
@@ -103,6 +104,9 @@ void	free_token(void *content);
 void	free_env(void *content);
 void	free_tab(char **tab);
 void	free_all(t_minishell *minishell);
+
+// ft_split_unquoted.c/
+char	**ft_split_unquoted(char const *s, char c);
 
 //exec
 //exec_path.c

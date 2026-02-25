@@ -22,6 +22,7 @@ FILES =	main.c \
 		parsing/expands.c \
 		parsing/utils.c \
 		utils/free.c \
+		utils/ft_split_unquoted.c \
 		exec/exec_path.c \
 
 SRCS = $(addprefix $(MANDA_DIR)/, $(FILES))
