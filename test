@@ -3,6 +3,13 @@
 ### src/main.c
 - `int main(int argc, char *argv[], char **envp)`
 
+### src/parsing/parser.c
+- `static t_cmd *init_cmd_struct(void)`
+- `void parsing_prompt(t_minishell *minishell, char *prompt)`
+
+### src/parsing/command_builder.c
+- `static int format_cmds(t_minishell *minishell, t_list *token_list)`
+
 ### src/parsing/lexer.c
 - `static t_type get_type(char *token)`
 - `static void each_token(char *prompt, int start, int *i)`
@@ -13,18 +20,10 @@
 - `static int syntax_token_list(t_token *token, t_token *next)`
 - `static int verify_token_list(t_list *token_list)`
 
-### src/parsing/parser.c
-- `static t_cmd *init_cmd_struct(void)`
-
-- `static int format_cmds(t_minishell *minishell, t_list *token_list)`
-- `void parsing_prompt(t_minishell *minishell, char *prompt)`
-
-
-### src/parsing/remake_token_list.c
-- `static void remake_token_list(t_list **token_list)`
-
-
-
+### src/parsing/quotes.c
+- `void update_quote_state(char c, int *state)`
+- `int get_quote_state(char *str, int index)`
+- `int verify_unclosed_quotes(char *prompt)`
 
 ### src/parsing/expands.c
 - `static char *integrate_expand(char *token, char *expand_start, char *expand_key, char *expand_value)`
@@ -32,25 +31,8 @@
 - `static char *extract_expand(char *word)`
 - `int handle_expands(t_minishell *minishell, t_list *token_list)`
 
-### src/parsing/utils.c
-- `void update_quote_state(char c, int *state)`
-- `int get_quote_state(char *str, int index)`
-- `int verify_unclosed_quotes(char *prompt)`
-- `int count_args(t_list *token_list)` /////////////////////changer le nom
-
-### src/utils/free.c
-- `void free_token(void *content)`
-- `void free_cmds(void *content)`
-- `void free_env(void *content)`
-- `void free_tab(char **tab)`
-- `void free_all(t_minishell *minishell)`
-
-### src/utils/ft_split_unquoted.c
-- `static size_t ft_count_word(char const *s, char c)`
-- `static size_t ft_len_word(char const *s, char c)`
-- `static void ft_freeall(char **tab, size_t index)`
-- `static int ft_putwords(char **tab, char const *s, char c, size_t nbr_words)`
-- `char **ft_split_unquoted(char const *s, char c)`
+### src/parsing/remake_token_list.c
+- `static void remake_token_list(t_list **token_list)`
 
 ### src/exec/exec_path.c
 - `static char *find_exec(char **cmd, char **path)`
@@ -66,6 +48,28 @@
 
 ### src/env/env_path.c
 - `char **get_exec_path(t_minishell *minishell)`
+
+### src/parsing/utils.c
+- `int count_args_list(t_list *token_list)` /////////////////////changer le nom
+
+### src/utils/ft_split_unquoted.c
+- `static size_t ft_count_word(char const *s, char c)`
+- `static size_t ft_len_word(char const *s, char c)`
+- `static void ft_freeall(char **tab, size_t index)`
+- `static int ft_putwords(char **tab, char const *s, char c, size_t nbr_words)`
+- `char **ft_split_unquoted(char const *s, char c)`
+
+
+### src/utils/free.c
+- `void free_token(void *content)`
+- `void free_cmds(void *content)`
+- `void free_env(void *content)`
+- `void free_tab(char **tab)`
+- `void free_all(t_minishell *minishell)`
+
+
+
+
 
 ### src/test.c
 - `void test_print_env(t_list *env)`
