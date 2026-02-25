@@ -6,13 +6,27 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 14:40:53 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/25 14:47:07 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/25 14:54:28 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	format_cmds(t_minishell *minishell, t_list *token_list)
+static t_cmd *init_cmd_struct(void)
+{	
+	t_cmd *cmd;
+	
+	cmd = malloc(sizeof(t_cmd));
+	if (!cmd)
+		return (NULL);
+	cmd->args = NULL;
+	cmd->cmd_path = NULL;
+	cmd->fd_in = -1;
+	cmd->fd_out = -1;
+	return (cmd);
+}
+
+int	format_cmds(t_minishell *minishell, t_list *token_list)
 {
 	t_cmd	*cmd;
 	t_token	*token;
@@ -30,7 +44,7 @@ static int	format_cmds(t_minishell *minishell, t_list *token_list)
 		if (!cmd)
 			return (1);
 
-		args_count = count_args(token_list);
+		args_count = count_args_list(token_list);
 		cmd->args = malloc(sizeof(char *) * (args_count + 1));
 		if (!cmd->args)
 		{

@@ -21,6 +21,10 @@ FILES =	main.c \
 		parsing/parser.c \
 		parsing/expands.c \
 		parsing/utils.c \
+		parsing/cmds_builder.c \
+		parsing/post_expands.c \
+		parsing/quotes.c \
+		parsing/syntax.c \
 		utils/free.c \
 		utils/ft_split_unquoted.c \
 		exec/exec_path.c \

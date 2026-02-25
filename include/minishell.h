@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 16:05:58 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/25 14:38:45 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/25 14:57:58 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,56 +59,61 @@ typedef struct s_token
 }	t_token;
 
 
-
-
-
-//main.c
-int	main(int argc, char *argv[], char **envp);
-
-//test.c
-void test_print_env(t_list *env);
-void test_print_env_value(t_list *env, char *key);
-void	test_print_exec_path_tab(char **exec_path_tab);
-void	test_print_list_token(t_list *token_list);
-void	test_print_minish_cmds(t_minishell *minishell);
-
-
-// env/
-//env_init.c
+/* env/ */
+// env_init.c
 t_list	*init_env(char **envp);
 
-//env_utils.c
-char *get_env_value(t_minishell *minishell, char *key);
+// env_utils.c
+char	*get_env_value(t_minishell *minishell, char *key);
 
-//env_path.c
+// env_path.c
 char	**get_exec_path(t_minishell *minishell);
 
-// parsing/
-//lexer.c
+
+/* parsing/ */
+// lexer.c
 t_list	*list_token(char *prompt);
 
-//parser.c
+// parser.c
 void	parsing_prompt(t_minishell *minishell, char *prompt);
 
-//expands.c
-int	handle_expands(t_minishell *minishell, t_list *token_list);
+// expands.c
+int		handle_expands(t_minishell *minishell, t_list *token_list);
 
-//utils.c
+// cmds_builder.c
+int		format_cmds(t_minishell *minishell, t_list *token_list);
+
+// post_expands.c
+void	remake_token_list(t_list **token_list);
+
+// syntax.c
+int		verify_token_list(t_list *token_list);
+
+// utils.c
 void	update_quote_state(char c, int *state);
 int		get_quote_state(char *str, int index);
 int		verify_unclosed_quotes(char *prompt);
 int		count_args_list(t_list *token_list);
 
-// utils/
-//free.c
+
+/* utils/ */
+// free.c
 void	free_token(void *content);
 void	free_env(void *content);
 void	free_tab(char **tab);
 void	free_all(t_minishell *minishell);
 
-// ft_split_unquoted.c/
+// ft_split_unquoted.c
 char	**ft_split_unquoted(char const *s, char c);
 
-//exec
-//exec_path.c
+
+/* exec/ */
+// exec_path.c
 void	find_path(t_minishell *minishell);
+
+/* tests/ */
+// test.c
+void	test_print_env(t_list *env);
+void	test_print_exec_path_tab(char **exec_path_tab);
+void	test_print_list_token(t_list *token_list);
+void	test_print_minish_cmds(t_minishell *minishell);
