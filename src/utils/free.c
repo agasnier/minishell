@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 13:24:46 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/20 13:59:33 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/25 10:52:27 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,27 @@ void	free_token(void *content)
 	free(token);
 }
 
+void	free_cmds(void *content)
+{
+	t_cmd	*cmd;
+
+	if (!content)
+		return ;
+	cmd = (t_cmd *)content;
+	if (cmd->args)
+		free_tab(cmd->args);
+	if (cmd->cmd_path)
+		free(cmd->cmd_path);
+	free(cmd);
+}
+
 void	free_env(void *content)
 {
 	t_env	*env;
 
-	env = (t_env *)content;
-	if (!env)
+	if (!content)
 		return ;
+	env = (t_env *)content;
 	if (env->key)
 		free(env->key);
 	if (env->value)
@@ -56,6 +70,10 @@ void	free_tab(char **tab)
 
 void free_all(t_minishell *minishell)
 {
-	ft_lstclear(&minishell->env, free_env);
-	free_tab(minishell->exec_path_tab);
+	if (minishell->env)
+		ft_lstclear(&minishell->env, free_env);
+	if (minishell->exec_path_tab)
+		free_tab(minishell->exec_path_tab);
+	if (minishell->cmds)
+		ft_lstclear(&minishell->cmds, free_cmds);
 }

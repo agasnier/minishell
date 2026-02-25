@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 16:19:53 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/25 09:19:37 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/25 11:06:11 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,14 @@ static int	format_cmds(t_minishell *minishell, t_list *token_list)
 			}
 			else if (token->type == WORD)
 			{
-				cmd->args[i] = token->token;
+				cmd->args[i] = ft_strdup(token->token);
+				if (!cmd->args[i])
+				{
+					free_tab(cmd->args);
+					free(cmd);
+					return (1);
+				}
+					
 				i++;
 			}
 			token_list = token_list->next;
@@ -271,10 +278,11 @@ void	parsing_prompt(t_minishell *minishell, char *prompt)
 		printf("minishell: memory allocation fail\n");
 		return ;
 	}
-
+	ft_lstclear(&token_list, free_token);
 	find_path(minishell);
 
 
+	
 
 
 
@@ -286,8 +294,8 @@ void	parsing_prompt(t_minishell *minishell, char *prompt)
 
 
 	////test//////////////
-	test_print_list_token(token_list);
-	//test_print_minish_cmds(minishell);
+	//test_print_list_token(token_list);
+	test_print_minish_cmds(minishell);
 	/////////////////////////
 
 
