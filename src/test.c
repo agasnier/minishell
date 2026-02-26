@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 15:23:10 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/24 16:00:09 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/26 09:59:49 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	test_print_list_token(t_list *token_list)
 {
 	t_token	*token;
 
-	printf("\nToken_list:\n");
+	printf("\ntest_print_list_token:\n");
 	while (1)
 	{
 		token = (t_token *)token_list->content;
@@ -78,6 +78,7 @@ void	test_print_list_token(t_list *token_list)
 			break ;
 		token_list = token_list->next;
 	}
+	printf("\n");
 }
 
 void test_print_minish_cmds(t_minishell *minishell)
@@ -94,7 +95,7 @@ void test_print_minish_cmds(t_minishell *minishell)
 	{
 		i = 0;
 		cmd = (t_cmd *)tmp->cmds->content;
-		printf("minish_cmds %i: ", y);
+		printf("test_print_minish_cmds %i: ", y);
 		while (cmd->args[i])
 		{
 			printf("cmd: %s ", cmd->args[i]);
