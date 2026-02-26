@@ -26,6 +26,7 @@ FILES =	main.c \
 		parsing/quotes.c \
 		parsing/syntax.c \
 		parsing/token_type.c \
+		parsing/export.c \
 		utils/free.c \
 		utils/ft_split_unquoted.c \
 		exec/exec_path.c \
@@ -63,6 +64,6 @@ fclean: clean
 re: fclean all
 
 val: all
-	valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all ./minishell
+	valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all --track-origins=yes ./minishell
 
 .PHONY: all clean fclean re

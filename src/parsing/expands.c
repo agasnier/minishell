@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 09:16:51 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/26 12:06:33 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/26 16:58:15 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,22 @@ static char	*integrate_expand(char *token, char *expand_start,
 	return (result);
 }
 
+static char	*extract_expand(char *word)
+{
+	int		i;
+	char	*key;
+
+	i = 1;
+	if (word[i] == '?')
+		return (ft_strdup("?"));
+	while (word[i] && (ft_isalnum(word[i]) || word[i] == '_'))
+		i++;
+	if (i == 1)
+		return (NULL);
+	key = ft_substr(word, 1, i - 1);
+	return (key);
+}
+
 static char	*is_there_expands(char *word)
 {
 	int	i;
@@ -43,22 +59,6 @@ static char	*is_there_expands(char *word)
 		i++;
 	}
 	return (NULL);
-}
-
-static char	*extract_expand(char *word)
-{
-	int		i;
-	char	*key;
-
-	i = 1;
-	if (word[i] == '?')
-		return (ft_strdup("?"));
-	while (word[i] && (ft_isalnum(word[i]) || word[i] == '_'))
-		i++;
-	if (i == 1)
-		return (NULL);
-	key = ft_substr(word, 1, i - 1);
-	return (key);
 }
 
 static int	token_expands(t_minishell *minishell, t_token *token)
@@ -93,7 +93,9 @@ int	handle_expands(t_minishell *minishell, t_list *token_list)
 	while (token_list)
 	{
 		token = (t_token *)token_list->content;
-		if (token_expands(minishell, token) != 0)
+		// if (ft_strcmp(token->token, "export") == 0)
+		// 	handle_export(minishell, &token_list);
+		if (token_expands(minishell, token))
 			return (1);
 		token_list = token_list->next;
 	}
