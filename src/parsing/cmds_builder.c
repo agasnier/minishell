@@ -6,16 +6,16 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 14:40:53 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/25 15:55:45 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/25 16:00:05 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_cmd *init_cmd_struct(void)
-{	
-	t_cmd *cmd;
-	
+static t_cmd	*init_cmd_struct(void)
+{
+	t_cmd	*cmd;
+
 	cmd = malloc(sizeof(t_cmd));
 	if (!cmd)
 		return (NULL);
@@ -52,9 +52,10 @@ static int	fill_cmd_args(t_cmd *cmd, t_list **token_list)
 			*token_list = (*token_list)->next;
 			break ;
 		}
-		if (token->type >= R_INPUT && token->type <= HEREDOC && (*token_list)->next)
+		if (token->type >= R_INPUT && token->type <= HEREDOC
+			&& (*token_list)->next)
 			*token_list = (*token_list)->next;
-		else if (token->token == WORD)
+		else if (token->type == WORD)
 		{
 			if (words_to_args(cmd, token, &i) != 0)
 				return (1);
@@ -108,5 +109,5 @@ int	format_cmds(t_minishell *minishell, t_list *token_list)
 		}
 		ft_lstadd_back(&minishell->cmds, new_node);
 	}
-	return (0);		
+	return (0);
 }

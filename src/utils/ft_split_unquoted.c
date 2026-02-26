@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 18:32:50 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/25 10:21:14 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/26 09:33:31 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static size_t	ft_len_word(char const *s, char c)
 		if (s[len] == c && state == 0)
 			break ;
 		len++;
-	}	
+	}
 	return (len);
 }
 

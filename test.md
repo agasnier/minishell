@@ -25,7 +25,7 @@
 
 
 ///////////////////////////////////////////////// PARSING
-### src/parsing/cmds_builder.c
+### src/parsing/cmds_builder.c NORM
 - `int format_cmds(t_minishell *minishell, t_list *token_list)`
 
 ### src/parsing/expands.c NORM
@@ -35,7 +35,7 @@
 - `static int	token_expands(t_minishell *minishell, t_token *token)`
 - `int handle_expands(t_minishell *minishell, t_list *token_list)`
 
-### src/parsing/lexer.c
+### src/parsing/lexer.c NORM
 - `static t_type get_type(char *token)`
 - `static void each_token(char *prompt, int start, int *i)`
 - `static t_token *get_token(char *prompt, int *i)`
@@ -69,7 +69,7 @@
 - `void free_tab(char **tab)`
 - `void free_all(t_minishell *minishell)`
 
-### src/utils/ft_split_unquoted.c
+### src/utils/ft_split_unquoted.c NORM
 - `static size_t ft_count_word(char const *s, char c)`
 - `static size_t ft_len_word(char const *s, char c)`
 - `static void ft_freeall(char **tab, size_t index)`
