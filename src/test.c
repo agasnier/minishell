@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 15:23:10 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/26 12:03:15 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/26 15:40:27 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,10 @@ void test_print_minish_cmds(t_minishell *minishell)
 			}
 			printf("\n");
 		}
-		printf("path: %s\n\n", cmd->cmd_path);
+		printf("path: %s\n", cmd->cmd_path);
+		printf("fd_in: %i\n", cmd->fd_in);
+		printf("fd_out: %i\n", cmd->fd_out);
+		printf("\n");
 		current = current->next;
 		y++;
 	}
