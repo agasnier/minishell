@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 14:40:53 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/25 16:00:05 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/26 15:22:35 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static t_cmd	*init_cmd_struct(void)
 	cmd->cmd_path = NULL;
 	cmd->fd_in = -1;
 	cmd->fd_out = -1;
+	cmd->delim = NULL;
 	return (cmd);
 }
 
@@ -52,12 +53,14 @@ static int	fill_cmd_args(t_cmd *cmd, t_list **token_list)
 			*token_list = (*token_list)->next;
 			break ;
 		}
-		if (token->type >= R_INPUT && token->type <= HEREDOC
-			&& (*token_list)->next)
-			*token_list = (*token_list)->next;
+		if (token->type >= R_INPUT && token->type <= HEREDOC)
+		{
+			if (handle_token_type(cmd, token_list))
+				return (1);
+		}
 		else if (token->type == WORD)
 		{
-			if (words_to_args(cmd, token, &i) != 0)
+			if (words_to_args(cmd, token, &i))
 				return (1);
 		}
 		*token_list = (*token_list)->next;

@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 09:16:51 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/26 11:40:36 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/26 12:06:33 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static int	token_expands(t_minishell *minishell, t_token *token)
 			return (1);
 		value = get_env_value(minishell, key);
 		if (!value)
-			value = ft_strdup("test \"EXPAND dou_quo\"");
+			value = ft_strdup("expand \"EXPAND | DQ\"");
 		token->token = integrate_expand(token->token, start, key, value);
 		free(key);
 		free(value);

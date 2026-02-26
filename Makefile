@@ -25,6 +25,7 @@ FILES =	main.c \
 		parsing/post_expands.c \
 		parsing/quotes.c \
 		parsing/syntax.c \
+		parsing/token_type.c \
 		utils/free.c \
 		utils/ft_split_unquoted.c \
 		exec/exec_path.c \

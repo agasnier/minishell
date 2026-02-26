@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 16:05:58 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/25 14:57:58 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/26 15:22:52 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <stdlib.h>
+#include <unistd.h>
+#include <fcntl.h>
 
 typedef struct s_env
 {
@@ -29,6 +31,7 @@ typedef struct	s_cmd
 	char	*cmd_path;
 	int		fd_in;
 	int		fd_out;
+	char	*delim;
 }	t_cmd;
 
 typedef struct	s_minishell
@@ -94,6 +97,9 @@ void	update_quote_state(char c, int *state);
 int		get_quote_state(char *str, int index);
 int		verify_unclosed_quotes(char *prompt);
 int		count_args_list(t_list *token_list);
+
+// token_type.c
+int	handle_token_type(t_cmd *cmd, t_list **token_list);
 
 
 /* utils/ */
