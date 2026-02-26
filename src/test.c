@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 15:23:10 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/26 09:59:49 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/26 12:03:15 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,57 +57,59 @@ void	test_print_list_token(t_list *token_list)
 {
 	t_token	*token;
 
-	printf("\ntest_print_list_token:\n");
+	printf("\n\033[0;31mtest_print_list_token:\033[0m\n");
 	while (1)
 	{
 		token = (t_token *)token_list->content;
-		printf("%-10s", token->token);
+		printf("\033[0;36m%s\033[0m", token->token);
 		if (token->type == 0)
-			printf("(WORD)\n");
+			printf("(WORD) ");
 		if (token->type == 1)
-			printf("(PIPE)\n");
+			printf("(PIPE) ");
 		if (token->type == 2)
-			printf("(R_INPUT)\n");
+			printf("(R_INPUT) ");
 		if (token->type == 3)
-			printf("(R_OUTPUT)\n");
+			printf("(R_OUTPUT) ");
 		if (token->type == 4)
-			printf("(R_OUTPUT_APPEND)\n");
+			printf("(R_OUTPUT_APPEND) ");
 		if (token->type == 5)
-			printf("(HEREDOC)\n");
+			printf("(HEREDOC) ");
 		if (!token_list->next)
 			break ;
 		token_list = token_list->next;
 	}
-	printf("\n");
+	printf("\n\n");
 }
 
 void test_print_minish_cmds(t_minishell *minishell)
 {
 	t_cmd	*cmd;
-	t_minishell	*tmp;
+	t_list	*current;
 	int		i;
 	int		y;
-	
 
-	tmp = minishell;
+	current = minishell->cmds; 
 	y = 0;
-	while (tmp->cmds)
+	printf("\033[0;31mtest_print_minish_cmds:\033[0m\n");
+	while (current)
 	{
-		i = 0;
-		cmd = (t_cmd *)tmp->cmds->content;
-		printf("test_print_minish_cmds %i: ", y);
-		while (cmd->args[i])
+		cmd = (t_cmd *)current->content;
+		printf("%i:\n", y);
+		if (cmd->args && cmd->args[0])
+			printf("CMD: %s\n", cmd->args[0]);
+		if (cmd->args && cmd->args[1])
 		{
-			printf("cmd: %s ", cmd->args[i]);
-			i++;
+			printf("ARGS: ");
+			i = 1;
+			while (cmd->args[i])
+			{
+				printf("%s ", cmd->args[i]);
+				i++;
+			}
+			printf("\n");
 		}
-		printf("\n");
 		printf("path: %s\n\n", cmd->cmd_path);
-		if (!tmp->cmds->next)
-			break ;
-		
-		tmp->cmds = tmp->cmds->next;
+		current = current->next;
 		y++;
 	}
-	
 }
