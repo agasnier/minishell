@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: masenche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:44:39 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/26 17:35:44 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/26 20:30:49 by masenche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
 
 int main(int argc, char *argv[], char **envp)
 {
@@ -21,6 +22,9 @@ int main(int argc, char *argv[], char **envp)
 	(void)argc;
 	(void)argv;
 	////////////////////////
+
+	signal(SIGINT, handle_signal);
+	signal(SIGQUIT, SIG_IGN);
 
 	////////// init strcut minishell ///////////////////
 	minishell.exit_status = 0;
@@ -38,9 +42,11 @@ int main(int argc, char *argv[], char **envp)
 	while (1)
 	{
 		line_read = readline("minishell> ");
-
 		// line_read = "test < r_input | test > r_output | test >> r_output_append | test << here_doc_limiter | $exp | cmd arg1 arg2 arg3";
-
+		if (g_receive_message == 1)
+		{
+			g_receive_message = 0;
+		}
 		if (!line_read)
 		{
 			printf("exit\n");
@@ -49,8 +55,6 @@ int main(int argc, char *argv[], char **envp)
 
 		if (line_read[0] != '\0')
 		{
-			if (line_read[0] == '1')
-				break ;
 			add_history(line_read);
 			parsing_prompt(&minishell, line_read);
 			/////test////
@@ -68,3 +72,4 @@ int main(int argc, char *argv[], char **envp)
 	free_all(&minishell);
 	
 }
+

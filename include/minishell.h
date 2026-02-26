@@ -3,20 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: masenche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 16:05:58 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/26 15:22:52 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/26 18:57:02 by masenche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <fcntl.h>
+#ifndef MINISHELL_H
+# define MINISHELL_H
+
+# include "libft.h"
+# include <stdio.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include <sys/types.h>
+# include <signal.h>
 
 typedef struct s_env
 {
@@ -117,9 +122,16 @@ char	**ft_split_unquoted(char const *s, char c);
 // exec_path.c
 void	find_path(t_minishell *minishell);
 
+/* signal/ */
+// signal.c
+void	handle_signal(int sig);
 /* tests/ */
 // test.c
 void	test_print_env(t_list *env);
 void	test_print_exec_path_tab(char **exec_path_tab);
 void	test_print_list_token(t_list *token_list);
 void	test_print_minish_cmds(t_minishell *minishell);
+
+extern volatile sig_atomic_t g_receive_message;
+
+#endif
