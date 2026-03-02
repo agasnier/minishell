@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: masenche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 16:19:53 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/26 12:08:59 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/26 18:54:54 by masenche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void	parsing_prompt(t_minishell *minishell, char *prompt)
 	t_list	*token_list;
 
 	token_list = NULL;
-
 	if (lexing_part(prompt, &token_list))
 		return ;
 		
@@ -77,7 +76,6 @@ void	parsing_prompt(t_minishell *minishell, char *prompt)
 		
 	if (command_builder_part(minishell, token_list))
 		return ;
-
 	/////////////////////////////////////////////////////// TEST
 	test_print_minish_cmds(minishell);
 }

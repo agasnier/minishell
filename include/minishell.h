@@ -5,18 +5,24 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/03 16:05:58 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/26 18:01:35 by algasnie         ###   ########.fr       */
+/*   Created: 2026/03/02 09:35:13 by algasnie          #+#    #+#             */
+/*   Updated: 2026/03/02 09:35:15 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <fcntl.h>
+#ifndef MINISHELL_H
+# define MINISHELL_H
+
+# include "libft.h"
+# include <stdio.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <signal.h>
 
 typedef struct s_env
 {
@@ -70,6 +76,7 @@ char	*get_env_value(t_minishell *minishell, char *key);
 
 // env_path.c
 char	**get_exec_path(t_minishell *minishell);
+void	update_env_value(t_minishell *minishell, char *key, char *new_value);
 
 
 /* parsing/ */
@@ -98,13 +105,14 @@ int		verify_unclosed_quotes(char *prompt);
 int		count_args_list(t_list *token_list);
 
 // token_type.c
-int	handle_token_type(t_cmd *cmd, t_list **token_list);
+int		handle_token_type(t_cmd *cmd, t_list **token_list);
 
 
 /* utils/ */
 // free.c
 void	free_token(void *content);
 void	free_env(void *content);
+void	free_cmds(void *content);
 void	free_tab(char **tab);
 void	free_all(t_minishell *minishell);
 
@@ -116,9 +124,37 @@ char	**ft_split_unquoted(char const *s, char c);
 // exec_path.c
 void	find_path(t_minishell *minishell);
 
+// exec_main.c
+void	exec_command(t_minishell *minishell);
+
+//conv.c
+char	**convert_env_to_tab(t_list *env_list);
+
+//builtins.c
+int		is_builtin(char *cmd);
+int		execute_builtin(t_cmd *cmd, t_minishell *minishell);
+void	builtin_status_exit(t_cmd *cmd, t_minishell *minishell);
+
+/* signal/ */
+// signal.c
+void	handle_signal(int sig);
+
+/*builtins*/
+int		builtin_echo(t_cmd *cmd, t_minishell *minishell);
+int		builtin_pwd(t_cmd *cmd);
+int		builtin_unset(t_cmd *cmd, t_minishell *minishell);
+int		builtin_env(t_cmd *cmd, t_minishell *minishell);
+int		builtin_export(t_cmd *cmd, t_minishell *minishell);
+int		builtin_exit(t_cmd *cmd, t_minishell *minishell);
+int		builtin_cd(t_cmd *cmd, t_minishell *minishell);
+
 /* tests/ */
 // test.c
 void	test_print_env(t_list *env);
 void	test_print_exec_path_tab(char **exec_path_tab);
 void	test_print_list_token(t_list *token_list);
 void	test_print_minish_cmds(t_minishell *minishell);
+
+extern volatile sig_atomic_t g_receive_message;
+
+#endif

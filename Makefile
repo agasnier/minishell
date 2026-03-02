@@ -1,7 +1,7 @@
 NAME = minishell
 
 CC		= cc
-CFLAGS	= -Werror -Wall -Wextra
+CFLAGS	= -Werror -Wall -Wextra -fPIC
 
 MANDA_DIR		= src
 OBJ_DIR			= obj
@@ -30,6 +30,17 @@ FILES =	main.c \
 		utils/free.c \
 		utils/ft_split_unquoted.c \
 		exec/exec_path.c \
+		exec/exec_main.c \
+		exec/conv.c \
+		exec/builtins.c \
+		signal/signal.c \
+		builtin/cd.c \
+		builtin/echo.c \
+		builtin/env.c \
+		builtin/exit.c \
+		builtin/export.c \
+		builtin/pwd.c \
+		builtin/unset.c
 
 SRCS = $(addprefix $(MANDA_DIR)/, $(FILES))
 
