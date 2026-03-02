@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 16:05:58 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/26 15:22:52 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/02/26 18:01:35 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ typedef enum e_type
 	R_OUTPUT,
 	R_OUTPUT_APPEND,
 	HEREDOC,
-	
 }	t_type;
 
 typedef struct s_token
