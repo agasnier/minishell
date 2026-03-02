@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masenche <masenche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 18:47:55 by masenche          #+#    #+#             */
-/*   Updated: 2026/03/01 20:31:12 by masenche         ###   ########.fr       */
+/*   Updated: 2026/03/02 16:04:59 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	execute_builtin(t_cmd *cmd, t_minishell *minishell)
 	}
 	if (ft_strcmp(cmd->args[0], "env") == 0)
 	{
-		builtin_status = builtin_env(cmd, minishell);
+		builtin_status = builtin_env(minishell);
 		return (builtin_status);
 	}
 	if (ft_strcmp(cmd->args[0], "exit") == 0)
