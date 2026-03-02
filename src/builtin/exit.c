@@ -3,19 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masenche <masenche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: masenche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 18:49:46 by masenche          #+#    #+#             */
-/*   Updated: 2026/03/01 19:13:36 by masenche         ###   ########.fr       */
+/*   Updated: 2026/03/02 17:46:46 by masenche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	builtin_exit(t_cmd *cmd, t_minishell *minishell)
+void	builtin_exit(t_minishell *minishell)
 {
-	(void)minishell;
-	(void)cmd;
-	// À coder
-	return (0);
+	int final_status;
+
+    ft_putstr_fd("exit\n", 2);
+    final_status = minishell->exit_status;
+	free_all(minishell);
+    exit(final_status);
 }

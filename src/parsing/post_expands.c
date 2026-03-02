@@ -6,11 +6,33 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 11:14:26 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/25 14:53:54 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/02 10:21:52 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	remove_quotes(t_list **token_list)
+{
+	t_list	*current;
+	t_token	*token;
+
+	current = *token_list;
+	
+	while (current)
+	{
+		token = (t_token *)current->content;
+		if (token->type == WORD)
+		{
+			token->token = remove_token_quotes(token->token);
+			if (!token->token)
+				return ;
+		}
+		if (!current->next)
+			break ;
+		current = current->next;
+	}
+}
 
 void remake_token_list(t_list **token_list)
 {
@@ -84,4 +106,5 @@ void remake_token_list(t_list **token_list)
 		prev = current;
 		current = current->next;
 	}
+	remove_quotes(token_list);
 }

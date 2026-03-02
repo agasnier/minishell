@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masenche <masenche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: masenche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/03 16:05:58 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/01 20:36:53 by masenche         ###   ########.fr       */
+/*   Created: 2026/03/02 09:35:13 by algasnie          #+#    #+#             */
+/*   Updated: 2026/03/02 17:14:38 by masenche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "libft.h"
+# include "../libft/libft.h"
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -58,7 +58,6 @@ typedef enum e_type
 	R_OUTPUT,
 	R_OUTPUT_APPEND,
 	HEREDOC,
-	
 }	t_type;
 
 typedef struct s_token
@@ -100,6 +99,7 @@ void	remake_token_list(t_list **token_list);
 int		verify_token_list(t_list *token_list);
 
 // utils.c
+char	*remove_token_quotes(char *str);
 void	update_quote_state(char c, int *state);
 int		get_quote_state(char *str, int index);
 int		verify_unclosed_quotes(char *prompt);
@@ -141,12 +141,12 @@ void	builtin_status_exit(t_cmd *cmd, t_minishell *minishell);
 void	handle_signal(int sig);
 
 /*builtins*/
-int		builtin_echo(t_cmd *cmd, t_minishell *minishell);
+int		builtin_echo(t_cmd *cmd);
 int		builtin_pwd(t_cmd *cmd);
 int		builtin_unset(t_cmd *cmd, t_minishell *minishell);
 int		builtin_env(t_cmd *cmd, t_minishell *minishell);
 int		builtin_export(t_cmd *cmd, t_minishell *minishell);
-int		builtin_exit(t_cmd *cmd, t_minishell *minishell);
+void	builtin_exit(t_minishell *minishell);
 int		builtin_cd(t_cmd *cmd, t_minishell *minishell);
 
 /* tests/ */

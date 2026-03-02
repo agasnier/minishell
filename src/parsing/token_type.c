@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 14:28:53 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/26 15:34:13 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/02 09:48:31 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ static int	handle_fd_out(t_cmd *cmd, t_token *token, t_token *token_next)
 		fd = open(token_next->token, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (fd == -1)
 	{
-		return (1); ///////perror
+		perror("minishell");
+		return (1);
 	}
 	if (cmd->fd_out > 2)
 		close(cmd->fd_out);
@@ -38,7 +39,8 @@ static int	handle_fd_in(t_cmd *cmd, t_token *token_next)
 	fd = open(token_next->token, O_RDONLY);
 	if (fd == -1)
 	{
-		return (1); /////perror
+		perror("minishell");
+		return (1);
 	}
 	if (cmd->fd_in > 2)
 		close(cmd->fd_in);
