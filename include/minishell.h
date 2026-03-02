@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 09:35:13 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/02 09:35:15 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/02 10:16:17 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ void	remake_token_list(t_list **token_list);
 int		verify_token_list(t_list *token_list);
 
 // utils.c
+char	*remove_token_quotes(char *str);
 void	update_quote_state(char c, int *state);
 int		get_quote_state(char *str, int index);
 int		verify_unclosed_quotes(char *prompt);
