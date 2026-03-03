@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 09:35:13 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/03 09:59:27 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/03 16:10:16 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ int		builtin_unset(t_cmd *cmd, t_minishell *minishell);
 int		builtin_env(t_minishell *minishell);
 int		builtin_export(t_cmd *cmd, t_minishell *minishell);
 int		export_print_env(t_minishell *minishell);
-void		builtin_exit(t_minishell *minishell);
+void	builtin_exit(t_minishell *minishell);
 int		builtin_cd(t_cmd *cmd, t_minishell *minishell);
 
 
