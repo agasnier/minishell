@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masenche <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 14:34:28 by algasnie          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2026/03/02 10:26:25 by algasnie         ###   ########.fr       */
-=======
-/*   Updated: 2026/03/02 15:10:04 by masenche         ###   ########.fr       */
->>>>>>> origin/mat
+/*   Updated: 2026/03/03 10:52:28 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,23 +48,12 @@ char *remove_token_quotes(char *str)
 	new_str = malloc(sizeof(char) * (get_len_unquoted(str) + 1));
 	if (!new_str)
 		return (NULL);
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/mat
 	while (str && str[i])
 	{
 		old_state = state;
 		update_quote_state(str[i], &state);
 		if (state == old_state)
-<<<<<<< HEAD
-		{
-			new_str[j] = str[i];
-			j++;
-		}
-=======
 			new_str[j++] = str[i];
->>>>>>> origin/mat
 		i++;
 	}
 	new_str[j] = '\0';
