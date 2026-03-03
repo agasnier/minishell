@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: masenche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 13:24:46 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/25 15:31:00 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/02 18:27:40 by masenche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@ void	free_cmds(void *content)
 	if (!content)
 		return ;
 	cmd = (t_cmd *)content;
+	if (cmd->fd_in > 2)
+		close(cmd->fd_in);
+	if (cmd->fd_out > 2)
+		close(cmd->fd_out);
 	if (cmd->args)
 		free_tab(cmd->args);
 	if (cmd->cmd_path)

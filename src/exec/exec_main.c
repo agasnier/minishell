@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 18:16:41 by masenche          #+#    #+#             */
-/*   Updated: 2026/03/02 15:30:11 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/03 10:00:19 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	exe_child(t_cmd *cmd, t_minishell *minishell, char **env_tab)
 {
-	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_DFL);
+	int status;
 
+	signal(SIGINT, SIG_DFL);
 	if (cmd->fd_in > 2)
 	{
 		dup2(cmd->fd_in, STDIN_FILENO);
@@ -29,12 +29,14 @@ void	exe_child(t_cmd *cmd, t_minishell *minishell, char **env_tab)
 	}
 	if (is_builtin(cmd->args[0]))
 	{
-		int status = execute_builtin(cmd, minishell);
+		status = execute_builtin(cmd, minishell);
+		signal(SIGINT, handle_signal);
 		free_tab(env_tab);
 		free_all(minishell);
 		exit(status);
 	}
-	if (cmd->cmd_path && execve(cmd->cmd_path, cmd->args, env_tab) == -1)
+	if (cmd->cmd_path && execve(cmd->cmd_path,
+			cmd->args, env_tab) == -1)
 	{
 		perror("minishell");
 		exit(127);
@@ -61,8 +63,10 @@ void	exec_fork(t_cmd *cmd, char **env_tab, t_minishell *minishell)
 		waitpid(pid, &status, 0);
 		if (WIFEXITED(status))
 			minishell->exit_status = WEXITSTATUS(status);
-		if (cmd->fd_in > 2) close(cmd->fd_in);
-		if (cmd->fd_out > 2) close(cmd->fd_out);
+		//if (cmd->fd_in > 2)
+		//	close(cmd->fd_in);
+		//if (cmd->fd_out > 2)
+		//	close(cmd->fd_out);
 		free_tab(env_tab);
 	}
 }
@@ -101,7 +105,10 @@ void	execute_pipeline(t_minishell *minishell, t_cmd *cmd)
 	{
 		cmd = (t_cmd *)curr->content;
 		if (curr->next && pipe(pipe_fds) == -1)
-			return (perror("pipe"));
+		{
+			perror("pipe");
+			return ;
+		}
 		last_pid = fork();
 		if (last_pid == 0)
 		{
@@ -118,17 +125,18 @@ void	execute_pipeline(t_minishell *minishell, t_cmd *cmd)
 			}
 			exe_child(cmd, minishell, env_tab);
 		}
-		if (prev_read_fd != -1) close(prev_read_fd);
+		if (prev_read_fd != -1)
+			close(prev_read_fd);
 		if (curr->next)
 		{
 			close(pipe_fds[1]);
 			prev_read_fd = pipe_fds[0];
 		}
 		curr = curr->next;
-		if (cmd->fd_in > 2)
-		close(cmd->fd_in);
-		if (cmd->fd_out > 2)
-		close(cmd->fd_out);
+		//if (cmd->fd_in > 2)
+		//	close(cmd->fd_in);
+		//if (cmd->fd_out > 2)
+		//	close(cmd->fd_out);
 	}
 	free_tab(env_tab);
 	wait_all_children(last_pid, minishell);

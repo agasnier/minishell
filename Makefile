@@ -47,7 +47,6 @@ SRCS = $(addprefix $(MANDA_DIR)/, $(FILES))
 
 OBJS = $(SRCS:$(MANDA_DIR)/%.c=$(OBJ_DIR)/%.o)
 
-HEADERS = $(INC_DIR)/minishell.h
 
 all: $(LIBFT) $(NAME)
 
@@ -61,7 +60,7 @@ $(NAME): $(OBJS) $(LIBFT)
 	@$(CC) $(OBJS) $(LFLAGS) -o $(NAME)
 	@echo "Compilation minishell OK."
 
-$(OBJ_DIR)/%.o: $(MANDA_DIR)/%.c $(HEADERS)
+$(OBJ_DIR)/%.o: $(MANDA_DIR)/%.c
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
@@ -76,6 +75,6 @@ fclean: clean
 re: fclean all
 
 val: all
-	valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all --track-origins=yes ./minishell
+	valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes  ./minishell
 
 .PHONY: all clean fclean re

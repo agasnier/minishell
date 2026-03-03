@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masenche <masenche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: masenche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:44:39 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/01 20:32:43 by masenche         ###   ########.fr       */
+/*   Updated: 2026/03/02 17:46:36 by masenche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,12 @@ int main(int argc, char *argv[], char **envp)
 	
 	while (1)
 	{
-		line_read = readline("minishell> ");
+		
+		line_read = readline("\nminishell> ");
 		// line_read = "test < r_input | test > r_output | test >> r_output_append | test << here_doc_limiter | $exp | cmd arg1 arg2 arg3";
 		if (g_receive_message == 1)
 		{
-			//mettre minishell.exit.status = 130
+			minishell.exit_status = 130;
 			g_receive_message = 0;
 			
 		}
@@ -55,7 +56,7 @@ int main(int argc, char *argv[], char **envp)
 			printf("exit\n");
 			break ;
 		}
-
+		
 		if (line_read[0] != '\0')
 		{
 			add_history(line_read);
@@ -63,8 +64,8 @@ int main(int argc, char *argv[], char **envp)
 			/////test////
 			printf("RETURN: %d\n", minishell.exit_status);
 			///////
-			if (minishell.cmds && minishell.cmds->content)
-        		exec_command(&minishell);
+			if (minishell.cmds)
+				exec_command(&minishell);
 			ft_lstclear(&minishell.cmds, free_cmds);
 		}
 
