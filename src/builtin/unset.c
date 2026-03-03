@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 18:49:27 by masenche          #+#    #+#             */
-/*   Updated: 2026/03/03 16:27:32 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/03 16:31:41 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ static void	remove_env_var(t_list **env_list, char *key)
 	while (current)
 	{
 		env_node = (t_env *)current->content;
-		
 		if (ft_strcmp(env_node->key, key) == 0)
 		{
 			if (prev)
@@ -42,12 +41,9 @@ static void	remove_env_var(t_list **env_list, char *key)
 int	builtin_unset(t_cmd *cmd, t_minishell *minishell)
 {
 	int		i;
-	t_list	*node_found;
 
-	node_found = NULL;
 	if (!cmd->args[1])
 		return (0);
-
 	i = 1;
 	while (cmd->args[i])
 	{

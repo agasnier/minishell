@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 18:49:13 by masenche          #+#    #+#             */
-/*   Updated: 2026/03/03 16:10:06 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/03 16:33:00 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static int	search_export(t_list *env_list, t_env *export)
 	}
 	return (0);
 }
+
 static int	fill_env_data(t_env *new_node, char *str)
 {
 	int	i;
@@ -61,10 +62,10 @@ static int	fill_env_data(t_env *new_node, char *str)
 	return (1);
 }
 
-static int verify_export_syntax (char *str)
+static int	verify_export_syntax(char *str)
 {
 	int	i;
-	
+
 	if (!ft_isalpha(str[0]) && str[0] != '_')
 		return (1);
 	i = 1;
@@ -74,7 +75,6 @@ static int verify_export_syntax (char *str)
 			return (1);
 		i++;
 	}
-		
 	return (0);
 }
 
@@ -82,7 +82,7 @@ static int	builtin_export_helper(t_cmd *cmd, t_minishell *minishell, int i)
 {
 	t_env	*export;
 	t_list	*new_node;
-	
+
 	export = malloc(sizeof(t_env));
 	if (!export)
 		return (1);
@@ -108,18 +108,17 @@ int	builtin_export(t_cmd *cmd, t_minishell *minishell)
 {
 	int		i;
 
-	
 	if (!cmd->args[1])
 	{
 		export_print_env(minishell);
 		return (0);
 	}
-
 	i = 1;
 	while (cmd->args[i])
 	{
 		if (verify_export_syntax(cmd->args[i]))
-			printf("minishell: export: `%s': not a valid identifier", cmd->args[i]);
+			printf("minishell: export: `%s': not a valid identifier",
+				cmd->args[i]);
 		else
 		{
 			if (builtin_export_helper(cmd, minishell, i))

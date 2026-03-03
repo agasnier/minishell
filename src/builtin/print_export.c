@@ -6,13 +6,13 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 17:05:06 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/03 10:12:18 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/03 16:33:44 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void print_export(t_env **tab, int size)
+static void	print_export(t_env **tab, int size)
 {
 	int	i;
 
@@ -52,7 +52,6 @@ static void	sort_env_tab(t_env **tab, int size)
 		}
 		i++;
 	}
-	
 }
 
 static void	fill_sorted_env(t_list *env_list, t_env **sorted_env)
@@ -68,7 +67,6 @@ static void	fill_sorted_env(t_list *env_list, t_env **sorted_env)
 	}
 }
 
-
 int	export_print_env(t_minishell *minishell)
 {
 	int		size;
@@ -78,7 +76,6 @@ int	export_print_env(t_minishell *minishell)
 	sorted_env = malloc(sizeof(t_env *) * size);
 	if (!sorted_env)
 		return (1);
-
 	fill_sorted_env(minishell->env, sorted_env);
 	sort_env_tab(sorted_env, size);
 	print_export(sorted_env, size);
