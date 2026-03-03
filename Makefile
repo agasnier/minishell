@@ -1,7 +1,7 @@
 NAME = minishell
 
 CC		= cc
-CFLAGS	= -Werror -Wall -Wextra -fPIC
+CFLAGS	= -Werror -Wall -Wextra
 
 MANDA_DIR		= src
 OBJ_DIR			= obj
@@ -29,6 +29,7 @@ FILES =	main.c \
 		parsing/export.c \
 		utils/free.c \
 		utils/ft_split_unquoted.c \
+		utils/close_fd.c \
 		exec/exec_path.c \
 		exec/exec_main.c \
 		exec/conv.c \

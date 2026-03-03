@@ -6,27 +6,18 @@
 /*   By: masenche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 18:16:41 by masenche          #+#    #+#             */
-/*   Updated: 2026/03/02 18:28:36 by masenche         ###   ########.fr       */
+/*   Updated: 2026/03/03 16:50:44 by masenche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <unistd.h>
 
 void	exe_child(t_cmd *cmd, t_minishell *minishell, char **env_tab)
 {
 	int status;
 
 	signal(SIGINT, SIG_DFL);
-	if (cmd->fd_in > 2)
-	{
-		dup2(cmd->fd_in, STDIN_FILENO);
-		close(cmd->fd_in);
-	}
-	if (cmd->fd_out > 2)
-	{
-		dup2(cmd->fd_out, STDOUT_FILENO);
-		close(cmd->fd_out);
-	}
 	if (is_builtin(cmd->args[0]))
 	{
 		status = execute_builtin(cmd, minishell);
@@ -63,10 +54,6 @@ void	exec_fork(t_cmd *cmd, char **env_tab, t_minishell *minishell)
 		waitpid(pid, &status, 0);
 		if (WIFEXITED(status))
 			minishell->exit_status = WEXITSTATUS(status);
-		//if (cmd->fd_in > 2)
-		//	close(cmd->fd_in);
-		//if (cmd->fd_out > 2)
-		//	close(cmd->fd_out);
 		free_tab(env_tab);
 	}
 }
@@ -90,55 +77,44 @@ void	wait_all_children(pid_t last_pid, t_minishell *minishell)
 	signal(SIGINT, handle_signal);
 }
 
+pid_t	ft_fork(t_pipeline pipeline, t_cmd *cmd, t_minishell *minishell, t_list *curr)
+{
+	pid_t	last_pid;
+
+	last_pid = fork();
+	if (last_pid == 0)
+	{
+		close_fd(pipeline.prev_read_fd, curr, pipeline.pipe_fds);
+		exe_child(cmd, minishell, pipeline.env_tab);
+	}
+	if (pipeline.prev_read_fd != -1)
+		close(pipeline.prev_read_fd);
+	return (last_pid);
+}
+
 void	execute_pipeline(t_minishell *minishell, t_cmd *cmd)
 {
-	t_list	*curr;
-	int		pipe_fds[2];
-	int		prev_read_fd;
-	pid_t	last_pid;
-	char	**env_tab;
+	t_list		*curr;
+	t_pipeline	pipeline;
+	pid_t		last_pid;
 
+	pipeline.env_tab = convert_env_to_tab(minishell->env);
+	pipeline.prev_read_fd = -1;
 	curr = minishell->cmds;
-	prev_read_fd = -1; 
-	env_tab = convert_env_to_tab(minishell->env);
 	while (curr)
 	{
 		cmd = (t_cmd *)curr->content;
-		if (curr->next && pipe(pipe_fds) == -1)
+		if (curr->next && pipe(pipeline.pipe_fds) == -1)
 		{
 			perror("pipe");
 			return ;
 		}
-		last_pid = fork();
-		if (last_pid == 0)
-		{
-			if (prev_read_fd != -1)
-			{
-				dup2(prev_read_fd, STDIN_FILENO);
-				close(prev_read_fd);
-			}
-			if (curr->next)
-			{
-				close(pipe_fds[0]);
-				dup2(pipe_fds[1], STDOUT_FILENO);
-				close(pipe_fds[1]);
-			}
-			exe_child(cmd, minishell, env_tab);
-		}
-		if (prev_read_fd != -1)
-			close(prev_read_fd);
+		last_pid = ft_fork(pipeline, cmd, minishell, curr);
 		if (curr->next)
-		{
-			close(pipe_fds[1]);
-			prev_read_fd = pipe_fds[0];
-		}
+			pipeline.prev_read_fd = close_read_fd(pipeline.pipe_fds);
 		curr = curr->next;
-		//if (cmd->fd_in > 2)
-		//	close(cmd->fd_in);
-		//if (cmd->fd_out > 2)
-		//	close(cmd->fd_out);
 	}
-	free_tab(env_tab);
+	free_tab(pipeline.env_tab);
 	wait_all_children(last_pid, minishell);
 }
 
@@ -149,6 +125,7 @@ void	exec_command(t_minishell *minishell)
 	if (!minishell->cmds)
 		return ;
 	first_cmd = (t_cmd *)minishell->cmds->content;
+	
 	if (ft_lstsize(minishell->cmds) == 1 && is_builtin(first_cmd->args[0]))
 		builtin_status_exit(first_cmd, minishell);
 	else

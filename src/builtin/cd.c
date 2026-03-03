@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masenche <masenche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: masenche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 18:48:54 by masenche          #+#    #+#             */
-/*   Updated: 2026/03/01 19:11:21 by masenche         ###   ########.fr       */
+/*   Updated: 2026/03/03 14:29:08 by masenche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	builtin_cd(t_cmd *cmd, t_minishell *minishell)
 		target_dir = get_env_value(minishell, "HOME");
 	else
 		target_dir = cmd->args[1];
-
 	if (!target_dir)
 	{
 		ft_putstr_fd("minishell: cd: HOME not set\n", 2);

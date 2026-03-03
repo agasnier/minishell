@@ -6,7 +6,7 @@
 /*   By: masenche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 09:35:13 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/02 17:14:38 by masenche         ###   ########.fr       */
+/*   Updated: 2026/03/03 16:42:17 by masenche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,12 @@ typedef struct s_token
 	t_type	type;
 }	t_token;
 
+typedef struct s_pipeline
+{
+	int		prev_read_fd;
+	char	**env_tab;
+	int		pipe_fds[2];
+}	t_pipeline;
 
 /* env/ */
 // env_init.c
@@ -120,6 +126,9 @@ void	free_all(t_minishell *minishell);
 // ft_split_unquoted.c
 char	**ft_split_unquoted(char const *s, char c);
 
+// close_fd.c
+void	close_fd(int prev_read_fd, t_list *curr, int *pipe_fds);
+int	close_read_fd(int *pipe_fds);
 
 /* exec/ */
 // exec_path.c
@@ -146,7 +155,7 @@ int		builtin_pwd(t_cmd *cmd);
 int		builtin_unset(t_cmd *cmd, t_minishell *minishell);
 int		builtin_env(t_cmd *cmd, t_minishell *minishell);
 int		builtin_export(t_cmd *cmd, t_minishell *minishell);
-void	builtin_exit(t_minishell *minishell);
+int		builtin_exit(t_minishell *minishell, t_cmd *cmd);
 int		builtin_cd(t_cmd *cmd, t_minishell *minishell);
 
 /* tests/ */
