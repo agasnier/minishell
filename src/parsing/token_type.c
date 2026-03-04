@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 14:28:53 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/02 09:48:31 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/03 16:45:01 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,10 @@ int	handle_token_type(t_cmd *cmd, t_list **token_list)
 	{
 		if (handle_fd_out(cmd, token, token_next))
 			return (1);
+	}
+	else if (token->type == HEREDOC)
+	{
+		
 	}
 	return (0);
 }
