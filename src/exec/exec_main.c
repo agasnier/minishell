@@ -6,16 +6,32 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 18:16:41 by masenche          #+#    #+#             */
-/*   Updated: 2026/03/04 10:42:30 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/04 11:35:56 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <unistd.h>
 
+static void	exe_child_fd(t_cmd *cmd)
+{
+	if (cmd->fd_in != -1)
+	{
+		dup2(cmd->fd_in, STDIN_FILENO);
+		close(cmd->fd_in);
+	}
+	if (cmd->fd_out != -1)
+	{
+		dup2(cmd->fd_out, STDOUT_FILENO);
+		close(cmd->fd_out);
+	}
+}
+
 void	exe_child(t_cmd *cmd, t_minishell *minishell, char **env_tab)
 {
 	int status;
+
+	exe_child_fd(cmd);
 
 	signal(SIGINT, SIG_DFL);
 	if (is_builtin(cmd->args[0]))

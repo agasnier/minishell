@@ -6,11 +6,41 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 14:28:53 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/03 16:45:01 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/04 11:24:02 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int	handle_heredoc(t_cmd *cmd, t_token *token_next)
+{
+	char	*line;
+	int		fd[2];
+
+	if (pipe(fd) == -1)
+	{
+		perror("minishell:");
+		return (1);
+	}
+	while (1)
+	{
+		line = readline("> ");
+		if (!line)
+			break ;
+		if (ft_strcmp(line, token_next->token) == 0)
+		{
+			free(line);
+			break ;
+		}
+		ft_putendl_fd(line, fd[1]);
+		free(line);
+	}
+	close(fd[1]);
+	if (cmd->fd_in > 2)
+		close(cmd->fd_in);
+	cmd->fd_in = fd[0];
+	return (0);
+}
 
 static int	handle_fd_out(t_cmd *cmd, t_token *token, t_token *token_next)
 {
@@ -59,7 +89,7 @@ int	handle_token_type(t_cmd *cmd, t_list **token_list)
 
 	if (token->type == R_INPUT)
 	{
-		if (handle_fd_in(cmd, token))
+		if (handle_fd_in(cmd, token_next))
 			return (1);
 	}
 	else if (token->type == R_OUTPUT || token->type == R_OUTPUT_APPEND)
@@ -69,7 +99,8 @@ int	handle_token_type(t_cmd *cmd, t_list **token_list)
 	}
 	else if (token->type == HEREDOC)
 	{
-		
+		if (handle_heredoc(cmd, token_next))
+			return (1);
 	}
 	return (0);
 }
