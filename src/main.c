@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masenche <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:44:39 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/03 18:20:12 by masenche         ###   ########.fr       */
+/*   Updated: 2026/03/05 16:18:49 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,11 @@ int main(int argc, char *argv[], char **envp)
 			add_history(line_read);
 			parsing_prompt(&minishell, line_read);
 			
-			///////
 			if (minishell.cmds)
 				exec_command(&minishell);
 			ft_lstclear(&minishell.cmds, free_cmds);
-			/////test////
-			printf("RETURN: %d\n", minishell.exit_status);
+			// /////test////
+			// printf("RETURN: %d\n", minishell.exit_status);
 		}
 
 			
