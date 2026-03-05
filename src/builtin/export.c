@@ -6,16 +6,17 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 18:49:13 by masenche          #+#    #+#             */
-/*   Updated: 2026/03/03 16:33:00 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/05 15:28:44 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	search_export(t_list *env_list, t_env *export)
+static int	search_export(t_list *env_list, t_env *export, int *conc)
 {
 	t_list	*tmp;
 	t_env	*env_node;
+	char	*value;
 
 	tmp = env_list;
 	while (tmp)
@@ -25,8 +26,13 @@ static int	search_export(t_list *env_list, t_env *export)
 		{
 			if (export->value)
 			{
+				if (env_node->value && *conc == 1)
+					value = ft_strjoin(env_node->value, export->value);
+				else
+					value = ft_strdup(export->value);
 				free(env_node->value);
-				env_node->value = export->value;
+				free(export->value);
+				env_node->value = value;
 			}
 			free(export->key);
 			free(export);
@@ -37,14 +43,18 @@ static int	search_export(t_list *env_list, t_env *export)
 	return (0);
 }
 
-static int	fill_env_data(t_env *new_node, char *str)
+static int	fill_env_data(t_env *new_node, char *str, int *conc)
 {
 	int	i;
 
 	i = 0;
 	while (str[i] && str[i] != '=')
+	{
 		i++;
-	new_node->key = ft_substr(str, 0, i);
+		if (i > 0 && str[i - 1] == '+' && str[i] == '=')
+			*conc = 1;
+	}
+	new_node->key = ft_substr(str, 0, i - *conc);
 	new_node->exported = 1;
 	if (!new_node->key)
 		return (0);
@@ -71,6 +81,8 @@ static int	verify_export_syntax(char *str)
 	i = 1;
 	while (str[i] && str[i] != '=')
 	{
+		if (str[i] == '+' && str[i + 1] == '=')
+			return (0);
 		if (!ft_isalnum(str[i]) && str[i] != '_')
 			return (1);
 		i++;
@@ -82,16 +94,18 @@ static int	builtin_export_helper(t_cmd *cmd, t_minishell *minishell, int i)
 {
 	t_env	*export;
 	t_list	*new_node;
+	int		conc;
 
+	conc = 0;
 	export = malloc(sizeof(t_env));
 	if (!export)
 		return (1);
-	if (fill_env_data(export, cmd->args[i]) == 0)
+	if (fill_env_data(export, cmd->args[i], &conc) == 0)
 	{
 		free(export);
 		return (1);
 	}
-	if (search_export(minishell->env, export) == 0)
+	if (search_export(minishell->env, export, &conc) == 0)
 	{
 		new_node = ft_lstnew(export);
 		if (!export || !new_node)
@@ -117,7 +131,7 @@ int	builtin_export(t_cmd *cmd, t_minishell *minishell)
 	while (cmd->args[i])
 	{
 		if (verify_export_syntax(cmd->args[i]))
-			printf("minishell: export: `%s': not a valid identifier",
+			printf("minishell: export: `%s': not a valid identifier\n",
 				cmd->args[i]);
 		else
 		{
