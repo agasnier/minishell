@@ -20,7 +20,6 @@ FILES =	main.c \
 		parsing/lexer.c \
 		parsing/parser.c \
 		parsing/expands.c \
-		parsing/utils.c \
 		parsing/cmds_builder.c \
 		parsing/post_expands.c \
 		parsing/quotes.c \
@@ -29,19 +28,20 @@ FILES =	main.c \
 		utils/free.c \
 		utils/ft_split_unquoted.c \
 		utils/close_fd.c \
+		utils/utils.c \
 		exec/exec_path.c \
 		exec/exec_main.c \
 		exec/conv.c \
 		exec/builtins.c \
 		signal/signal.c \
-		builtin/cd.c \
-		builtin/echo.c \
-		builtin/env.c \
-		builtin/exit.c \
-		builtin/export.c \
-		builtin/print_export.c \
-		builtin/pwd.c \
-		builtin/unset.c
+		builtins/cd.c \
+		builtins/echo.c \
+		builtins/env.c \
+		builtins/exit.c \
+		builtins/export.c \
+		builtins/print_export.c \
+		builtins/pwd.c \
+		builtins/unset.c
 
 SRCS = $(addprefix $(MANDA_DIR)/, $(FILES))
 

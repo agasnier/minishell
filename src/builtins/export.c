@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 18:49:13 by masenche          #+#    #+#             */
-/*   Updated: 2026/03/05 15:28:44 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/05 15:32:00 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,9 @@ static int	search_export(t_list *env_list, t_env *export, int *conc)
 				else
 					value = ft_strdup(export->value);
 				free(env_node->value);
-				free(export->value);
 				env_node->value = value;
 			}
-			free(export->key);
-			free(export);
+			free_env(export);
 			return (1);
 		}
 		tmp = tmp->next;

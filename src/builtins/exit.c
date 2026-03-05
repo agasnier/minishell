@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masenche <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 18:49:46 by masenche          #+#    #+#             */
-/*   Updated: 2026/03/03 15:51:43 by masenche         ###   ########.fr       */
+/*   Updated: 2026/03/05 15:37:24 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_exit_alph_arg(t_cmd *cmd, t_minishell *minishell)
+static void	print_exit_alph_arg(t_cmd *cmd, t_minishell *minishell)
 {
 	int	i;
 

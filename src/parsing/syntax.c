@@ -6,13 +6,13 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 14:33:05 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/25 15:29:49 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/05 15:57:00 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	syntax_token_list(t_token *token, t_token *next)
+static int	syntax_token_list(t_token *token, t_token *next)
 {
 	if (token->type == PIPE && (!next || next->type == PIPE))
 	{

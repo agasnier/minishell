@@ -6,13 +6,13 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 11:14:26 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/04 11:54:40 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/05 15:51:07 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	remove_quotes(t_list **token_list)
+static void	remove_quotes(t_list **token_list)
 {
 	t_list	*current;
 	t_token	*token;

@@ -6,14 +6,14 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 18:48:29 by masenche          #+#    #+#             */
-/*   Updated: 2026/03/04 10:40:29 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/05 15:36:53 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "minishell.h"
 
-int	option_n(char *arg)
+static int	option_n(char *arg)
 {
 	size_t	i;
 
