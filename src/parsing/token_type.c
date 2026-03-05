@@ -6,13 +6,13 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 14:28:53 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/04 11:24:02 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/05 14:42:44 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	handle_heredoc(t_cmd *cmd, t_token *token_next)
+static int	handle_heredoc(t_minishell *minishell, t_cmd *cmd, t_token *token_next)
 {
 	char	*line;
 	int		fd[2];
@@ -32,6 +32,8 @@ static int	handle_heredoc(t_cmd *cmd, t_token *token_next)
 			free(line);
 			break ;
 		}
+		if (token_next->quoted == 0)
+			line = token_expands(minishell, line, 1);
 		ft_putendl_fd(line, fd[1]);
 		free(line);
 	}
@@ -78,7 +80,7 @@ static int	handle_fd_in(t_cmd *cmd, t_token *token_next)
 	return (0);
 }
 
-int	handle_token_type(t_cmd *cmd, t_list **token_list)
+int	handle_token_type(t_minishell *minishell, t_cmd *cmd, t_list **token_list)
 {
 	t_token	*token;
 	t_token	*token_next;
@@ -99,7 +101,8 @@ int	handle_token_type(t_cmd *cmd, t_list **token_list)
 	}
 	else if (token->type == HEREDOC)
 	{
-		if (handle_heredoc(cmd, token_next))
+		cmd->delim_quoted = token_next->quoted;
+		if (handle_heredoc(minishell, cmd, token_next))
 			return (1);
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 15:23:10 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/26 15:40:27 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/05 11:18:05 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,6 @@ void test_print_env(t_list *env)
 		env = env->next;
 	}
 }
-
-
-/// test de la recherche de la VALUE dans l'env
-// void test_print_env_value(t_list *env, char *key)
-// {
-// 	char *value;
-
-// 	value = get_env_value(env, key);
-// 	printf("Key: %s Value: %s\n", key, value);
-// }
 
 /// test du tableau des paths des exec
 void	test_print_exec_path_tab(char **exec_path_tab)
@@ -61,7 +51,7 @@ void	test_print_list_token(t_list *token_list)
 	while (1)
 	{
 		token = (t_token *)token_list->content;
-		printf("\033[0;36m%s\033[0m", token->token);
+		printf("\033[0;36m%s\033[0m q%i", token->token, token->quoted);
 		if (token->type == 0)
 			printf("(WORD) ");
 		if (token->type == 1)

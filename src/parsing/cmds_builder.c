@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmds_builder.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masenche <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 14:40:53 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/02 18:29:33 by masenche         ###   ########.fr       */
+/*   Updated: 2026/03/05 11:35:49 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static t_cmd	*init_cmd_struct(void)
 	cmd->cmd_path = NULL;
 	cmd->fd_in = -1;
 	cmd->fd_out = -1;
-	cmd->delim = NULL;
+	cmd->delim_quoted = 0;
 	return (cmd);
 }
 
@@ -39,7 +39,7 @@ static int	words_to_args(t_cmd *cmd, t_token *token, int *i)
 	return (0);
 }
 
-static int	fill_cmd_args(t_cmd *cmd, t_list **token_list)
+static int	fill_cmd_args(t_minishell *minishell, t_cmd *cmd, t_list **token_list)
 {
 	t_token	*token;
 	int		i;
@@ -55,7 +55,7 @@ static int	fill_cmd_args(t_cmd *cmd, t_list **token_list)
 		}
 		if (token->type >= R_INPUT && token->type <= HEREDOC)
 		{
-			if (handle_token_type(cmd, token_list))
+			if (handle_token_type(minishell, cmd, token_list))
 				return (1);
 		}
 		else if (token->type == WORD)
@@ -69,7 +69,7 @@ static int	fill_cmd_args(t_cmd *cmd, t_list **token_list)
 	return (0);
 }
 
-static t_cmd	*build_cmd(t_list **token_list)
+static t_cmd	*build_cmd(t_minishell *minishell, t_list **token_list)
 {
 	t_cmd	*cmd;
 	int		args_count;
@@ -84,7 +84,7 @@ static t_cmd	*build_cmd(t_list **token_list)
 		free(cmd);
 		return (NULL);
 	}
-	if (fill_cmd_args(cmd, token_list) == 1)
+	if (fill_cmd_args(minishell, cmd, token_list) == 1)
 	{
 		free(cmd);
 		return (NULL);
@@ -100,7 +100,7 @@ int	format_cmds(t_minishell *minishell, t_list *token_list)
 	minishell->cmds = NULL;
 	while (token_list)
 	{
-		cmd = build_cmd(&token_list);
+		cmd = build_cmd(minishell, &token_list);
 		if (!cmd)
 			return (1);
 		new_node = ft_lstnew(cmd);

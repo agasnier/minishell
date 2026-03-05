@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 09:16:51 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/04 11:53:15 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/05 14:41:52 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static char	*extract_expand(char *word)
 	return (key);
 }
 
-static char	*is_there_expands(char *word)
+char	*is_there_expands(char *word, int heredoc)
 {
 	int	i;
 
@@ -53,7 +53,7 @@ static char	*is_there_expands(char *word)
 	{
 		if (word[i] == '$')
 		{
-			if (get_quote_state(word, i) != 1)
+			if (heredoc || get_quote_state(word, i) != 1)
 				return (&word[i]);
 		}
 		i++;
@@ -61,29 +61,29 @@ static char	*is_there_expands(char *word)
 	return (NULL);
 }
 
-static int	token_expands(t_minishell *minishell, t_token *token)
+char *token_expands(t_minishell *minishell, char *token, int heredoc)
 {
 	char	*start;
 	char	*key;
 	char	*value;
 
-	start = is_there_expands(token->token);
+	start = is_there_expands(token, heredoc);
 	while (start)
 	{
 		key = extract_expand(start);
 		if (!key)
-			return (1);
+			return (NULL);
 		value = get_env_value(minishell, key);
 		if (!value)
 			value = ft_strdup("");
-		token->token = integrate_expand(token->token, start, key, value);
+		token = integrate_expand(token, start, key, value);
 		free(key);
 		free(value);
-		if (!token->token)
-			return (1);
-		start = is_there_expands(token->token);
+		if (!token)
+			return (NULL);
+		start = is_there_expands(token, heredoc);
 	}
-	return (0);
+	return (token);
 }
 
 int	handle_expands(t_minishell *minishell, t_list *token_list)
@@ -93,7 +93,8 @@ int	handle_expands(t_minishell *minishell, t_list *token_list)
 	while (token_list)
 	{
 		token = (t_token *)token_list->content;
-		if (token_expands(minishell, token))
+		token->token = token_expands(minishell, token->token, 0);
+		if (!token->token)
 			return (1);
 		token_list = token_list->next;
 	}

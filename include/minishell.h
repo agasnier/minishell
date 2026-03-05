@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 09:35:13 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/04 10:40:10 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/05 14:43:59 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef struct	s_cmd
 	char	*cmd_path;
 	int		fd_in;
 	int		fd_out;
-	char	*delim;
+	int		delim_quoted;
 }	t_cmd;
 
 typedef struct	s_minishell
@@ -64,6 +64,7 @@ typedef struct s_token
 {
 	char	*token;
 	t_type	type;
+	int		quoted;
 }	t_token;
 
 typedef struct s_pipeline
@@ -93,6 +94,8 @@ t_list	*list_token(char *prompt);
 void	parsing_prompt(t_minishell *minishell, char *prompt);
 
 // expands.c
+char *token_expands(t_minishell *minishell, char *token, int heredoc);
+char	*is_there_expands(char *word, int heredoc);
 int		handle_expands(t_minishell *minishell, t_list *token_list);
 
 // cmds_builder.c
@@ -105,6 +108,7 @@ void	remake_token_list(t_list **token_list);
 int		verify_token_list(t_list *token_list);
 
 // utils.c
+int	get_len_unquoted(char *str);
 char	*remove_token_quotes(char *str);
 void	update_quote_state(char c, int *state);
 int		get_quote_state(char *str, int index);
@@ -112,7 +116,7 @@ int		verify_unclosed_quotes(char *prompt);
 int		count_args_list(t_list *token_list);
 
 // token_type.c
-int		handle_token_type(t_cmd *cmd, t_list **token_list);
+int		handle_token_type(t_minishell *minishell, t_cmd *cmd, t_list **token_list);
 
 
 /* utils/ */

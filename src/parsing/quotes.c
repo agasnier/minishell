@@ -6,13 +6,13 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 14:34:28 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/03 10:52:28 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/05 11:14:19 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	get_len_unquoted(char *str)
+int	get_len_unquoted(char *str)
 {
 	int	i;
 	int	state;
