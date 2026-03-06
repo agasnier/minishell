@@ -1,6 +1,6 @@
 NAME = libftprintf.a
 CC = cc
-CFLAGS = -Werror -Wall -Wextra
+CFLAGS = -Werror -Wall -Wextra -I../libft/
 
 SRCS = ft_printf.c \
 	ft_orchestror.c \
@@ -15,7 +15,7 @@ SRCS = ft_printf.c \
 	
 OBJS = $(SRCS:.c=.o)
 
-LIBFT_DIR = libft/
+LIBFT_DIR = ../libft/
 
 LIBFT = $(LIBFT_DIR)libft.a
 

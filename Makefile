@@ -11,8 +11,8 @@ FT_PRINTF_DIR	= ft_printf
 
 LIBFT		= $(LIBFT_DIR)/libft.a
 PRINTF		= $(FT_PRINTF_DIR)/libftprintf.a
-INCLUDES	= -I$(INC_DIR) -I$(LIBFT_DIR)
-LFLAGS		= -L$(LIBFT_DIR) -lft -lreadline
+INCLUDES	= -I$(INC_DIR) -I$(LIBFT_DIR) -I$(FT_PRINTF_DIR)
+LFLAGS		= -L$(LIBFT_DIR) -lft -L$(FT_PRINTF_DIR) -lreadline
 
 FILES =	main.c \
 		test.c \
@@ -50,17 +50,19 @@ SRCS = $(addprefix $(MANDA_DIR)/, $(FILES))
 OBJS = $(SRCS:$(MANDA_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 
-all: $(LIBFT) $(NAME)
+all: $(LIBFT) $(PRINTF) $(NAME)
 
 $(LIBFT):
 	@echo "Compilation de la Libft..."
 	@make -C $(LIBFT_DIR) > /dev/null
 	@echo "Compilation de la Libft OK"
+
+$(PRINTF):
 	@echo "Compilation de ft_printf..."
 	@make -C $(FT_PRINTF_DIR) > /dev/null
 	@echo "Compilation de la ft_printf OK"
 
-$(NAME): $(OBJS) $(LIBFT)
+$(NAME): $(OBJS) $(LIBFT) $(PRINTF)
 	@echo "Compilation minishell..."
 	@$(CC) $(OBJS) $(LFLAGS) -o $(NAME)
 	@echo "Compilation minishell OK."
