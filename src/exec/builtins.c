@@ -6,7 +6,7 @@
 /*   By: masenche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 18:47:55 by masenche          #+#    #+#             */
-/*   Updated: 2026/03/03 16:22:41 by masenche         ###   ########.fr       */
+/*   Updated: 2026/03/06 15:09:14 by masenche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,9 @@ int	execute_builtin(t_cmd *cmd, t_minishell *minishell)
 	else if (ft_strcmp(cmd->args[0], "unset") == 0)
 		builtin_status = builtin_unset(cmd, minishell);
 	else if (ft_strcmp(cmd->args[0], "env") == 0)
-		builtin_status = builtin_env(cmd, minishell);
+		builtin_status = builtin_env(minishell);
+	else if (ft_strcmp(cmd->args[0], "exit") == 0)
+		builtin_status = builtin_exit(minishell, cmd);
 	return (builtin_status);
 }
 
@@ -67,7 +69,17 @@ void	builtin_status_exit(t_cmd *cmd, t_minishell *minishell)
 	saved_fds[0] = dup(STDIN_FILENO);
     saved_fds[1] = dup(STDOUT_FILENO);
     if (saved_fds[0] == -1 || saved_fds[1] == -1)
-        return ;
+		return ;
+	if (cmd->fd_in != -1)
+	{
+		dup2(cmd->fd_in, STDIN_FILENO);
+		close(cmd->fd_in);
+	}
+	if (cmd->fd_out != -1)
+	{
+		dup2(cmd->fd_out, STDOUT_FILENO);
+		close(cmd->fd_out);
+	}
     minishell->exit_status = execute_builtin(cmd, minishell);
     dup2(saved_fds[0], STDIN_FILENO);
     dup2(saved_fds[1], STDOUT_FILENO);

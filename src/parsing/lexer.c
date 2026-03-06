@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 15:01:35 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/26 09:30:58 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/05 11:18:34 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ static t_token	*get_token(char *prompt, int *i)
 	t_token	*token;
 	int		start;
 
+
 	token = malloc(sizeof(t_token));
 	if (!token)
 		return (NULL);
@@ -74,6 +75,9 @@ static t_token	*get_token(char *prompt, int *i)
 		return (NULL);
 	}
 	token->type = get_type(token->token);
+	token->quoted = 0;
+	if ((int)ft_strlen(token->token) > get_len_unquoted(token->token))
+		token->quoted = 1;
 	return (token);
 }
 

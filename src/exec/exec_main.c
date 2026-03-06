@@ -6,16 +6,32 @@
 /*   By: masenche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 18:16:41 by masenche          #+#    #+#             */
-/*   Updated: 2026/03/03 16:50:44 by masenche         ###   ########.fr       */
+/*   Updated: 2026/03/06 15:45:26 by masenche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <unistd.h>
 
+static void	exe_child_fd(t_cmd *cmd)
+{
+	if (cmd->fd_in != -1)
+	{
+		dup2(cmd->fd_in, STDIN_FILENO);
+		close(cmd->fd_in);
+	}
+	if (cmd->fd_out != -1)
+	{
+		dup2(cmd->fd_out, STDOUT_FILENO);
+		close(cmd->fd_out);
+	}
+}
+
 void	exe_child(t_cmd *cmd, t_minishell *minishell, char **env_tab)
 {
 	int status;
+
+	exe_child_fd(cmd);
 
 	signal(SIGINT, SIG_DFL);
 	if (is_builtin(cmd->args[0]))
@@ -26,13 +42,20 @@ void	exe_child(t_cmd *cmd, t_minishell *minishell, char **env_tab)
 		free_all(minishell);
 		exit(status);
 	}
-	if (cmd->cmd_path && execve(cmd->cmd_path,
-			cmd->args, env_tab) == -1)
+	if (!cmd->cmd_path)
 	{
-		perror("minishell");
-		exit(127);
+		ft_printf(2, "minishell: %s: command not found\n", cmd->args[0]);
+		free_tab(env_tab);
+		free_all(minishell);
+		exit (127);
 	}
-	exit(0);
+	execve(cmd->cmd_path, cmd->args, env_tab);
+	ft_printf(2, "minishell: ");
+	perror(cmd->args[0]);
+	free_tab(env_tab);
+	free_all(minishell);
+	exit(126);
+
 }
 
 void	exec_fork(t_cmd *cmd, char **env_tab, t_minishell *minishell)
@@ -71,7 +94,11 @@ void	wait_all_children(pid_t last_pid, t_minishell *minishell)
 			if (WIFEXITED(status))
 				minishell->exit_status = WEXITSTATUS(status);
 			else if (WIFSIGNALED(status))
+			{
 				minishell->exit_status = 128 + WTERMSIG(status);
+				if (WTERMSIG(status) == SIGINT)
+					write(1, "\n", 1);
+			}
 		}
 	}
 	signal(SIGINT, handle_signal);

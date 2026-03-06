@@ -6,24 +6,37 @@
 /*   By: masenche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 18:49:46 by masenche          #+#    #+#             */
-/*   Updated: 2026/03/03 15:51:43 by masenche         ###   ########.fr       */
+/*   Updated: 2026/03/06 15:11:53 by masenche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_printf.h"
 #include "minishell.h"
+#include <unistd.h>
 
-void	print_exit_alph_arg(t_cmd *cmd, t_minishell *minishell)
+static int is_invalid_exit_arg(const char *str)
 {
-	int	i;
+	int i = 0;
 
-	write(1, "exit : ", 7);
-	i = 0;
-	while (cmd->args[1][i])
+	if (!str || !str[0])
+		return (1);
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	if (!str[i])
+		return (1);
+	while (str[i])
 	{
-		write (1, &cmd->args[1][i], 1);
+		if (!ft_isdigit(str[i]))
+			return (1);
 		i++;
 	}
-	printf(": numeric argument required\n");
+	return (0);
+}
+
+static void	print_exit_alph_arg(t_cmd *cmd, t_minishell *minishell)
+{
+
+	ft_printf(2, "minishell: exit: %s: numeric argument required\n", cmd->args[1]);
 	free_all(minishell);
 	exit(2);
 }
@@ -31,22 +44,18 @@ void	print_exit_alph_arg(t_cmd *cmd, t_minishell *minishell)
 int	builtin_exit(t_minishell *minishell, t_cmd *cmd)
 {
 	int	final_status;
-	int	i;
 
-	ft_putstr_fd("exit\n", 2);
+	if (minishell->cmds && !minishell->cmds->next)
+		ft_printf(2, "exit\n");
 	if (cmd->args[1])
 	{
+		if (is_invalid_exit_arg(cmd->args[1]))
+			print_exit_alph_arg(cmd, minishell);
+		
 		if (cmd->args[2])
 		{
-			printf("exit: too many arguments\n");
+			ft_printf(2, "minishell: exit: too many arguments\n");
 			return (1);
-		}
-		i = 0;
-		while (cmd->args[1][i])
-		{
-			if (ft_isalpha(cmd->args[1][i]) == 1)
-			print_exit_alph_arg(cmd, minishell);
-		i++;
 		}
 	}
 	if (!cmd->args[1])

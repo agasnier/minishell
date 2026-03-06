@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masenche <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 16:19:53 by algasnie          #+#    #+#             */
-/*   Updated: 2026/02/26 18:54:54 by masenche         ###   ########.fr       */
+/*   Updated: 2026/03/06 13:45:16 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static int	command_builder_part(t_minishell *minishell, t_list *token_list)
 	if (format_cmds(minishell, token_list))
 	{
 		ft_lstclear(&token_list, free_token);
-		printf("minishell: memory allocation fail\n");
 		return (1);
 	}
 	ft_lstclear(&token_list, free_token);
@@ -63,7 +62,7 @@ void	parsing_prompt(t_minishell *minishell, char *prompt)
 		return ;
 		
 	/////////////////////////////////////////////////////// TEST
-	test_print_list_token(token_list);
+	// test_print_list_token(token_list);
 
 	if (validation_part(minishell, token_list))
 		return ;
@@ -72,10 +71,10 @@ void	parsing_prompt(t_minishell *minishell, char *prompt)
 		return ;
 
 	/////////////////////////////////////////////////////// TEST
-	test_print_list_token(token_list);
+	// test_print_list_token(token_list);
 		
 	if (command_builder_part(minishell, token_list))
 		return ;
 	/////////////////////////////////////////////////////// TEST
-	test_print_minish_cmds(minishell);
+	// test_print_minish_cmds(minishell);
 }

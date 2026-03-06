@@ -7,10 +7,12 @@ MANDA_DIR		= src
 OBJ_DIR			= obj
 INC_DIR			= include
 LIBFT_DIR		= libft
+FT_PRINTF_DIR	= ft_printf
 
 LIBFT		= $(LIBFT_DIR)/libft.a
-INCLUDES	= -I$(INC_DIR) -I$(LIBFT_DIR)
-LFLAGS		= -L$(LIBFT_DIR) -lft -lreadline
+PRINTF		= $(FT_PRINTF_DIR)/libftprintf.a
+INCLUDES	= -I$(INC_DIR) -I$(LIBFT_DIR) -I$(FT_PRINTF_DIR)
+LFLAGS		= -L$(LIBFT_DIR) -lft -L$(FT_PRINTF_DIR) -lftprintf -lreadline
 
 FILES =	main.c \
 		test.c \
@@ -20,42 +22,47 @@ FILES =	main.c \
 		parsing/lexer.c \
 		parsing/parser.c \
 		parsing/expands.c \
-		parsing/utils.c \
 		parsing/cmds_builder.c \
 		parsing/post_expands.c \
 		parsing/quotes.c \
 		parsing/syntax.c \
 		parsing/token_type.c \
-		parsing/export.c \
 		utils/free.c \
 		utils/ft_split_unquoted.c \
 		utils/close_fd.c \
+		utils/utils.c \
 		exec/exec_path.c \
 		exec/exec_main.c \
 		exec/conv.c \
 		exec/builtins.c \
 		signal/signal.c \
-		builtin/cd.c \
-		builtin/echo.c \
-		builtin/env.c \
-		builtin/exit.c \
-		builtin/export.c \
-		builtin/pwd.c \
-		builtin/unset.c
+		builtins/cd.c \
+		builtins/echo.c \
+		builtins/env.c \
+		builtins/exit.c \
+		builtins/export.c \
+		builtins/print_export.c \
+		builtins/pwd.c \
+		builtins/unset.c
 
 SRCS = $(addprefix $(MANDA_DIR)/, $(FILES))
 
 OBJS = $(SRCS:$(MANDA_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 
-all: $(LIBFT) $(NAME)
+all: $(LIBFT) $(PRINTF) $(NAME)
 
 $(LIBFT):
 	@echo "Compilation de la Libft..."
 	@make -C $(LIBFT_DIR) > /dev/null
 	@echo "Compilation de la Libft OK"
 
-$(NAME): $(OBJS) $(LIBFT)
+$(PRINTF):
+	@echo "Compilation de ft_printf..."
+	@make -C $(FT_PRINTF_DIR) > /dev/null
+	@echo "Compilation de la ft_printf OK"
+
+$(NAME): $(OBJS) $(LIBFT) $(PRINTF)
 	@echo "Compilation minishell..."
 	@$(CC) $(OBJS) $(LFLAGS) -o $(NAME)
 	@echo "Compilation minishell OK."
@@ -67,14 +74,16 @@ $(OBJ_DIR)/%.o: $(MANDA_DIR)/%.c
 clean:
 	@rm -rf $(OBJ_DIR)
 	@make clean -C $(LIBFT_DIR) > /dev/null
+	@make clean -C $(FT_PRINTF_DIR) > /dev/null
 
 fclean: clean
 	@rm -rf $(NAME)
 	@make fclean -C $(LIBFT_DIR) > /dev/null
+	@make fclean -C $(FT_PRINTF_DIR) > /dev/null
 
 re: fclean all
 
 val: all
-	valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes  ./minishell
+	valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all --track-origins=yes -track-fds=yes --trace-children=yes  ./minishell
 
 .PHONY: all clean fclean re
