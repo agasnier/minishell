@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 18:47:55 by masenche          #+#    #+#             */
-/*   Updated: 2026/03/05 15:54:53 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/06 10:44:05 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,17 @@ void	builtin_status_exit(t_cmd *cmd, t_minishell *minishell)
 	saved_fds[0] = dup(STDIN_FILENO);
     saved_fds[1] = dup(STDOUT_FILENO);
     if (saved_fds[0] == -1 || saved_fds[1] == -1)
-        return ;
+		return ;
+	if (cmd->fd_in != -1)
+	{
+		dup2(cmd->fd_in, STDIN_FILENO);
+		close(cmd->fd_in);
+	}
+	if (cmd->fd_out != -1)
+	{
+		dup2(cmd->fd_out, STDOUT_FILENO);
+		close(cmd->fd_out);
+	}
     minishell->exit_status = execute_builtin(cmd, minishell);
     dup2(saved_fds[0], STDIN_FILENO);
     dup2(saved_fds[1], STDOUT_FILENO);
