@@ -7,8 +7,10 @@ MANDA_DIR		= src
 OBJ_DIR			= obj
 INC_DIR			= include
 LIBFT_DIR		= libft
+FT_PRINTF_DIR	= ft_printf
 
 LIBFT		= $(LIBFT_DIR)/libft.a
+PRINTF		= $(FT_PRINTF_DIR)/libftprintf.a
 INCLUDES	= -I$(INC_DIR) -I$(LIBFT_DIR)
 LFLAGS		= -L$(LIBFT_DIR) -lft -lreadline
 
@@ -54,6 +56,9 @@ $(LIBFT):
 	@echo "Compilation de la Libft..."
 	@make -C $(LIBFT_DIR) > /dev/null
 	@echo "Compilation de la Libft OK"
+	@echo "Compilation de ft_printf..."
+	@make -C $(FT_PRINTF_DIR) > /dev/null
+	@echo "Compilation de la ft_printf OK"
 
 $(NAME): $(OBJS) $(LIBFT)
 	@echo "Compilation minishell..."
@@ -67,10 +72,12 @@ $(OBJ_DIR)/%.o: $(MANDA_DIR)/%.c
 clean:
 	@rm -rf $(OBJ_DIR)
 	@make clean -C $(LIBFT_DIR) > /dev/null
+	@make clean -C $(FT_PRINTF_DIR) > /dev/null
 
 fclean: clean
 	@rm -rf $(NAME)
 	@make fclean -C $(LIBFT_DIR) > /dev/null
+	@make clean -C $(FT_PRINTF_DIR) > /dev/null
 
 re: fclean all
 

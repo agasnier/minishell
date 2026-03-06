@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:44:39 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/05 16:18:49 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/06 10:48:33 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int main(int argc, char *argv[], char **envp)
 	
 	while (1)
 	{
-		line_read = readline("\nminishell> ");
+		line_read = readline("minishell> ");
 		// line_read = "test < r_input | test > r_output | test >> r_output_append | test << here_doc_limiter | $exp | cmd arg1 arg2 arg3";
 		if (g_receive_message == 1)
 		{
