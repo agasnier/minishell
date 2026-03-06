@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 14:28:53 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/06 11:34:45 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/06 13:55:04 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static int	handle_heredoc(t_minishell *minishell, t_cmd *cmd, t_token *token_nex
 	char	*line;
 	int		fd[2];
 
+	signal(SIGINT, SIG_DFL);
 	if (pipe(fd) == -1)
 	{
 		perror("minishell:");

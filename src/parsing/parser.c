@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 16:19:53 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/05 16:18:37 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/06 13:45:16 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static int	command_builder_part(t_minishell *minishell, t_list *token_list)
 	if (format_cmds(minishell, token_list))
 	{
 		ft_lstclear(&token_list, free_token);
-		printf("minishell: memory allocation fail\n");
 		return (1);
 	}
 	ft_lstclear(&token_list, free_token);

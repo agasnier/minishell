@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 18:49:46 by masenche          #+#    #+#             */
-/*   Updated: 2026/03/05 15:37:24 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/06 13:53:20 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	print_exit_alph_arg(t_cmd *cmd, t_minishell *minishell)
 		write (1, &cmd->args[1][i], 1);
 		i++;
 	}
-	printf(": numeric argument required\n");
+	ft_printf(2, "minishell: numeric argument required\n");
 	free_all(minishell);
 	exit(2);
 }
@@ -38,7 +38,7 @@ int	builtin_exit(t_minishell *minishell, t_cmd *cmd)
 	{
 		if (cmd->args[2])
 		{
-			printf("exit: too many arguments\n");
+			ft_printf(2, "minishell: exit: too many arguments\n");
 			return (1);
 		}
 		i = 0;
