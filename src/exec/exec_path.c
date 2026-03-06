@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 16:25:35 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/04 11:37:49 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/06 13:30:34 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static char	*find_exec(char **cmd, char **path)
 
 	if (!cmd[0])
 		return (NULL);
-	if (access(cmd[0], X_OK) == 0)
+	if (access(cmd[0], F_OK) == 0)
 		return (ft_strdup(cmd[0]));
 	i = 0;
 	while (path && path[i])
@@ -28,7 +28,7 @@ static char	*find_exec(char **cmd, char **path)
 		tmp = ft_strjoin(path[i], "/");
 		tmp2 = ft_strjoin(tmp, cmd[0]);
 		free(tmp);
-		if (access(tmp2, X_OK) == 0)
+		if (access(tmp2, F_OK) == 0)
 			return (tmp2);
 		free(tmp2);
 		i++;

@@ -12,7 +12,7 @@ FT_PRINTF_DIR	= ft_printf
 LIBFT		= $(LIBFT_DIR)/libft.a
 PRINTF		= $(FT_PRINTF_DIR)/libftprintf.a
 INCLUDES	= -I$(INC_DIR) -I$(LIBFT_DIR) -I$(FT_PRINTF_DIR)
-LFLAGS		= -L$(LIBFT_DIR) -lft -L$(FT_PRINTF_DIR) -lreadline
+LFLAGS		= -L$(LIBFT_DIR) -lft -L$(FT_PRINTF_DIR) -lftprintf -lreadline
 
 FILES =	main.c \
 		test.c \
@@ -79,7 +79,7 @@ clean:
 fclean: clean
 	@rm -rf $(NAME)
 	@make fclean -C $(LIBFT_DIR) > /dev/null
-	@make clean -C $(FT_PRINTF_DIR) > /dev/null
+	@make fclean -C $(FT_PRINTF_DIR) > /dev/null
 
 re: fclean all
 

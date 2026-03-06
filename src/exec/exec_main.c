@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 18:16:41 by masenche          #+#    #+#             */
-/*   Updated: 2026/03/04 11:35:56 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/06 13:36:21 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,20 @@ void	exe_child(t_cmd *cmd, t_minishell *minishell, char **env_tab)
 		free_all(minishell);
 		exit(status);
 	}
-	if (cmd->cmd_path && execve(cmd->cmd_path,
-			cmd->args, env_tab) == -1)
+	if (!cmd->cmd_path)
 	{
-		perror("minishell");
-		exit(127);
+		ft_printf(2, "minishell: %s: command not found\n", cmd->args[0]);
+		free_tab(env_tab);
+		free_all(minishell);
+		exit (127);
 	}
-	exit(0);
+	execve(cmd->cmd_path, cmd->args, env_tab);
+	ft_printf(2, "minishell: ");
+	perror(cmd->args[0]);
+	free_tab(env_tab);
+	free_all(minishell);
+	exit(126);
+
 }
 
 void	exec_fork(t_cmd *cmd, char **env_tab, t_minishell *minishell)
