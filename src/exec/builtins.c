@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 18:47:55 by masenche          #+#    #+#             */
-/*   Updated: 2026/03/06 10:44:05 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/08 14:43:38 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ int	execute_builtin(t_cmd *cmd, t_minishell *minishell)
 		builtin_status = builtin_unset(cmd, minishell);
 	else if (ft_strcmp(cmd->args[0], "env") == 0)
 		builtin_status = builtin_env(minishell);
+	else if (ft_strcmp(cmd->args[0], "exit") == 0)
+		builtin_status = builtin_exit(minishell, cmd);
 	return (builtin_status);
 }
 

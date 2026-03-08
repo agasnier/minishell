@@ -6,11 +6,10 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 18:48:29 by masenche          #+#    #+#             */
-/*   Updated: 2026/03/05 16:40:38 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/08 14:42:44 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "minishell.h"
 
 static int is_flag_n(char *str)

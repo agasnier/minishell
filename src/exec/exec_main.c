@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 18:16:41 by masenche          #+#    #+#             */
-/*   Updated: 2026/03/06 13:36:21 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/08 14:43:45 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,11 @@ void	wait_all_children(pid_t last_pid, t_minishell *minishell)
 			if (WIFEXITED(status))
 				minishell->exit_status = WEXITSTATUS(status);
 			else if (WIFSIGNALED(status))
+			{
 				minishell->exit_status = 128 + WTERMSIG(status);
+				if (WTERMSIG(status) == SIGINT)
+					write(1, "\n", 1);
+			}
 		}
 	}
 	signal(SIGINT, handle_signal);
