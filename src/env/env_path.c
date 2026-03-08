@@ -31,6 +31,7 @@ void	update_env_value(t_minishell *minishell, char *key, char *new_value)
 {
 	t_list	*tmp;
 	t_env	*env_node;
+	t_list	*new_node;
 
 	tmp = minishell->env;
 	while (tmp)
@@ -44,4 +45,17 @@ void	update_env_value(t_minishell *minishell, char *key, char *new_value)
 		}
 		tmp = tmp->next;
 	}
+	env_node = malloc(sizeof(t_env));
+	if (!env_node)
+		return ;
+	env_node->key = ft_strdup(key);
+	env_node->value = ft_strdup(new_value);
+	env_node->exported = 1;
+	new_node = ft_lstnew(env_node);
+	if (!env_node->key || !new_node)
+	{
+		free_env(env_node);
+		return ;
+	}
+	ft_lstadd_back(&minishell->env, new_node);
 }

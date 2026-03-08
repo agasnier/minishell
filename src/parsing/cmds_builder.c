@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 14:40:53 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/06 13:46:54 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/08 16:05:57 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static t_cmd	*build_cmd(t_minishell *minishell, t_list **token_list)
 	}
 	if (fill_cmd_args(minishell, cmd, token_list) == 1)
 	{
-		free(cmd);
+		free_cmds(cmd);
 		return (NULL);
 	}
 	return (cmd);

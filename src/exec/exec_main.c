@@ -34,6 +34,12 @@ void	exe_child(t_cmd *cmd, t_minishell *minishell, char **env_tab)
 	exe_child_fd(cmd);
 
 	signal(SIGINT, SIG_DFL);
+	if (!cmd->args[0])
+	{
+		free_tab(env_tab);
+		free_all(minishell);
+		exit(0);
+	}
 	if (is_builtin(cmd->args[0]))
 	{
 		status = execute_builtin(cmd, minishell);
