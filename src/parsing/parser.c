@@ -33,7 +33,11 @@ static int	expands_part(t_minishell *minishell, t_list **token_list)
 		minishell->exit_status = 1;
 		return (1);
 	}
-	remake_token_list(token_list);
+	if (remake_token_list(token_list))
+	{
+		minishell->exit_status = 1;
+		return (1);
+	}
 	return (0);
 }
 
