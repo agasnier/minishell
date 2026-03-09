@@ -32,6 +32,7 @@ FILES =	main.c \
 		utils/ft_split_unquoted.c \
 		utils/close_fd.c \
 		utils/utils.c \
+		utils/ft_atoll.c \
 		exec/exec_path.c \
 		exec/exec_main.c \
 		exec/exec_child.c \
