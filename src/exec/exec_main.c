@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 18:16:41 by masenche          #+#    #+#             */
-/*   Updated: 2026/03/08 14:43:45 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/09 12:47:01 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,13 @@ static void	exe_child_fd(t_cmd *cmd)
 void	exe_child(t_cmd *cmd, t_minishell *minishell, char **env_tab)
 {
 	int status;
+
+	if (cmd->fd_in == -2 || cmd->fd_out == -2)
+	{
+		free_tab(env_tab);
+		free_all(minishell);
+		exit(1);
+	}
 
 	exe_child_fd(cmd);
 

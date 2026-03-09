@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 14:40:53 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/08 16:05:57 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/09 12:14:01 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static t_cmd	*build_cmd(t_minishell *minishell, t_list **token_list)
 	if (!cmd)
 		return (NULL);
 	args_count = count_args_list(*token_list);
-	cmd->args = malloc(sizeof(char *) * (args_count + 1));
+	cmd->args = ft_calloc((args_count + 1), sizeof(char *));
 	if (!cmd->args)
 	{
 		free(cmd);

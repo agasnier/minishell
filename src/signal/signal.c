@@ -6,13 +6,13 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 18:45:32 by masenche          #+#    #+#             */
-/*   Updated: 2026/03/08 14:45:42 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/09 13:13:07 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-volatile sig_atomic_t g_receive_message = 0;
+volatile sig_atomic_t	g_receive_message = 0;
 
 void	handle_signal(int sig)
 {

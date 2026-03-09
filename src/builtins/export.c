@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 18:49:13 by masenche          #+#    #+#             */
-/*   Updated: 2026/03/05 15:32:00 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/09 12:38:49 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,8 +129,11 @@ int	builtin_export(t_cmd *cmd, t_minishell *minishell)
 	while (cmd->args[i])
 	{
 		if (verify_export_syntax(cmd->args[i]))
-			printf("minishell: export: `%s': not a valid identifier\n",
+		{
+			ft_printf(2, "minishell: export: `%s': not a valid identifier\n",
 				cmd->args[i]);
+			return (1);
+		}
 		else
 		{
 			if (builtin_export_helper(cmd, minishell, i))

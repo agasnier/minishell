@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   close_fd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masenche <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 16:23:16 by masenche          #+#    #+#             */
-/*   Updated: 2026/03/03 16:23:47 by masenche         ###   ########.fr       */
+/*   Updated: 2026/03/09 13:12:38 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	close_fd(int prev_read_fd, t_list *curr, int *pipe_fds)
 		dup2(pipe_fds[1], STDOUT_FILENO);
 		close(pipe_fds[1]);
 	}
-
 }
 
 int	close_read_fd(int *pipe_fds)
