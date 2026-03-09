@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 14:28:53 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/09 12:44:31 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/09 14:16:18 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,12 @@ static int	handle_heredoc(t_minishell *minishell, t_cmd *cmd, t_token *token_nex
 	return (0);
 }
 
-static int	handle_fd_out(t_cmd *cmd, t_token *token, t_token *token_next)
+static int	handle_fd_out(t_minishell *minishell, t_cmd *cmd, t_token *token, t_token *token_next)
 {
 	int	fd;
+
+	if (cmd->fd_out == -2)
+		return (0);
 
 	fd = 0;
 	if (token->type == R_OUTPUT)
@@ -79,6 +82,7 @@ static int	handle_fd_out(t_cmd *cmd, t_token *token, t_token *token_next)
 	if (fd == -1)
 	{
 		ft_printf(STDERR_FILENO, "minishell: %s: %s\n", token_next->token, strerror(errno));
+		minishell->exit_status = 1;
 		fd = -2;
 	}
 	if (cmd->fd_out > 2)
@@ -87,15 +91,19 @@ static int	handle_fd_out(t_cmd *cmd, t_token *token, t_token *token_next)
 	return (0);
 }
 
-static int	handle_fd_in(t_cmd *cmd, t_token *token_next)
+static int	handle_fd_in(t_minishell *minishell, t_cmd *cmd, t_token *token_next)
 {
 	int	fd;
+
+	if (cmd->fd_in == -2)
+		return (0);
 
 	fd = open(token_next->token, O_RDONLY);
 	if (fd == -1)
 	{
 		ft_printf(STDERR_FILENO, "minishell: %s: %s\n", token_next->token, strerror(errno));
 		fd = -2;
+		minishell->exit_status = 1;
 	}
 	if (cmd->fd_in > 2)
 		close(cmd->fd_in);
@@ -114,12 +122,12 @@ int	handle_token_type(t_minishell *minishell, t_cmd *cmd, t_list **token_list)
 
 	if (token->type == R_INPUT)
 	{
-		if (handle_fd_in(cmd, token_next))
+		if (handle_fd_in(minishell, cmd, token_next))
 			return (1);
 	}
 	else if (token->type == R_OUTPUT || token->type == R_OUTPUT_APPEND)
 	{
-		if (handle_fd_out(cmd, token, token_next))
+		if (handle_fd_out(minishell, cmd, token, token_next))
 			return (1);
 	}
 	else if (token->type == HEREDOC)

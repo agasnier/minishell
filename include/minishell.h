@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 09:35:13 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/09 13:55:33 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/09 14:03:51 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ pid_t	ft_fork(t_pipeline pipeline, t_cmd *cmd,
 			t_minishell *minishell, t_list *curr);
 void	execute_pipeline(t_minishell *minishell, t_cmd *cmd);
 void	exec_command(t_minishell *minishell);
+void	exe_fd(t_cmd *cmd);
 //exec_path.c
 void	find_path(t_minishell *minishell);
 

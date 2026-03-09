@@ -6,24 +6,25 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 18:16:41 by masenche          #+#    #+#             */
-/*   Updated: 2026/03/09 12:47:01 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/09 14:23:55 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <unistd.h>
 
-static void	exe_child_fd(t_cmd *cmd)
+void	exe_fd(t_cmd *cmd)
 {
 	if (cmd->fd_in != -1)
 	{
 		dup2(cmd->fd_in, STDIN_FILENO);
 		close(cmd->fd_in);
+		cmd->fd_in = -1;
 	}
 	if (cmd->fd_out != -1)
 	{
 		dup2(cmd->fd_out, STDOUT_FILENO);
 		close(cmd->fd_out);
+		cmd->fd_out = -1;
 	}
 }
 
@@ -38,8 +39,7 @@ void	exe_child(t_cmd *cmd, t_minishell *minishell, char **env_tab)
 		exit(1);
 	}
 
-	exe_child_fd(cmd);
-
+	exe_fd(cmd);
 	signal(SIGINT, SIG_DFL);
 	if (!cmd->args[0])
 	{
@@ -57,7 +57,10 @@ void	exe_child(t_cmd *cmd, t_minishell *minishell, char **env_tab)
 	}
 	if (!cmd->cmd_path)
 	{
-		ft_printf(2, "minishell: %s: command not found\n", cmd->args[0]);
+		if (get_env_value(minishell, "PATH") == NULL)
+			ft_printf(2, "minishell: %s: No such file or directory\n", cmd->args[0]);
+		else
+			ft_printf(2, "minishell: %s: command not found\n", cmd->args[0]);
 		free_tab(env_tab);
 		free_all(minishell);
 		exit (127);
