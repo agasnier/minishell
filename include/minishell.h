@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masenche <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 09:35:13 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/09 15:10:49 by masenche         ###   ########.fr       */
+/*   Updated: 2026/03/09 17:25:23 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef struct s_token
 	char	*token;
 	t_type	type;
 	int		quoted;
+	int		heredoc_fd;
 }	t_token;
 
 typedef struct s_pipeline
@@ -111,10 +112,10 @@ int		execute_builtin(t_cmd *cmd, t_minishell *minishell);
 void	builtin_status_exit(t_cmd *cmd, t_minishell *minishell);
 //conv.c
 char	**convert_env_to_tab(t_list *env_list);
-//exec_main.c
+//exec_child.c
 void	exe_child(t_cmd *cmd, t_minishell *minishell, char **env_tab);
-void	exec_fork(t_cmd *cmd, char **env_tab, t_minishell *minishell);
 void	wait_all_children(pid_t last_pid, t_minishell *minishell);
+//exec_main.c
 pid_t	ft_fork(t_pipeline pipeline, t_cmd *cmd,
 			t_minishell *minishell, t_list *curr);
 void	execute_pipeline(t_minishell *minishell, t_cmd *cmd);
@@ -129,6 +130,8 @@ int		format_cmds(t_minishell *minishell, t_list *token_list);
 char	*is_there_expands(char *word, int heredoc);
 char	*token_expands(t_minishell *minishell, char *token, int heredoc);
 int		handle_expands(t_minishell *minishell, t_list *token_list);
+//heredoc.c
+int		handle_heredoc(t_minishell *minishell, t_token *token_next);
 //lexer.c
 t_list	*list_token(char *prompt);
 //parser.c
@@ -136,7 +139,7 @@ void	parsing_prompt(t_minishell *minishell, char *prompt);
 //post_expands_helper.c
 int		word_split(t_list **current);
 //post_expands
-int	remake_token_list(t_list **token_list);
+int		remake_token_list(t_list **token_list);
 //quotes.c
 int		get_len_unquoted(char *str);
 char	*remove_token_quotes(char *str);
@@ -144,7 +147,7 @@ void	update_quote_state(char c, int *state);
 int		get_quote_state(char *str, int index);
 int		verify_unclosed_quotes(char *prompt);
 //syntax.c
-int		verify_token_list(t_list *token_list);
+int		verify_token_list(t_minishell *minishell, t_list *token_list);
 //token_type.c
 int		handle_token_type(t_minishell *minishell, t_cmd *cmd,
 			t_list **token_list);

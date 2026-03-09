@@ -21,6 +21,7 @@ FILES =	main.c \
 		parsing/lexer.c \
 		parsing/parser.c \
 		parsing/expands.c \
+		parsing/heredoc.c \
 		parsing/cmds_builder.c \
 		parsing/post_expands_helper.c \
 		parsing/post_expands.c \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_child.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masenche <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 14:58:27 by masenche          #+#    #+#             */
-/*   Updated: 2026/03/09 16:16:51 by masenche         ###   ########.fr       */
+/*   Updated: 2026/03/09 16:59:25 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,24 +71,28 @@ static void	exit_fd(t_cmd *cmd, char **env_tab, t_minishell *minishell)
 
 void	exe_child(t_cmd *cmd, t_minishell *minishell, char **env_tab)
 {
+	char	*path_env;
+	
 	exit_fd(cmd, env_tab, minishell);
 	exe_fd(cmd);
 	signal(SIGINT, SIG_DFL);
 	exit_child(cmd, env_tab, minishell);
 	if (!cmd->cmd_path)
 	{
-		if (get_env_value(minishell, "PATH") == NULL)
+		path_env = get_env_value(minishell, "PATH");
+		if (path_env == NULL)
 			ft_printf(2, "minishell: %s: No such file or directory\n",
 				cmd->args[0]);
 		else
 			ft_printf(2, "minishell: %s: command not found\n",
 				cmd->args[0]);
+		free(path_env);
 		free_tab(env_tab);
 		free_all(minishell);
 		exit (127);
 	}
 	execve(cmd->cmd_path, cmd->args, env_tab);
-	ft_printf(2, "minishell: %s: %s", cmd->args[0], strerror);
+	ft_printf(2, "minishell: %s: %s", cmd->args[0], strerror(errno));
 	free_tab(env_tab);
 	free_all(minishell);
 	exit(126);

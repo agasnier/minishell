@@ -3,37 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   exec_main.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masenche <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 18:16:41 by masenche          #+#    #+#             */
-/*   Updated: 2026/03/09 14:59:23 by masenche         ###   ########.fr       */
+/*   Updated: 2026/03/09 16:52:34 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	exec_fork(t_cmd *cmd, char **env_tab, t_minishell *minishell)
-{
-	pid_t	pid;
-	int		status;
-
-	pid = fork();
-	if (pid == -1)
-	{
-		perror("fork");
-		free_tab(env_tab);
-		return ;
-	}
-	if (pid == 0)
-		exe_child(cmd, minishell, env_tab);
-	else
-	{
-		waitpid(pid, &status, 0);
-		if (WIFEXITED(status))
-			minishell->exit_status = WEXITSTATUS(status);
-		free_tab(env_tab);
-	}
-}
 
 pid_t	ft_fork(t_pipeline pipeline, t_cmd *cmd,
 		t_minishell *minishell, t_list *curr)
