@@ -6,12 +6,11 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 18:16:41 by masenche          #+#    #+#             */
-/*   Updated: 2026/03/09 16:52:34 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/09 18:05:01 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 pid_t	ft_fork(t_pipeline pipeline, t_cmd *cmd,
 		t_minishell *minishell, t_list *curr)

@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 14:58:27 by masenche          #+#    #+#             */
-/*   Updated: 2026/03/09 16:59:25 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/09 18:04:53 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static void	exit_fd(t_cmd *cmd, char **env_tab, t_minishell *minishell)
 void	exe_child(t_cmd *cmd, t_minishell *minishell, char **env_tab)
 {
 	char	*path_env;
-	
+
 	exit_fd(cmd, env_tab, minishell);
 	exe_fd(cmd);
 	signal(SIGINT, SIG_DFL);

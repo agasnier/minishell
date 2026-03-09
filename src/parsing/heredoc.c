@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 17:16:26 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/09 17:24:17 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/09 18:04:06 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,5 @@ int	handle_heredoc(t_minishell *minishell, t_token *token_next)
 		minishell->exit_status = 130;
 		return (-1);
 	}
-	return(fd[0]);
+	return (fd[0]);
 }
