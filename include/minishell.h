@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: masenche <masenche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 09:35:13 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/08 19:07:28 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/09 11:54:52 by masenche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ pid_t	ft_fork(t_pipeline pipeline, t_cmd *cmd,
 			t_minishell *minishell, t_list *curr);
 void	execute_pipeline(t_minishell *minishell, t_cmd *cmd);
 void	exec_command(t_minishell *minishell);
+void	exe_fd(t_cmd *cmd);
 //exec_path.c
 void	find_path(t_minishell *minishell);
 

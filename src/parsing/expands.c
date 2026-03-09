@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expands.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: masenche <masenche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 09:16:51 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/05 14:41:52 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/09 11:45:15 by masenche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,11 @@ char	*is_there_expands(char *word, int heredoc)
 		if (word[i] == '$')
 		{
 			if (heredoc || get_quote_state(word, i) != 1)
-				return (&word[i]);
+			{
+				if (word[i + 1] == '?' || ft_isalnum(word[i + 1])
+					|| word[i + 1] == '_')
+					return (&word[i]);
+			}
 		}
 		i++;
 	}
