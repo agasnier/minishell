@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: masenche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 18:49:46 by masenche          #+#    #+#             */
-/*   Updated: 2026/03/08 14:43:19 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/09 15:43:09 by masenche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 #include "minishell.h"
 #include <unistd.h>
 
-static int is_invalid_exit_arg(const char *str)
+static int	is_invalid_exit_arg(const char *str)
 {
-	int i = 0;
+	int	i;
 
+	i = 0;
 	if (!str || !str[0])
 		return (1);
 	if (str[i] == '-' || str[i] == '+')
@@ -35,8 +36,8 @@ static int is_invalid_exit_arg(const char *str)
 
 static void	print_exit_alph_arg(t_cmd *cmd, t_minishell *minishell)
 {
-
-	ft_printf(2, "minishell: exit: %s: numeric argument required\n", cmd->args[1]);
+	ft_printf(2, "minishell: exit: %s: numeric argument required\n",
+		cmd->args[1]);
 	free_all(minishell);
 	exit(2);
 }
@@ -51,7 +52,6 @@ int	builtin_exit(t_minishell *minishell, t_cmd *cmd)
 	{
 		if (is_invalid_exit_arg(cmd->args[1]))
 			print_exit_alph_arg(cmd, minishell);
-		
 		if (cmd->args[2])
 		{
 			ft_printf(2, "minishell: exit: too many arguments\n");

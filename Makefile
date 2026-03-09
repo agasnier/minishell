@@ -15,7 +15,6 @@ INCLUDES	= -I$(INC_DIR) -I$(LIBFT_DIR) -I$(FT_PRINTF_DIR)
 LFLAGS		= -L$(LIBFT_DIR) -lft -L$(FT_PRINTF_DIR) -lftprintf -lreadline
 
 FILES =	main.c \
-		test.c \
 		env/env_init.c \
 		env/env_utils.c \
 		env/env_path.c \
@@ -23,6 +22,7 @@ FILES =	main.c \
 		parsing/parser.c \
 		parsing/expands.c \
 		parsing/cmds_builder.c \
+		parsing/post_expands_helper.c \
 		parsing/post_expands.c \
 		parsing/quotes.c \
 		parsing/syntax.c \
@@ -33,6 +33,7 @@ FILES =	main.c \
 		utils/utils.c \
 		exec/exec_path.c \
 		exec/exec_main.c \
+		exec/exec_child.c \
 		exec/conv.c \
 		exec/builtins.c \
 		signal/signal.c \
@@ -84,6 +85,6 @@ fclean: clean
 re: fclean all
 
 val: all
-	valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all --track-origins=yes -track-fds=yes --trace-children=yes  ./minishell
+	valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes  ./minishell
 
 .PHONY: all clean fclean re

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masenche <masenche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: masenche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 09:35:13 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/09 11:54:52 by masenche         ###   ########.fr       */
+/*   Updated: 2026/03/09 15:10:49 by masenche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,6 @@ pid_t	ft_fork(t_pipeline pipeline, t_cmd *cmd,
 			t_minishell *minishell, t_list *curr);
 void	execute_pipeline(t_minishell *minishell, t_cmd *cmd);
 void	exec_command(t_minishell *minishell);
-void	exe_fd(t_cmd *cmd);
 //exec_path.c
 void	find_path(t_minishell *minishell);
 
@@ -134,6 +133,8 @@ int		handle_expands(t_minishell *minishell, t_list *token_list);
 t_list	*list_token(char *prompt);
 //parser.c
 void	parsing_prompt(t_minishell *minishell, char *prompt);
+//post_expands_helper.c
+int		word_split(t_list **current);
 //post_expands
 int	remake_token_list(t_list **token_list);
 //quotes.c
@@ -156,6 +157,7 @@ void	handle_signal(int sig);
 //close_fd.c
 void	close_fd(int prev_read_fd, t_list *curr, int *pipe_fds);
 int		close_read_fd(int *pipe_fds);
+void	exe_fd(t_cmd *cmd);
 //free.c
 void	free_token(void *content);
 void	free_cmds(void *content);

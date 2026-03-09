@@ -3,22 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: masenche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 18:48:29 by masenche          #+#    #+#             */
-/*   Updated: 2026/03/08 14:42:44 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/09 15:41:51 by masenche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int is_flag_n(char *str)
+static int	is_flag_n(char *str)
 {
 	int	i;
 
-	if (!str || str[0] != '-' || str[1] ==  '\0')
+	if (!str || str[0] != '-' || str[1] == '\0')
 		return (0);
-
 	i = 1;
 	while (str[i])
 	{

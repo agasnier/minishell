@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expands.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masenche <masenche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 09:16:51 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/09 11:45:15 by masenche         ###   ########.fr       */
+/*   Updated: 2026/03/09 15:14:06 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,11 @@ static char	*extract_expand(char *word)
 	i = 1;
 	if (word[i] == '?')
 		return (ft_strdup("?"));
+	if (word[i] == '\'' || word[i] == '\"')
+	{
+		key = ft_strdup("");
+		return (key);
+	}
 	while (word[i] && (ft_isalnum(word[i]) || word[i] == '_'))
 		i++;
 	if (i == 1)
@@ -53,10 +58,16 @@ char	*is_there_expands(char *word, int heredoc)
 	{
 		if (word[i] == '$')
 		{
-			if (heredoc || get_quote_state(word, i) != 1)
+			if (word[i + 1] && (ft_isalnum(word[i + 1])
+					|| word[i + 1] == '_' || word[i + 1] == '?'))
 			{
-				if (word[i + 1] == '?' || ft_isalnum(word[i + 1])
-					|| word[i + 1] == '_')
+				if (heredoc || get_quote_state(word, i) != 1)
+					return (&word[i]);
+			}
+			else if (word[i + 1]
+				&& (word[i + 1] == '\'' || word[i + 1] == '\"'))
+			{
+				if (heredoc || get_quote_state(word, i) == 0)
 					return (&word[i]);
 			}
 		}
@@ -65,7 +76,7 @@ char	*is_there_expands(char *word, int heredoc)
 	return (NULL);
 }
 
-char *token_expands(t_minishell *minishell, char *token, int heredoc)
+char	*token_expands(t_minishell *minishell, char *token, int heredoc)
 {
 	char	*start;
 	char	*key;

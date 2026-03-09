@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masenche <masenche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: masenche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 18:47:55 by masenche          #+#    #+#             */
-/*   Updated: 2026/03/09 11:55:04 by masenche         ###   ########.fr       */
+/*   Updated: 2026/03/09 14:53:08 by masenche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,24 +57,23 @@ int	execute_builtin(t_cmd *cmd, t_minishell *minishell)
 	return (builtin_status);
 }
 
-
 void	builtin_status_exit(t_cmd *cmd, t_minishell *minishell)
 {
-    int saved_fds[2];
+	int	saved_fds[2];
 
-    if (ft_strcmp(cmd->args[0], "exit") == 0)
+	if (ft_strcmp(cmd->args[0], "exit") == 0)
 	{
 		minishell->exit_status = builtin_exit(minishell, cmd);
 		return ;
 	}
 	saved_fds[0] = dup(STDIN_FILENO);
-    saved_fds[1] = dup(STDOUT_FILENO);
-    if (saved_fds[0] == -1 || saved_fds[1] == -1)
+	saved_fds[1] = dup(STDOUT_FILENO);
+	if (saved_fds[0] == -1 || saved_fds[1] == -1)
 		return ;
 	exe_fd(cmd);
-    minishell->exit_status = execute_builtin(cmd, minishell);
-    dup2(saved_fds[0], STDIN_FILENO);
-    dup2(saved_fds[1], STDOUT_FILENO);
-    close(saved_fds[0]);
-    close(saved_fds[1]);
+	minishell->exit_status = execute_builtin(cmd, minishell);
+	dup2(saved_fds[0], STDIN_FILENO);
+	dup2(saved_fds[1], STDOUT_FILENO);
+	close(saved_fds[0]);
+	close(saved_fds[1]);
 }

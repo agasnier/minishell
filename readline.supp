@@ -1,16 +1,42 @@
 {
-    readline_suppression
+    ignore_libreadline_reachable
     Memcheck:Leak
     match-leak-kinds: reachable
     ...
-    fun:readline
-    ...
+    obj:*/libreadline.so.*
 }
 {
-    add_history_suppression
+    ignore_libreadline_definite
+    Memcheck:Leak
+    match-leak-kinds: definite
+    ...
+    obj:*/libreadline.so.*
+}
+{
+    ignore_libreadline_indirect
+    Memcheck:Leak
+    match-leak-kinds: indirect
+    ...
+    obj:*/libreadline.so.*
+}
+{
+    ignore_libreadline_possible
+    Memcheck:Leak
+    match-leak-kinds: possible
+    ...
+    obj:*/libreadline.so.*
+}
+{
+    ignore_readline_history_reachable
     Memcheck:Leak
     match-leak-kinds: reachable
     ...
     fun:add_history
+}
+{
+    ignore_readline_history_definite
+    Memcheck:Leak
+    match-leak-kinds: definite
     ...
+    fun:add_history
 }

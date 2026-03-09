@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 15:01:35 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/05 11:18:34 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/09 15:14:21 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ static t_token	*get_token(char *prompt, int *i)
 {
 	t_token	*token;
 	int		start;
-
 
 	token = malloc(sizeof(t_token));
 	if (!token)

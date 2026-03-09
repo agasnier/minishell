@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 16:19:53 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/08 15:34:43 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/09 15:14:53 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ static int	validation_part(t_minishell *minishell, t_list *token_list)
 	return (0);
 }
 
-static int	lexing_part(t_minishell *minishell, char *prompt, t_list **token_list)
+static int	lexing_part(t_minishell *minishell,
+	char *prompt, t_list **token_list)
 {
 	if (verify_unclosed_quotes(prompt))
 	{
@@ -78,9 +79,6 @@ void	parsing_prompt(t_minishell *minishell, char *prompt)
 		ft_lstclear(&minishell->cmds, free_cmds);
 		return ;
 	}
-	/////////////////////////////////////////////////////// TEST
-	// test_print_list_token(token_list);
-
 	if (validation_part(minishell, token_list))
 	{
 		ft_lstclear(&minishell->cmds, free_cmds);
@@ -91,12 +89,6 @@ void	parsing_prompt(t_minishell *minishell, char *prompt)
 		ft_lstclear(&minishell->cmds, free_cmds);
 		return ;
 	}
-
-	/////////////////////////////////////////////////////// TEST
-	// test_print_list_token(token_list);
-		
 	if (command_builder_part(minishell, token_list))
 		return ;
-	/////////////////////////////////////////////////////// TEST
-	// test_print_minish_cmds(minishell);
 }
