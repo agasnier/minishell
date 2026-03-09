@@ -28,6 +28,7 @@ FILES =	main.c \
 		parsing/syntax.c \
 		parsing/token_type.c \
 		utils/free.c \
+		utils/ft_atoll.c \
 		utils/ft_split_unquoted.c \
 		utils/close_fd.c \
 		utils/utils.c \
