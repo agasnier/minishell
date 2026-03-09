@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masenche <masenche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: masenche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 18:48:54 by masenche          #+#    #+#             */
-/*   Updated: 2026/03/09 02:48:49 by masenche         ###   ########.fr       */
+/*   Updated: 2026/03/09 15:41:31 by masenche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	get_target_dir(t_cmd *cmd, t_minishell *minish, char **target, int *prt)
+static int	get_target_dir(t_cmd *cmd, t_minishell *minish, char **target,
+				int *prt)
 {
 	*prt = 0;
 	if (cmd->args[1] == NULL)
@@ -20,7 +21,7 @@ static int	get_target_dir(t_cmd *cmd, t_minishell *minish, char **target, int *p
 		*target = get_env_value(minish, "HOME");
 		if (!*target)
 			return (ft_printf(2, "minishell: cd: HOME not set\n"), 1);
-		if ((*target)[0] == '\0') 
+		if ((*target)[0] == '\0')
 			return (2);
 	}
 	else if (ft_strncmp(cmd->args[1], "-", 2) == 0)
@@ -105,4 +106,3 @@ int	builtin_cd(t_cmd *cmd, t_minishell *minishell)
 	free(target_dir);
 	return (0);
 }
-

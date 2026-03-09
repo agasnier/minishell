@@ -3,81 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   exec_main.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: masenche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 18:16:41 by masenche          #+#    #+#             */
-/*   Updated: 2026/03/09 14:23:55 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/09 14:59:23 by masenche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	exe_fd(t_cmd *cmd)
-{
-	if (cmd->fd_in != -1)
-	{
-		dup2(cmd->fd_in, STDIN_FILENO);
-		close(cmd->fd_in);
-		cmd->fd_in = -1;
-	}
-	if (cmd->fd_out != -1)
-	{
-		dup2(cmd->fd_out, STDOUT_FILENO);
-		close(cmd->fd_out);
-		cmd->fd_out = -1;
-	}
-}
-
-void	exe_child(t_cmd *cmd, t_minishell *minishell, char **env_tab)
-{
-	int status;
-
-	if (cmd->fd_in == -2 || cmd->fd_out == -2)
-	{
-		free_tab(env_tab);
-		free_all(minishell);
-		exit(1);
-	}
-
-	exe_fd(cmd);
-	signal(SIGINT, SIG_DFL);
-	if (!cmd->args[0])
-	{
-		free_tab(env_tab);
-		free_all(minishell);
-		exit(0);
-	}
-	if (is_builtin(cmd->args[0]))
-	{
-		status = execute_builtin(cmd, minishell);
-		signal(SIGINT, handle_signal);
-		free_tab(env_tab);
-		free_all(minishell);
-		exit(status);
-	}
-	if (!cmd->cmd_path)
-	{
-		if (get_env_value(minishell, "PATH") == NULL)
-			ft_printf(2, "minishell: %s: No such file or directory\n", cmd->args[0]);
-		else
-			ft_printf(2, "minishell: %s: command not found\n", cmd->args[0]);
-		free_tab(env_tab);
-		free_all(minishell);
-		exit (127);
-	}
-	execve(cmd->cmd_path, cmd->args, env_tab);
-	ft_printf(2, "minishell: ");
-	perror(cmd->args[0]);
-	free_tab(env_tab);
-	free_all(minishell);
-	exit(126);
-
-}
-
 void	exec_fork(t_cmd *cmd, char **env_tab, t_minishell *minishell)
 {
-	pid_t pid;
-	int   status;
+	pid_t	pid;
+	int		status;
 
 	pid = fork();
 	if (pid == -1)
@@ -97,30 +35,8 @@ void	exec_fork(t_cmd *cmd, char **env_tab, t_minishell *minishell)
 	}
 }
 
-void	wait_all_children(pid_t last_pid, t_minishell *minishell)
-{
-	int		status;
-	pid_t	pid;
-
-	signal(SIGINT, SIG_IGN);
-	while ((pid = wait(&status)) > 0)
-	{
-		if (pid == last_pid)
-		{
-			if (WIFEXITED(status))
-				minishell->exit_status = WEXITSTATUS(status);
-			else if (WIFSIGNALED(status))
-			{
-				minishell->exit_status = 128 + WTERMSIG(status);
-				if (WTERMSIG(status) == SIGINT)
-					write(1, "\n", 1);
-			}
-		}
-	}
-	signal(SIGINT, handle_signal);
-}
-
-pid_t	ft_fork(t_pipeline pipeline, t_cmd *cmd, t_minishell *minishell, t_list *curr)
+pid_t	ft_fork(t_pipeline pipeline, t_cmd *cmd,
+		t_minishell *minishell, t_list *curr)
 {
 	pid_t	last_pid;
 
@@ -163,13 +79,13 @@ void	execute_pipeline(t_minishell *minishell, t_cmd *cmd)
 
 void	exec_command(t_minishell *minishell)
 {
-	t_cmd *first_cmd;
+	t_cmd	*first_cmd;
 
 	if (!minishell->cmds)
 		return ;
 	first_cmd = (t_cmd *)minishell->cmds->content;
-	
-	if (ft_lstsize(minishell->cmds) == 1 && is_builtin(first_cmd->args[0]))
+	if (ft_lstsize(minishell->cmds) == 1
+		&& is_builtin(first_cmd->args[0]))
 		builtin_status_exit(first_cmd, minishell);
 	else
 		execute_pipeline(minishell, first_cmd);

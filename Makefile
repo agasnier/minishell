@@ -15,7 +15,6 @@ INCLUDES	= -I$(INC_DIR) -I$(LIBFT_DIR) -I$(FT_PRINTF_DIR)
 LFLAGS		= -L$(LIBFT_DIR) -lft -L$(FT_PRINTF_DIR) -lftprintf -lreadline
 
 FILES =	main.c \
-		test.c \
 		env/env_init.c \
 		env/env_utils.c \
 		env/env_path.c \
@@ -34,6 +33,7 @@ FILES =	main.c \
 		utils/utils.c \
 		exec/exec_path.c \
 		exec/exec_main.c \
+		exec/exec_child.c \
 		exec/conv.c \
 		exec/builtins.c \
 		signal/signal.c \
