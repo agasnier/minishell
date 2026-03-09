@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 09:35:13 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/09 14:03:51 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/09 15:41:37 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,8 +134,10 @@ int		handle_expands(t_minishell *minishell, t_list *token_list);
 t_list	*list_token(char *prompt);
 //parser.c
 void	parsing_prompt(t_minishell *minishell, char *prompt);
+//post_expands_helper.c
+int		word_split(t_list **current);
 //post_expands
-int	remake_token_list(t_list **token_list);
+int		remake_token_list(t_list **token_list);
 //quotes.c
 int		get_len_unquoted(char *str);
 char	*remove_token_quotes(char *str);

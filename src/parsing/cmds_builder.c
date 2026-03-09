@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 14:40:53 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/09 12:14:01 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/09 15:13:08 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ static int	words_to_args(t_cmd *cmd, t_token *token, int *i)
 	return (0);
 }
 
-static int	fill_cmd_args(t_minishell *minishell, t_cmd *cmd, t_list **token_list)
+static int	fill_cmd_args(t_minishell *minishell,
+	t_cmd *cmd, t_list **token_list)
 {
 	t_token	*token;
 	int		i;
@@ -53,16 +54,11 @@ static int	fill_cmd_args(t_minishell *minishell, t_cmd *cmd, t_list **token_list
 			*token_list = (*token_list)->next;
 			break ;
 		}
-		if (token->type >= R_INPUT && token->type <= HEREDOC)
-		{
-			if (handle_token_type(minishell, cmd, token_list))
-				return (1);
-		}
-		else if (token->type == WORD)
-		{
-			if (words_to_args(cmd, token, &i))
-				return (1);
-		}
+		if ((token->type >= R_INPUT && token->type <= HEREDOC)
+			&& handle_token_type(minishell, cmd, token_list))
+			return (1);
+		else if (token->type == WORD && words_to_args(cmd, token, &i))
+			return (1);
 		*token_list = (*token_list)->next;
 	}
 	cmd->args[i] = NULL;

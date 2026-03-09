@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 14:34:28 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/05 11:14:19 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/09 15:15:21 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,9 @@ int	get_len_unquoted(char *str)
 		i++;
 	}
 	return (len);
-	
 }
 
-char *remove_token_quotes(char *str)
+char	*remove_token_quotes(char *str)
 {
 	int		i;
 	int		j;
@@ -59,7 +58,6 @@ char *remove_token_quotes(char *str)
 	new_str[j] = '\0';
 	free(str);
 	return (new_str);
-	
 }
 
 void	update_quote_state(char c, int *state)

@@ -23,6 +23,7 @@ FILES =	main.c \
 		parsing/parser.c \
 		parsing/expands.c \
 		parsing/cmds_builder.c \
+		parsing/post_expands_helper.c \
 		parsing/post_expands.c \
 		parsing/quotes.c \
 		parsing/syntax.c \

@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 14:33:05 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/09 12:03:46 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/09 15:15:52 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ static int	syntax_token_list(t_token *token, t_token *next)
 	{
 		if (!next)
 		{
-			ft_printf(2, "minishell: syntax error near unexpected token `newline'\n");
+			ft_printf(2, "minishell: syntax error near \
+sunexpected token `newline'\n");
 			return (1);
 		}
 		if (next->type != WORD)
