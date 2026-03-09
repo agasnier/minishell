@@ -3,37 +3,106 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masenche <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: masenche <masenche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 18:48:54 by masenche          #+#    #+#             */
-/*   Updated: 2026/03/03 14:29:08 by masenche         ###   ########.fr       */
+/*   Updated: 2026/03/09 02:48:49 by masenche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	builtin_cd(t_cmd *cmd, t_minishell *minishell)
+static int	get_target_dir(t_cmd *cmd, t_minishell *minish, char **target, int *prt)
 {
-	char	*target_dir;
-	char	cwd[1024];
-
+	*prt = 0;
 	if (cmd->args[1] == NULL)
-		target_dir = get_env_value(minishell, "HOME");
+	{
+		*target = get_env_value(minish, "HOME");
+		if (!*target)
+			return (ft_printf(2, "minishell: cd: HOME not set\n"), 1);
+		if ((*target)[0] == '\0') 
+			return (2);
+	}
+	else if (ft_strncmp(cmd->args[1], "-", 2) == 0)
+	{
+		*target = get_env_value(minish, "OLDPWD");
+		if (!*target)
+			return (ft_printf(2, "minishell: cd: OLDPWD not set\n"), 1);
+		*prt = 1;
+	}
 	else
-		target_dir = cmd->args[1];
-	if (!target_dir)
+		*target = ft_strdup(cmd->args[1]);
+	return (0);
+}
+
+static int	init_cd(t_cmd *cmd, t_minishell *minish, char **target, int *prt)
+{
+	int	status;
+
+	if (cmd->args[1] && cmd->args[2])
 	{
-		ft_putstr_fd("minishell: cd: HOME not set\n", 2);
+		ft_putstr_fd("minishell: cd: too many arguments\n", 2);
 		return (1);
 	}
-	if (chdir(target_dir) == -1)
-	{
-		perror("minishell: cd");
+	status = get_target_dir(cmd, minish, target, prt);
+	if (status == 1)
 		return (1);
+	if (status == 2)
+	{
+		free(*target);
+		return (2);
 	}
+	return (0);
+}
+
+static void	update_env_vars(char *old_pwd, t_minishell *minishell)
+{
+	char	cwd[4096];
+
+	if (old_pwd)
+		update_env_value(minishell, "OLDPWD", old_pwd);
 	if (getcwd(cwd, sizeof(cwd)) != NULL)
 		update_env_value(minishell, "PWD", cwd);
 	else
-		perror("minishell: cd: getcwd failed");
+		ft_printf(2, "minishell: cd: getcwd failed\n");
+}
+
+static int	target_is_valid(char *target_dir)
+{
+	if (chdir(target_dir) == -1)
+	{
+		ft_printf(2, "minishell: cd: %s: %s\n", target_dir, strerror(errno));
+		return (1);
+	}
 	return (0);
 }
+
+int	builtin_cd(t_cmd *cmd, t_minishell *minishell)
+{
+	char	*target_dir;
+	char	*old_pwd;
+	char	actual_old_pwd[4096];
+	int		print_path;
+	int		status;
+
+	status = init_cd(cmd, minishell, &target_dir, &print_path);
+	if (status != 0)
+		return (status == 1);
+	if (getcwd(actual_old_pwd, sizeof(actual_old_pwd)) != NULL)
+		old_pwd = ft_strdup(actual_old_pwd);
+	else
+		old_pwd = get_env_value(minishell, "PWD");
+	if (target_is_valid(target_dir) != 0)
+	{
+		free(old_pwd);
+		free(target_dir);
+		return (1);
+	}
+	if (print_path)
+		ft_printf(1, "%s\n", target_dir);
+	update_env_vars(old_pwd, minishell);
+	free(old_pwd);
+	free(target_dir);
+	return (0);
+}
+

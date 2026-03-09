@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masenche <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 18:45:32 by masenche          #+#    #+#             */
-/*   Updated: 2026/02/26 19:26:41 by masenche         ###   ########.fr       */
+/*   Updated: 2026/03/08 14:45:42 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <readline/readline.h>
 
 volatile sig_atomic_t g_receive_message = 0;
 

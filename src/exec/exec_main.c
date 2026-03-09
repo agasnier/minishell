@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_main.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masenche <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 18:16:41 by masenche          #+#    #+#             */
-/*   Updated: 2026/03/06 15:45:26 by masenche         ###   ########.fr       */
+/*   Updated: 2026/03/08 14:43:45 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,12 @@ void	exe_child(t_cmd *cmd, t_minishell *minishell, char **env_tab)
 	exe_child_fd(cmd);
 
 	signal(SIGINT, SIG_DFL);
+	if (!cmd->args[0])
+	{
+		free_tab(env_tab);
+		free_all(minishell);
+		exit(0);
+	}
 	if (is_builtin(cmd->args[0]))
 	{
 		status = execute_builtin(cmd, minishell);
