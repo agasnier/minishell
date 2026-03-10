@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: masenche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 09:35:13 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/10 10:17:36 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/10 14:27:22 by masenche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <fcntl.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <sys/stat.h>
 # include <signal.h>
 # include <errno.h>
 # include <string.h>

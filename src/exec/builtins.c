@@ -6,7 +6,7 @@
 /*   By: masenche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 18:47:55 by masenche          #+#    #+#             */
-/*   Updated: 2026/03/09 14:53:08 by masenche         ###   ########.fr       */
+/*   Updated: 2026/03/10 14:47:45 by masenche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ void	builtin_status_exit(t_cmd *cmd, t_minishell *minishell)
 {
 	int	saved_fds[2];
 
+	if (cmd->fd_in == -2 || cmd->fd_out == -2)
+		return ;
 	if (ft_strcmp(cmd->args[0], "exit") == 0)
 	{
 		minishell->exit_status = builtin_exit(minishell, cmd);
