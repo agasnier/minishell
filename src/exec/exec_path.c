@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_path.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masenche <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 16:25:35 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/09 15:20:55 by masenche         ###   ########.fr       */
+/*   Updated: 2026/03/10 13:48:38 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static char	*check_absolute_path(char **cmd)
 	return (NULL);
 }
 
-static char	*find_exec(char **cmd, char **path)
+static char	*find_exec(t_minishell *minishell, char **cmd, char **path)
 {
 	int		i;
 	char	*ret;
@@ -33,7 +33,7 @@ static char	*find_exec(char **cmd, char **path)
 
 	if (!cmd || !cmd[0] || cmd[0][0] == '\0')
 		return (NULL);
-	if (ft_strchr(cmd[0], '/'))
+	if (!get_env_value(minishell, "PATH") || ft_strchr(cmd[0], '/'))
 	{
 		ret = check_absolute_path(cmd);
 		return (ret);
@@ -61,7 +61,7 @@ void	find_path(t_minishell *minishell)
 	while (tmp)
 	{
 		cmd = (t_cmd *)tmp->content;
-		cmd->cmd_path = find_exec(cmd->args, minishell->exec_path_tab);
+		cmd->cmd_path = find_exec(minishell ,cmd->args, minishell->exec_path_tab);
 		if (!tmp->next)
 			break ;
 		tmp = tmp->next;
