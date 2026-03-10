@@ -6,7 +6,7 @@
 /*   By: masenche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 09:35:13 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/09 17:49:13 by masenche         ###   ########.fr       */
+/*   Updated: 2026/03/10 14:27:22 by masenche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <fcntl.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <sys/stat.h>
 # include <signal.h>
 # include <errno.h>
 # include <string.h>
@@ -50,6 +51,7 @@ typedef struct s_minishell
 	char	**exec_path_tab;
 	t_list	*cmds;
 	int		exit_status;
+	t_list	*token_list;
 }	t_minishell;
 
 typedef enum e_type
@@ -67,6 +69,7 @@ typedef struct s_token
 	char	*token;
 	t_type	type;
 	int		quoted;
+	int		heredoc_fd;
 }	t_token;
 
 typedef struct s_pipeline
@@ -132,6 +135,8 @@ char			*is_there_expands(char *word, int heredoc);
 char			*token_expands(t_minishell *minishell,
 					char *token, int heredoc);
 int				handle_expands(t_minishell *minishell, t_list *token_list);
+//heredoc.c
+int				handle_heredoc(t_minishell *minishell, t_token *token_next);
 //lexer.c
 t_list			*list_token(char *prompt);
 //parser.c
@@ -147,7 +152,7 @@ void			update_quote_state(char c, int *state);
 int				get_quote_state(char *str, int index);
 int				verify_unclosed_quotes(char *prompt);
 //syntax.c
-int				verify_token_list(t_list *token_list);
+int				verify_token_list(t_minishell *minishell, t_list *token_list);
 //token_type.c
 int				handle_token_type(t_minishell *minishell, t_cmd *cmd,
 					t_list **token_list);
@@ -176,11 +181,5 @@ int				count_args_list(t_list *token_list);
 
 //main.c
 int				main(int argc, char *argv[], char **envp);
-
-//test.c
-void			test_print_env(t_list *env);
-void			test_print_exec_path_tab(char **exec_path_tab);
-void			test_print_list_token(t_list *token_list);
-void			test_print_minish_cmds(t_minishell *minishell);
 
 #endif

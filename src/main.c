@@ -3,21 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masenche <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:44:39 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/09 16:46:29 by masenche         ###   ########.fr       */
+/*   Updated: 2026/03/10 11:02:34 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	read_line(t_minishell *minishell, char *line_read)
+static void	read_line(t_minishell *minishell)
 {
+	char		*line_read;
+
 	while (1)
 	{
 		line_read = readline("minishell> ");
-		if (g_receive_message == SIGINT)
+		if (g_receive_message == 1)
 		{
 			minishell->exit_status = 130;
 			g_receive_message = 0;
@@ -44,23 +46,20 @@ static void	minishell_init_struct(t_minishell *minishell, char **envp)
 	minishell->exit_status = 0;
 	minishell->env = init_env(envp);
 	minishell->exec_path_tab = NULL;
+	minishell->token_list = NULL;
 	minishell->cmds = NULL;
 }
 
 int	main(int argc, char *argv[], char **envp)
 {
-	char		*line_read;
 	t_minishell	minishell;
 
 	(void)argc;
 	(void)argv;
-	line_read = NULL;
 	signal(SIGINT, handle_signal);
 	signal(SIGQUIT, SIG_IGN);
 	minishell_init_struct(&minishell, envp);
-	read_line(&minishell, line_read);
-	if (line_read)
-		free(line_read);
+	read_line(&minishell);
 	free_all(&minishell);
 	return (minishell.exit_status);
 }

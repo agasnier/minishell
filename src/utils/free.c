@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masenche <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 13:24:46 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/02 18:27:40 by masenche         ###   ########.fr       */
+/*   Updated: 2026/03/10 10:23:07 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	free_token(void *content)
 	token = (t_token *)content;
 	if (token->token)
 		free(token->token);
+	if (token->heredoc_fd > 2)
+		close(token->heredoc_fd);
 	free(token);
 }
 
@@ -80,4 +82,9 @@ void	free_all(t_minishell *minishell)
 		free_tab(minishell->exec_path_tab);
 	if (minishell->cmds)
 		ft_lstclear(&minishell->cmds, free_cmds);
+	if (minishell->token_list)
+	{
+		ft_lstclear(&(minishell->token_list), free_token);
+		minishell->token_list = NULL;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 18:33:25 by algasnie          #+#    #+#             */
-/*   Updated: 2025/10/23 11:45:14 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/10 09:59:30 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ char	*ft_strdup(const char *s)
 {
 	char	*t;
 
+	if (!s)
+		return (NULL);
 	t = malloc(sizeof(char) * (ft_strlen(s) + 1));
 	if (!t)
 		return (NULL);

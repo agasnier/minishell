@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 15:01:35 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/09 15:14:21 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/09 17:22:45 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ static t_token	*get_token(char *prompt, int *i)
 	}
 	token->type = get_type(token->token);
 	token->quoted = 0;
+	token->heredoc_fd = -2;
 	if ((int)ft_strlen(token->token) > get_len_unquoted(token->token))
 		token->quoted = 1;
 	return (token);

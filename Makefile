@@ -21,6 +21,7 @@ FILES =	main.c \
 		parsing/lexer.c \
 		parsing/parser.c \
 		parsing/expands.c \
+		parsing/heredoc.c \
 		parsing/cmds_builder.c \
 		parsing/post_expands_helper.c \
 		parsing/post_expands.c \
@@ -28,10 +29,10 @@ FILES =	main.c \
 		parsing/syntax.c \
 		parsing/token_type.c \
 		utils/free.c \
-		utils/ft_atoll.c \
 		utils/ft_split_unquoted.c \
 		utils/close_fd.c \
 		utils/utils.c \
+		utils/ft_atoll.c \
 		exec/exec_path.c \
 		exec/exec_main.c \
 		exec/exec_child.c \

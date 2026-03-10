@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   post_expands_helper.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: masenche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 15:40:34 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/09 15:42:50 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/10 14:23:48 by masenche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static int	sub_token(t_list **current, char *content)
 	new_token->type = WORD;
 	new_token->quoted = 0;
 	new_node = ft_lstnew(new_token);
+	new_token->heredoc_fd = 0;
 	if (!new_node)
 	{
 		free_token(new_token);

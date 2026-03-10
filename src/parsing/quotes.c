@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 14:34:28 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/09 15:15:21 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/09 17:30:39 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int	verify_unclosed_quotes(char *prompt)
 {
 	if (get_quote_state(prompt, ft_strlen(prompt) - 1))
 	{
-		printf("minishell: syntax error: unclosed quote\n");
+		ft_printf(2, "minishell: syntax error: unclosed quote\n");
 		return (1);
 	}
 	return (0);
