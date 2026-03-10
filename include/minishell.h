@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masenche <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 09:35:13 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/10 14:27:22 by masenche         ###   ########.fr       */
+/*   Updated: 2026/03/10 15:59:37 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int				builtin_export(t_cmd *cmd, t_minishell *minishell);
 // print_export. c
 int				export_print_env(t_minishell *minishell);
 // pwd.c
-int				builtin_pwd(t_cmd *cmd);
+int				builtin_pwd(t_minishell *minishell, t_cmd *cmd);
 // unset.c
 int				builtin_unset(t_cmd *cmd, t_minishell *minishell);
 

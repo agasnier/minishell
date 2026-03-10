@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masenche <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 18:47:55 by masenche          #+#    #+#             */
-/*   Updated: 2026/03/10 14:47:45 by masenche         ###   ########.fr       */
+/*   Updated: 2026/03/10 15:59:57 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	execute_builtin(t_cmd *cmd, t_minishell *minishell)
 	else if (ft_strcmp(cmd->args[0], "cd") == 0)
 		builtin_status = builtin_cd(cmd, minishell);
 	else if (ft_strcmp(cmd->args[0], "pwd") == 0)
-		builtin_status = builtin_pwd(cmd);
+		builtin_status = builtin_pwd(minishell, cmd);
 	else if (ft_strcmp(cmd->args[0], "export") == 0)
 		builtin_status = builtin_export(cmd, minishell);
 	else if (ft_strcmp(cmd->args[0], "unset") == 0)

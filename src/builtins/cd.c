@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masenche <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 18:48:54 by masenche          #+#    #+#             */
-/*   Updated: 2026/03/09 15:41:31 by masenche         ###   ########.fr       */
+/*   Updated: 2026/03/10 16:51:23 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,16 +56,32 @@ static int	init_cd(t_cmd *cmd, t_minishell *minish, char **target, int *prt)
 	return (0);
 }
 
-static void	update_env_vars(char *old_pwd, t_minishell *minishell)
+static void	update_env_vars(char *old_pwd,
+	t_minishell *minishell, char *target_dir)
 {
 	char	cwd[4096];
+	char	*tmp;
+	char	*new_pwd;
 
 	if (old_pwd)
 		update_env_value(minishell, "OLDPWD", old_pwd);
 	if (getcwd(cwd, sizeof(cwd)) != NULL)
 		update_env_value(minishell, "PWD", cwd);
 	else
-		ft_printf(2, "minishell: cd: getcwd failed\n");
+	{
+		ft_printf(2, "cd: error retrieving current directory: \
+getcwd: cannot access parent directories: %s\n", strerror(errno));
+		if (old_pwd && target_dir && target_dir[0] == '/')
+			update_env_value(minishell, "PWD", target_dir);
+		else if (old_pwd && target_dir)
+		{
+			tmp = ft_strjoin(old_pwd, "/");
+			new_pwd = ft_strjoin(tmp, target_dir);
+			update_env_value(minishell, "PWD", new_pwd);
+			free(tmp);
+			free(new_pwd);
+		}
+	}
 }
 
 static int	target_is_valid(char *target_dir)
@@ -101,7 +117,7 @@ int	builtin_cd(t_cmd *cmd, t_minishell *minishell)
 	}
 	if (print_path)
 		ft_printf(1, "%s\n", target_dir);
-	update_env_vars(old_pwd, minishell);
+	update_env_vars(old_pwd, minishell, target_dir);
 	free(old_pwd);
 	free(target_dir);
 	return (0);
