@@ -6,7 +6,7 @@
 /*   By: masenche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 16:25:35 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/10 14:38:03 by masenche         ###   ########.fr       */
+/*   Updated: 2026/03/10 14:47:27 by masenche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ static char	*find_exec(t_minishell *minishell, char **cmd, char **path)
 	int		i;
 	char	*full_path;
 	char	*tmp;
-	
 
 	if (!cmd || !cmd[0] || cmd[0][0] == '\0')
 		return (NULL);
@@ -86,7 +85,8 @@ void	find_path(t_minishell *minishell)
 	while (tmp)
 	{
 		cmd = (t_cmd *)tmp->content;
-		cmd->cmd_path = find_exec(minishell ,cmd->args, minishell->exec_path_tab);
+		cmd->cmd_path = find_exec(minishell, cmd->args,
+				minishell->exec_path_tab);
 		if (!tmp->next)
 			break ;
 		tmp = tmp->next;
