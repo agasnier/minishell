@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 09:35:13 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/09 18:16:25 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/10 10:17:36 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct s_minishell
 	char	**exec_path_tab;
 	t_list	*cmds;
 	int		exit_status;
+	t_list	*token_list;
 }	t_minishell;
 
 typedef enum e_type

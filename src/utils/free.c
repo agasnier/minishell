@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 13:24:46 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/09 17:22:12 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/10 10:23:07 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,9 @@ void	free_all(t_minishell *minishell)
 		free_tab(minishell->exec_path_tab);
 	if (minishell->cmds)
 		ft_lstclear(&minishell->cmds, free_cmds);
+	if (minishell->token_list)
+	{
+		ft_lstclear(&(minishell->token_list), free_token);
+		minishell->token_list = NULL;
+	}
 }

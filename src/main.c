@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:44:39 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/09 13:12:13 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/10 10:18:03 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ static void	minishell_init_struct(t_minishell *minishell, char **envp)
 	minishell->exit_status = 0;
 	minishell->env = init_env(envp);
 	minishell->exec_path_tab = NULL;
+	minishell->token_list = NULL;
 	minishell->cmds = NULL;
 }
 

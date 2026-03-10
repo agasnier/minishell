@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 17:16:26 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/09 18:28:56 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/10 10:13:41 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ by end-of-file (wanted `%s')\n", token_next->token);
 		free(line);
 	}
 	close(fd[1]);
+	free_all(minishell);
 	exit(0);
 }
 
@@ -48,6 +49,7 @@ int	handle_heredoc(t_minishell *minishell, t_token *token_next)
 	pid_t	pid;
 	int		status;
 
+	token_next->token = remove_token_quotes(token_next->token);
 	if (pipe(fd) == -1)
 		return (1);
 	pid = fork();
