@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 16:19:53 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/09 15:14:53 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/10 09:35:03 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int	expands_part(t_minishell *minishell, t_list **token_list)
 
 static int	validation_part(t_minishell *minishell, t_list *token_list)
 {
-	if (verify_token_list(token_list))
+	if (verify_token_list(minishell, token_list))
 	{
 		minishell->exit_status = 2;
 		ft_lstclear(&token_list, free_token);

@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 17:16:26 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/09 18:04:06 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/09 18:28:56 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	handle_heredoc(t_minishell *minishell, t_token *token_next)
 	if (WIFSIGNALED(status))
 	{
 		close(fd[0]);
-		write(1, "\n", 1);
+		write(1, "\n", 3);
 		minishell->exit_status = 130;
 		return (-1);
 	}
