@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 14:58:27 by masenche          #+#    #+#             */
-/*   Updated: 2026/03/09 18:11:07 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/10 11:01:54 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void	exe_child(t_cmd *cmd, t_minishell *minishell, char **env_tab)
 	exit_fd(cmd, env_tab, minishell);
 	exe_fd(cmd);
 	signal(SIGINT, SIG_DFL);
+	signal(SIGPIPE, SIG_IGN);
 	exit_child(cmd, env_tab, minishell);
 	if (!cmd->cmd_path)
 	{
@@ -84,8 +85,7 @@ void	exe_child(t_cmd *cmd, t_minishell *minishell, char **env_tab)
 			ft_printf(2, "minishell: %s: No such file or directory\n",
 				cmd->args[0]);
 		else
-			ft_printf(2, "minishell: %s: command not found\n",
-				cmd->args[0]);
+			ft_printf(2, "minishell: %s: command not found\n", cmd->args[0]);
 		free(path_env);
 		free_tab(env_tab);
 		free_all(minishell);

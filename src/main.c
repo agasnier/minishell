@@ -6,14 +6,16 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:44:39 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/10 10:18:03 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/10 11:02:34 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	read_line(t_minishell *minishell, char *line_read)
+static void	read_line(t_minishell *minishell)
 {
+	char		*line_read;
+
 	while (1)
 	{
 		line_read = readline("minishell> ");
@@ -50,18 +52,14 @@ static void	minishell_init_struct(t_minishell *minishell, char **envp)
 
 int	main(int argc, char *argv[], char **envp)
 {
-	char		*line_read;
 	t_minishell	minishell;
 
 	(void)argc;
 	(void)argv;
-	line_read = NULL;
 	signal(SIGINT, handle_signal);
 	signal(SIGQUIT, SIG_IGN);
 	minishell_init_struct(&minishell, envp);
-	read_line(&minishell, line_read);
-	if (line_read)
-		free(line_read);
+	read_line(&minishell);
 	free_all(&minishell);
 	return (minishell.exit_status);
 }

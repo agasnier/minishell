@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masenche <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 18:49:46 by masenche          #+#    #+#             */
-/*   Updated: 2026/03/09 17:54:18 by masenche         ###   ########.fr       */
+/*   Updated: 2026/03/10 11:04:14 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	is_invalid_exit_arg(const char *str)
 	{
 		if (!ft_isdigit(str[i]))
 		{
-			while(str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
+			while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
 				i++;
 			if (str[i])
 				return (1);
@@ -54,10 +54,10 @@ int	builtin_exit(t_minishell *minishell, t_cmd *cmd)
 	if (minishell->cmds && !minishell->cmds->next)
 		ft_printf(2, "exit\n");
 	if (!cmd->args[1])
-    {
-        free_all(minishell);
-        exit(minishell->exit_status);
-    }
+	{
+		free_all(minishell);
+		exit(minishell->exit_status);
+	}
 	error_flag = 0;
 	res = ft_atoll_check(cmd->args[1], &error_flag);
 	if (is_invalid_exit_arg(cmd->args[1]) || error_flag)
