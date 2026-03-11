@@ -33,7 +33,7 @@ When the user enters a command, the prompt is passed into a lexer. The lexer's j
 The token list is then analyzed to check for syntax errors, such as a pipe at the beginning of a line, unclosed quotes, or a redirection operator without a following file name. If a syntax error is detected, the current prompt returns an error message, sets the exit status to 2. 
 
 ### 4. Expansion
-If there are no syntax errors, minishell handles tokens containing '$' symbol. It finds the value associated in the the environement and replace the key with it's value. If there is no value it simply leaves a blank.
+If there are no syntax errors, minishell handles tokens containing '\$' symbol. It finds the value associated in the the environement and replace the key with it's value. If there is no value it simply leaves a blank.
 The expansion method also handles the '$?', replacing its value by the exit status of the last executed command. 
 
 After this expansion work, it remakes the token list to handle expansions that contain command prompt properly. It removes all the quotes at the end.
