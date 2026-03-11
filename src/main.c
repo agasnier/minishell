@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:44:39 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/10 11:02:34 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/11 15:06:35 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	read_line(t_minishell *minishell)
 	while (1)
 	{
 		line_read = readline("minishell> ");
-		if (g_receive_message == 1)
+		if (g_receive_message == SIGINT)
 		{
 			minishell->exit_status = 130;
 			g_receive_message = 0;

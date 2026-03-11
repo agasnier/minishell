@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 16:19:53 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/10 11:24:49 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/11 15:36:22 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static int	expands_part(t_minishell *minishell)
 	if (remake_token_list(&minishell->token_list))
 	{
 		minishell->exit_status = 1;
+		ft_lstclear(&minishell->token_list, free_token);
 		return (1);
 	}
 	return (0);

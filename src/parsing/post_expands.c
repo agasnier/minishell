@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 11:14:26 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/09 15:40:15 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/11 15:53:19 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ static int	remove_quotes(t_list **token_list)
 		{
 			token->token = remove_token_quotes(token->token);
 			if (!token->token)
+			{
 				return (1);
+			}
 		}
 		current = current->next;
 	}
@@ -56,7 +58,7 @@ int	remake_token_list(t_list **token_list)
 	while (current)
 	{
 		token = (t_token *)current->content;
-		if (!token->token || token->token[0] == '\0')
+		if (!token->token || (token->token[0] == '\0' && !token->quoted))
 		{
 			delanode(token_list, prev, &current);
 			continue ;

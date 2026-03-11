@@ -67,7 +67,7 @@ $(PRINTF):
 
 $(NAME): $(OBJS) $(LIBFT) $(PRINTF)
 	@echo "Compilation minishell..."
-	@$(CC) $(OBJS) $(LFLAGS) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) $(LFLAGS) -o $(NAME)
 	@echo "Compilation minishell OK."
 
 $(OBJ_DIR)/%.o: $(MANDA_DIR)/%.c

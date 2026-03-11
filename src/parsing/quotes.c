@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 14:34:28 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/09 17:30:39 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/11 15:55:12 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*remove_token_quotes(char *str)
 	state = 0;
 	new_str = malloc(sizeof(char) * (get_len_unquoted(str) + 1));
 	if (!new_str)
-		return (NULL);
+		return (str);
 	while (str && str[i])
 	{
 		old_state = state;

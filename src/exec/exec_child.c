@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_child.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masenche <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 14:58:27 by masenche          #+#    #+#             */
-/*   Updated: 2026/03/10 15:37:24 by masenche         ###   ########.fr       */
+/*   Updated: 2026/03/11 15:10:51 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ static void	exit_child(t_cmd *cmd, char **env_tab, t_minishell *minishell)
 	{
 		status = execute_builtin(cmd, minishell);
 		signal(SIGINT, handle_signal);
+		signal(SIGQUIT, SIG_IGN);
 		free_child(minishell, env_tab);
 		exit(status);
 	}
@@ -79,6 +80,7 @@ void	exe_child(t_cmd *cmd, t_minishell *minishell, char **env_tab)
 	exit_fd(cmd, env_tab, minishell);
 	exe_fd(cmd);
 	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
 	signal(SIGPIPE, SIG_IGN);
 	exit_child(cmd, env_tab, minishell);
 	signal(SIGPIPE, SIG_DFL);
@@ -95,7 +97,7 @@ void	exe_child(t_cmd *cmd, t_minishell *minishell, char **env_tab)
 		exit (127);
 	}
 	execve(cmd->cmd_path, cmd->args, env_tab);
-	ft_printf(2, "minishell: %s: %s", cmd->args[0], strerror(errno));
+	ft_printf(2, "minishell: %s: %s\n", cmd->args[0], strerror(errno));
 	free_child(minishell, env_tab);
 	exit(126);
 }

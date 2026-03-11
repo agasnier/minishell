@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 17:05:06 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/03 16:33:44 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/11 15:12:32 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	print_export(t_env **tab, int size)
 	i = 0;
 	while (i < size)
 	{
-		if (tab[i]->exported)
+		if (tab[i]->exported && tab[i]->key[0] != '_')
 		{
 			printf("declare -x %s", tab[i]->key);
 			if (tab[i]->value)
