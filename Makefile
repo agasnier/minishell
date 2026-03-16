@@ -56,14 +56,14 @@ OBJS = $(SRCS:$(MANDA_DIR)/%.c=$(OBJ_DIR)/%.o)
 all: $(LIBFT) $(PRINTF) $(NAME)
 
 $(LIBFT):
-	@echo "Compilation de la Libft..."
+	@echo "Compilation Libft..."
 	@make -C $(LIBFT_DIR) > /dev/null
-	@echo "Compilation de la Libft OK"
+	@echo "Compilation Libft OK"
 
 $(PRINTF):
-	@echo "Compilation de ft_printf..."
+	@echo "Compilation ft_printf..."
 	@make -C $(FT_PRINTF_DIR) > /dev/null
-	@echo "Compilation de la ft_printf OK"
+	@echo "Compilation ft_printf OK"
 
 $(NAME): $(OBJS) $(LIBFT) $(PRINTF)
 	@echo "Compilation minishell..."
