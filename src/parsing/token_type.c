@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 14:28:53 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/16 15:57:10 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/16 16:28:46 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,10 @@ static int	handle_fd_in(t_minishell *minishell,
 	return (0);
 }
 
-static int	handle_token_type_helper(t_minishell *minishell, t_cmd *cmd, t_token *token, t_token *token_next)
+static int	handle_token_type_helper(t_minishell *minishell, t_cmd *cmd,
+	t_token *token, t_token *token_next)
 {
-		if (token->type == R_INPUT)
+	if (token->type == R_INPUT)
 	{
 		if (handle_fd_in(minishell, cmd, token_next))
 			return (1);
@@ -106,7 +107,7 @@ int	handle_token_type(t_minishell *minishell, t_cmd *cmd, t_list **token_list)
 		return (0);
 	}
 	token_next = (t_token *)(*token_list)->content;
-	if ((token->type == R_INPUT) || (token->type == R_OUTPUT || token->type == R_OUTPUT_APPEND))
+	if (token->type >= R_INPUT && token->type <= R_OUTPUT_APPEND)
 	{
 		if (handle_token_type_helper(minishell, cmd, token, token_next))
 			return (1);

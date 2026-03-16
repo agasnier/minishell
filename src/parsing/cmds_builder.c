@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 14:40:53 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/09 15:13:08 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/16 16:25:40 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,21 +46,24 @@ static int	fill_cmd_args(t_minishell *minishell,
 	int		i;
 
 	i = 0;
-	while (*token_list)
+	while (*token_list && ((t_token *)(*token_list)->content)->type != PIPE)
 	{
 		token = (t_token *)(*token_list)->content;
-		if (token->type == PIPE)
+		if (token->type >= R_INPUT && token->type <= HEREDOC)
 		{
-			*token_list = (*token_list)->next;
-			break ;
+			if (handle_token_type(minishell, cmd, token_list))
+				return (1);
+			if (*token_list
+				&& ((t_token *)(*token_list)->content)->type == WORD)
+				*token_list = (*token_list)->next;
 		}
-		if ((token->type >= R_INPUT && token->type <= HEREDOC)
-			&& handle_token_type(minishell, cmd, token_list))
+		else if (token->type == WORD && words_to_args(cmd, token, &i) == 0)
+			*token_list = (*token_list)->next;
+		else
 			return (1);
-		else if (token->type == WORD && words_to_args(cmd, token, &i))
-			return (1);
-		*token_list = (*token_list)->next;
 	}
+	if (*token_list)
+		*token_list = (*token_list)->next;
 	cmd->args[i] = NULL;
 	return (0);
 }

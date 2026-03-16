@@ -6,7 +6,7 @@
 /*   By: algasnie <algasnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 09:16:51 by algasnie          #+#    #+#             */
-/*   Updated: 2026/03/16 15:38:20 by algasnie         ###   ########.fr       */
+/*   Updated: 2026/03/16 16:47:33 by algasnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ char	*token_expands(t_minishell *minishell, char *token, int heredoc)
 int	handle_expands(t_minishell *minishell, t_list *token_list)
 {
 	t_token	*token;
-	t_token *token_prev;
+	t_token	*token_prev;
 
 	token_prev = NULL;
 	while (token_list)
@@ -113,9 +113,10 @@ int	handle_expands(t_minishell *minishell, t_list *token_list)
 		token->token = token_expands(minishell, token->token, 0);
 		if (!token->token)
 			return (1);
-		if (token_prev && (token_prev->type >= R_INPUT && token_prev->type <= R_OUTPUT_APPEND))
+		if (token_prev && (token_prev->type >= R_INPUT
+				&& token_prev->type <= R_OUTPUT_APPEND))
 		{
-			if (ft_strchr(token->token, ' '))
+			if (token->token[0] == '\0' || ft_strchr(token->token, ' '))
 			{
 				token->heredoc_fd = -1;
 				ft_printf(STDERR_FILENO, "minishell: ambiguous redirect\n");
